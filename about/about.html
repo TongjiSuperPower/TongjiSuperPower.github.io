@@ -7,8 +7,9 @@
     <title>SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="/index.css">
 </head>
 
 <body>
@@ -24,7 +25,7 @@
 
         <header class="navbar">
             <div class="nav-left">
-                <a href="#" class="nav-logo">同济SuperPower</a>
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
             </div>
             <nav class="nav-right">
                 <a href="/index.html" class="nav-link">Home</a>
@@ -90,6 +91,37 @@
         </section>
 
     </div>
+
+
+    <script>
+        // 1. 找到切换按钮和 <body> 标签
+        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        const body = document.body;
+
+        // 2. 检查用户上次的主题偏好 (比如刷新页面后)
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '☀️'; // 如果是深色，显示太阳
+        } else {
+            themeToggleBtn.innerHTML = '🌙'; // 否则，显示月亮
+        }
+
+        // 3. (核心) 为按钮添加“点击”事件
+        themeToggleBtn.addEventListener('click', () => {
+            // 切换 body 上的 .dark-mode 类
+            body.classList.toggle('dark-mode');
+
+            // 4. 更新图标并保存偏好
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerHTML = '☀️'; // 切换到深色，显示太阳
+                localStorage.setItem('theme', 'dark'); // 保存偏好
+            } else {
+                themeToggleBtn.innerHTML = '🌙'; // 切换回浅色，显示月亮
+                localStorage.setItem('theme', 'light'); // 保存偏好
+            }
+        });
+    </script>
 </body>
 
 </html>
