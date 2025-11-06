@@ -1,0 +1,324 @@
+/*
+ * competition.css
+ * 精彩赛事页面的专属样式 (包含双色模式)
+*/
+
+/* === 浅色模式 (默认) === */
+
+.competition-page {
+    padding-bottom: 5rem;
+}
+
+.competition-page h1 {
+    font-size: 3.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+.competition-page .subtitle {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s ease;
+}
+
+.event-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel-left h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.panel-left h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #4338CA;
+    /* 浅色品牌色 */
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #E5E7EB;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel-left p {
+    color: #4b5563;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    transition: color 0.3s ease;
+}
+
+.panel-left h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 2rem;
+    transition: color 0.3s ease;
+}
+
+.timeline {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.timeline li {
+    text-align: left;
+    font-size: 0.85rem;
+    color: #6b7280;
+    transition: color 0.3s ease;
+}
+
+.timeline li strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.announcement {
+    margin-top: 2rem;
+    background-color: #ffffff;
+    border: 1px solid #E5E7EB;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.announcement h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111827;
+    transition: color 0.3s ease;
+}
+
+.panel-right h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.panel-right h4 .eyebrow {
+    display: block;
+    font-size: 0.9rem;
+    color: #4338CA;
+    /* 浅色品牌色 */
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.panel-right p {
+    color: #4b5563;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    transition: color 0.3s ease;
+}
+
+.venue-card {
+    margin-top: 1rem;
+    position: relative;
+}
+
+.venue-image-placeholder {
+    width: 100%;
+    height: 600px;
+    background-color: #E5E7EB;
+    /* 图片加载失败时的背景色 */
+    border-radius: 12px;
+    border: 1px solid #D1D5DB;
+    /* display: grid;          <-- 移除 */
+    /* place-items: center;    <-- 移除 */
+    /* font-size: 0.9rem;      <-- 移除 (可选) */
+    /* color: #9CA3AF;        <-- 移除 (可选) */
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    /* ✅ 关键：确保图片被裁剪为圆角 */
+}
+
+/* 替换 .venue-image-placeholder img 规则 */
+
+/* 1. 所有幻灯片的样式 (堆叠、默认隐藏) */
+.venue-image-placeholder .venue-slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 保持 object-fit: cover */
+
+    /* --- 关键改动 --- */
+    position: absolute;
+    /* 将所有图片堆叠在 (0,0) 位置 */
+    top: 0;
+    left: 0;
+    opacity: 0;
+    /* 默认全部透明 */
+    transition: opacity 0.4s ease-in-out;
+    /* 添加淡入淡出效果 */
+}
+
+/* 2. 只显示激活的幻灯片 */
+.venue-image-placeholder .venue-slide.active-slide {
+    opacity: 1;
+    /* 激活的这张不透明 */
+}
+
+.venue-nav {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+    /* ✅ 添加这一行，确保按钮在最上层 */
+}
+
+.venue-nav button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #D1D5DB;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #374151;
+    transition: all 0.3s ease;
+}
+
+.venue-nav button:hover {
+    background-color: #ffffff;
+}
+
+/* 响应式 (无变化) */
+@media (max-width: 992px) {
+    .event-showcase {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .competition-page h1 {
+        font-size: 2.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .competition-page h1 {
+        font-size: 2.25rem;
+    }
+
+    .event-showcase {
+        padding: 1.5rem;
+    }
+
+    .timeline {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+}
+
+
+/* ################################# */
+/* ###      深色模式 覆盖      ### */
+/* ################################# */
+
+body.dark-mode .competition-page h1 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .competition-page .subtitle {
+    color: #A0A0A0;
+}
+
+body.dark-mode .event-showcase {
+    background-color: #27272A;
+    border: 1px solid #3F3F46;
+}
+
+body.dark-mode .panel-left h2 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .panel-left h3 {
+    color: #34D399;
+    /* 深色品牌色 */
+    border-bottom: 1px solid #3F3F46;
+}
+
+body.dark-mode .panel-left p {
+    color: #A0A0A0;
+}
+
+body.dark-mode .panel-left h4 {
+    color: #F9FAFB;
+}
+
+body.dark-mode .timeline li {
+    color: #A0A0A0;
+}
+
+body.dark-mode .timeline li strong {
+    color: #FFFFFF;
+}
+
+body.dark-mode .announcement {
+    background-color: #18181B;
+    border: 1px solid #3F3F46;
+}
+
+body.dark-mode .announcement h3 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .panel-right h4 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .panel-right h4 .eyebrow {
+    color: #34D399;
+    /* 深色品牌色 */
+}
+
+body.dark-mode .panel-right p {
+    color: #A0A0A0;
+}
+
+body.dark-mode .venue-image-placeholder {
+    background-color: #3F3F46;
+    border: 1px solid #52525B;
+    color: #A0A0A0;
+}
+
+body.dark-mode .venue-nav button {
+    border: 1px solid #52525B;
+    background-color: rgba(39, 39, 42, 0.8);
+    color: #F9FAFB;
+}
+
+body.dark-mode .venue-nav button:hover {
+    background-color: #3F3F46;
+}
