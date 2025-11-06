@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/index.css">
 </head>
 
-<body>
+<body class="dark-mode">
 
     <div class="background-blur"></div>
 
@@ -98,27 +98,29 @@
         const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
         const body = document.body;
 
-        // 2. 检查用户上次的主题偏好 (比如刷新页面后)
+        // 2. 检查用户上次的主题偏好 (默认深色)
         const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '☀️'; // 如果是深色，显示太阳
+
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+            themeToggleBtn.innerHTML = '🌙'; // 显示月亮 (点击可切回深色)
         } else {
-            themeToggleBtn.innerHTML = '🌙'; // 否则，显示月亮
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '☀️'; // 显示太阳 (点击可切为浅色)
         }
 
-        // 3. (核心) 为按钮添加“点击”事件
         themeToggleBtn.addEventListener('click', () => {
             // 切换 body 上的 .dark-mode 类
             body.classList.toggle('dark-mode');
 
-            // 4. 更新图标并保存偏好
             if (body.classList.contains('dark-mode')) {
-                themeToggleBtn.innerHTML = '☀️'; // 切换到深色，显示太阳
-                localStorage.setItem('theme', 'dark'); // 保存偏好
+                // 如果现在是深色模式
+                themeToggleBtn.innerHTML = '☀️';
+                localStorage.setItem('theme', 'dark'); // 保存 'dark'
             } else {
-                themeToggleBtn.innerHTML = '🌙'; // 切换回浅色，显示月亮
-                localStorage.setItem('theme', 'light'); // 保存偏好
+                // 如果现在是浅色模式
+                themeToggleBtn.innerHTML = '🌙';
+                localStorage.setItem('theme', 'light'); // 保存 'light'
             }
         });
     </script>
