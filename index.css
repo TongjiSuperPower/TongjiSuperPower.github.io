@@ -7,6 +7,7 @@
     padding: 0;
 }
 
+/* === 浅色模式 (默认) === */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
         Helvetica, Arial, sans-serif;
@@ -15,7 +16,8 @@ body {
     line-height: 1.6;
     position: relative;
     overflow-x: hidden;
-    /* 防止模糊背景导致水平滚动 */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* 平滑过渡 */
 }
 
 a {
@@ -45,11 +47,12 @@ button {
     opacity: 0.5;
     z-index: -1;
     border-radius: 50%;
+    transition: background 0.5s ease;
 }
 
 /* --- 主容器 --- */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -73,26 +76,6 @@ button {
     font-size: 1.1rem;
 }
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    padding: 0.5rem 0.75rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: #6b7280;
-}
-
-.search-shortcut {
-    font-size: 0.8rem;
-    background-color: #ffffff;
-    border: 1px solid #d1d5db;
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-}
-
 .nav-right {
     display: flex;
     align-items: center;
@@ -113,7 +96,7 @@ button {
     width: 1px;
     height: 16px;
     background-color: #e5e7eb;
-    margin: 0 0.5rem;
+    transition: background-color 0.3s ease;
 }
 
 .nav-icon {
@@ -129,13 +112,11 @@ button {
 
 .hero h1 {
     font-size: 2.5rem;
-    /* 36px */
     font-weight: 700;
     margin: 0;
 }
 
 .hero .gradient-text {
-    /* 渐变文字 */
     background: linear-gradient(90deg, #A855F7, #3B82F6);
     -webkit-background-clip: text;
     background-clip: text;
@@ -144,16 +125,17 @@ button {
 
 .hero h2 {
     font-size: 3.75rem;
-    /* 60px */
     font-weight: 800;
     color: #111827;
     margin-top: 0.25rem;
+    transition: color 0.3s ease;
 }
 
 .visits-counter {
     margin-top: 1rem;
     font-size: 1rem;
     color: #6b7280;
+    transition: color 0.3s ease;
 }
 
 .hero-buttons {
@@ -166,7 +148,6 @@ button {
     border: none;
     padding: 0.6rem 1.25rem;
     border-radius: 999px;
-    /* 胶囊形状 */
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -174,7 +155,6 @@ button {
 
 .btn-primary {
     background-color: #4338CA;
-    /* 类似图片的蓝紫色 */
     color: #ffffff;
 }
 
@@ -202,13 +182,11 @@ button {
 
 .project-card {
     background-color: #F9FAFB;
-    /* 卡片背景色 */
     border: 1px solid #E5E7EB;
     border-radius: 16px;
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    /* 隐藏溢出的背景图 */
     transition: all 0.3s ease;
 }
 
@@ -224,26 +202,26 @@ button {
     display: grid;
     place-items: center;
     background-color: #E0E7FF;
-    /* 图标背景 */
     border-radius: 8px;
     margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .project-card h3 {
     font-size: 1.125rem;
-    /* 18px */
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: #111827;
+    transition: color 0.3s ease;
 }
 
 .project-card p {
     font-size: 0.9rem;
     color: #6B7280;
     line-height: 1.6;
+    transition: color 0.3s ease;
 }
 
-/* 卡片背景图占位符 - 这里只是一个框架 */
 .card-bg-image {
     position: absolute;
     bottom: -20px;
@@ -257,7 +235,6 @@ button {
     z-index: 0;
 }
 
-/* 确保文本在背景图之上 */
 .project-card h3,
 .project-card p,
 .card-icon {
@@ -288,6 +265,7 @@ button {
     place-items: center;
     font-size: 1.1rem;
     color: #4B5563;
+    transition: all 0.3s ease;
 }
 
 .float-btn:hover {
@@ -302,6 +280,8 @@ button {
 }
 
 @media (max-width: 768px) {
+
+    /* (响应式样式保持不变) */
     .container {
         padding: 0 1rem;
     }
@@ -335,4 +315,111 @@ button {
         top: auto;
         transform: none;
     }
+}
+
+
+/* ################################# */
+/* ###      深色模式 覆盖      ### */
+/* ################################# */
+
+body.dark-mode {
+    background-color: #18181B;
+    color: #F9FAFB;
+}
+
+/* --- 深色模式: 模糊背景 --- */
+body.dark-mode .background-blur {
+    background: radial-gradient(circle,
+            rgba(16, 185, 129, 0.3),
+            /* 绿色 */
+            rgba(52, 211, 153, 0.3)
+            /* 浅绿 */
+        );
+    opacity: 0.4;
+}
+
+/* --- 深色模式: 导航栏 --- */
+body.dark-mode .nav-link {
+    color: #A0A0A0;
+}
+
+body.dark-mode .nav-link:hover {
+    color: #FFFFFF;
+}
+
+body.dark-mode .nav-divider {
+    background-color: #3F3F46;
+}
+
+body.dark-mode .nav-icon {
+    color: #A0A0A0;
+}
+
+/* --- 深色模式: Hero 区域 --- */
+body.dark-mode .hero .gradient-text {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: #34D399;
+    /* 灵感图中的绿色 */
+}
+
+body.dark-mode .hero h2 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .visits-counter {
+    color: #A0A0A0;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #34D399;
+    color: #18181B;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #10B981;
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #27272A;
+    color: #F9FAFB;
+    border: 1px solid #3F3F46;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background-color: #3F3F46;
+}
+
+/* --- 深色模式: 项目网格 --- */
+body.dark-mode .project-card {
+    background-color: #27272A;
+    border: 1px solid #3F3F46;
+}
+
+body.dark-mode .project-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .card-icon {
+    background-color: #3F3F46;
+}
+
+body.dark-mode .project-card h3 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .project-card p {
+    color: #A0A0A0;
+}
+
+/* --- 深色模式: 浮动按钮 --- */
+body.dark-mode .float-btn {
+    border: 1px solid #3F3F46;
+    background-color: #27272A;
+    color: #A0A0A0;
+}
+
+body.dark-mode .float-btn:hover {
+    background-color: #3F3F46;
 }

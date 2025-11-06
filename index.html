@@ -7,8 +7,9 @@
     <title>SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/index.css">
 </head>
 
 <body>
@@ -24,16 +25,16 @@
 
         <header class="navbar">
             <div class="nav-left">
-                <a href="#" class="nav-logo">同济SuperPower</a>
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
             </div>
             <nav class="nav-right">
                 <a href="/index.html" class="nav-link">Home</a>
-                <a href="/about/index.html" class="nav-link">About</a>
+                <a href="/about/about.html" class="nav-link">About</a>
                 <a href="https://space.bilibili.com/651837546/lists/3790652?type=season" class="nav-link"
                     target="_blank">Lectures</a>
                 <div class="nav-divider"></div>
-                <a href="#" class="nav-icon" title="GitHub">GH</a>
-                <a href="#" class="nav-icon" title="LinkedIn">IN</a>
+                <a href="#" class="nav-icon" title="">GH</a>
+                <a href="#" class="nav-icon" title="">IN</a>
             </nav>
         </header>
 
@@ -41,7 +42,7 @@
             <h1><span class="gradient-text">SuperPower's</span></h1>
             <h2>Official Website</h2>
             <div class="hero-buttons">
-                <a href="/about/index.html">
+                <a href="/about/about.html">
                     <button class="btn btn-primary">About Us</button>
                 </a>
                 <a href="https://space.bilibili.com/651837546/lists/3790652?type=season" target="_blank">
@@ -77,12 +78,14 @@
                 <div class="card-bg-image" style="background-image: none;"></div>
             </article>
 
-            <article class="project-card">
-                <div class="card-icon">🎮</div>
-                <h3>精彩赛事</h3>
-                <p>志豪杯即将开赛</p>
-                <div class="card-bg-image" style="background-image: none;"></div>
-            </article>
+            <a href="/competition/competition.html">
+                <article class="project-card">
+                    <div class="card-icon">🎮</div>
+                    <h3>精彩赛事</h3>
+                    <p>志豪杯即将开赛</p>
+                    <div class="card-bg-image" style="background-image: none;"></div>
+                </article>
+            </a>
 
             <article class="project-card">
                 <div class="card-icon">🎁</div>
@@ -101,6 +104,36 @@
         </section>
 
     </div>
+
+    <script>
+        // 1. 找到切换按钮和 <body> 标签
+        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        const body = document.body;
+
+        // 2. 检查用户上次的主题偏好 (比如刷新页面后)
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '☀️'; // 如果是深色，显示太阳
+        } else {
+            themeToggleBtn.innerHTML = '🌙'; // 否则，显示月亮
+        }
+
+        // 3. (核心) 为按钮添加“点击”事件
+        themeToggleBtn.addEventListener('click', () => {
+            // 切换 body 上的 .dark-mode 类
+            body.classList.toggle('dark-mode');
+
+            // 4. 更新图标并保存偏好
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerHTML = '☀️'; // 切换到深色，显示太阳
+                localStorage.setItem('theme', 'dark'); // 保存偏好
+            } else {
+                themeToggleBtn.innerHTML = '🌙'; // 切换回浅色，显示月亮
+                localStorage.setItem('theme', 'light'); // 保存偏好
+            }
+        });
+    </script>
 </body>
 
 </html>
