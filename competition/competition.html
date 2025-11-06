@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精彩赛事 - SuperPower Official Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/competition/competition.css">
+</head>
+
+<body class="dark-mode">
+
+    <div class="background-blur"></div>
+
+    <aside class="floating-buttons">
+        <button class="float-btn">🌙</button>
+        <button class="float-btn">⬆️</button>
+    </aside>
+
+    <div class="container">
+
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
+            </div>
+            <nav class="nav-right">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/about/about.html" class="nav-link">About</a>
+                <a href="https://space.bilibili.com/651837546/lists/3790652?type=season" class="nav-link"
+                    target="_blank">Lectures</a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-icon" title="">GH</a>
+                <a href="#" class="nav-icon" title="">IN</a>
+            </nav>
+        </header>
+
+        <main class="competition-page">
+
+            <h1>精彩赛事——志豪杯</h1>
+            <p class="subtitle">志豪杯即将开赛！邀您来战</p>
+
+            <section class="event-showcase">
+
+                <div class="panel-left">
+                    <h2>ZHIHAO 2026</h2>
+                    <h3>赛事介绍</h3>
+                    <p>在25赛季的操作手选拔中，我们首次引入了队内实车瑞士轮单挑赛，以此作为操作手选拔的重要依据，同时以反应时间和瞄准速度测试结果作为辅助参考。26赛季我们迎来了更多操作手候选人，由此志豪杯应运而生，RMer们将在虚拟赛场与实际场地中不断战斗，最终决出正式操作手名单。
+                    </p>
+
+                    <h3>赛事安排</h3>
+                    <ul class="timeline">
+                        暂未公布
+                        <!-- <li>
+                            <strong>FPS游戏对战</strong>
+                            <span>考察游戏理解和交流沟通能力。</span>
+                        </li>
+                        <li>
+                            <strong>26新规研究</strong>
+                            <span>考察对RM2026新规的理解程度</span>
+                        </li>
+                        <li>
+                            <strong>模拟器对抗</strong>
+                            <span>使用华南虎模拟器RoboSouls 进行联盟赛3V3对抗</span>
+                        </li>
+                        <li>
+                            <strong>实车演练</strong>
+                            <span>操作步兵、英雄等机器人，发射弹丸实际对抗</span>
+                        </li> -->
+                    </ul>
+
+                    <div class="announcement">
+                        <h3>首次正式举办操作手选拔赛</h3>
+                        <p>这是SuperPower战队自建队以来首次正式举办操作手选拔赛，旨在更加全面的考察候选人能力，从而帮助队伍在临场发挥、战术指定等方面发挥更加出色。</p>
+                    </div>
+                </div>
+
+                <div class="panel-right">
+                    <h4>
+                        <span class="eyebrow">加入光荣的操作手组</span>
+                        往届操作手风采展示
+                    </h4>
+
+                    <div class="venue-image-placeholder">
+
+                        <img src="/images/dy.JPG" alt="" class="venue-slide active-slide">
+
+                        <img src="/images/lzh.JPG" alt="" class="venue-slide">
+                        <img src="/images/nwx.JPG" alt="" class="venue-slide">
+                        <img src="/images/wry.JPG" alt="" class="venue-slide">
+                        <img src="/images/wxr.JPG" alt="" class="venue-slide">
+                        <img src="/images/zwh.JPG" alt="" class="venue-slide">
+
+                        <div class="venue-nav">
+                            <button class="venue-btn-prev">&lt;</button>
+                            <button class="venue-btn-next">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        // 1. 找到切换按钮和 <body> 标签
+        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        const body = document.body;
+
+        // 2. 检查用户上次的主题偏好 (默认深色)
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+            themeToggleBtn.innerHTML = '🌙'; // 显示月亮 (点击可切回深色)
+        } else {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '☀️'; // 显示太阳 (点击可切为浅色)
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            // 切换 body 上的 .dark-mode 类
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                // 如果现在是深色模式
+                themeToggleBtn.innerHTML = '☀️';
+                localStorage.setItem('theme', 'dark'); // 保存 'dark'
+            } else {
+                // 如果现在是浅色模式
+                themeToggleBtn.innerHTML = '🌙';
+                localStorage.setItem('theme', 'light'); // 保存 'light'
+            }
+        });
+
+        try {
+            const slides = document.querySelectorAll('.venue-slide');
+            const prevBtn = document.querySelector('.venue-btn-prev');
+            const nextBtn = document.querySelector('.venue-btn-next');
+            let currentIndex = 0; // 跟踪当前显示的图片索引
+
+            // 确保页面上有轮播图元素
+            if (slides.length > 0 && prevBtn && nextBtn) {
+
+                // 定义一个函数来显示特定的幻灯片
+                function showSlide(index) {
+                    // 1. 移除所有图片上的 'active-slide' 类
+                    slides.forEach(slide => {
+                        slide.classList.remove('active-slide');
+                    });
+                    // 2. 只给当前索引的图片添加 'active-slide' 类
+                    slides[index].classList.add('active-slide');
+                }
+
+                // 3. 为“下一张”按钮添加点击事件
+                nextBtn.addEventListener('click', () => {
+                    currentIndex++;
+                    // 如果超出最后一张，循环回第一张
+                    if (currentIndex >= slides.length) {
+                        currentIndex = 0;
+                    }
+                    showSlide(currentIndex);
+                });
+
+                // 4. 为“上一张”按钮添加点击事件
+                prevBtn.addEventListener('click', () => {
+                    currentIndex--;
+                    // 如果小于第一张，循环到最后一张
+                    if (currentIndex < 0) {
+                        currentIndex = slides.length - 1;
+                    }
+                    showSlide(currentIndex);
+                });
+
+                // 5. 初始显示第一张 (确保万无一失)
+                showSlide(currentIndex);
+            }
+        } catch (error) {
+            console.error("轮播图脚本出错:", error);
+        }
+    </script>
+</body>
+
+</html>
