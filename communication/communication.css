@@ -1,0 +1,135 @@
+.contact-page {
+    padding-bottom: 5rem;
+}
+
+.contact-page h1 {
+    font-size: 3.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+.contact-page .subtitle {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 2.5rem;
+    transition: color 0.3s ease;
+}
+
+.contact-card {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-card h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+/* === 联系人列表 === */
+.contact-list .contact-item {
+    padding: 1.5rem 0;
+    /* 在每个项目上下添加内边距 */
+    border-bottom: 1px solid #E5E7EB;
+    transition: border-color 0.3s ease;
+}
+
+.contact-list .contact-item:first-child {
+    padding-top: 0;
+    /* 第一个项目不需要上边距 */
+}
+
+.contact-list .contact-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    /* 最后一个项目不需要下边距 */
+}
+
+/* ✅ 新的 h3 标题样式 */
+.contact-item h3 {
+    font-size: 1.125rem;
+    /* 18px */
+    font-weight: 600;
+    color: #111827;
+    transition: color 0.3s ease;
+}
+
+/* === 内容区域 === */
+.contact-content {
+    padding-top: 0.75rem;
+    /* 内容与标题的间距 */
+    color: #374151;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.contact-content p {
+    margin: 0;
+}
+
+.contact-content a {
+    color: #4338CA;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.contact-content .contact-img {
+    max-width: 550px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    margin-top: 0.5rem;
+    /* 图片与上方文字的间距 */
+}
+
+
+/* ################################# */
+/* ###      深色模式 覆盖      ### */
+/* ################################# */
+
+body.dark-mode .contact-page h1 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .contact-page .subtitle {
+    color: #A0A0A0;
+}
+
+body.dark-mode .contact-card {
+    background-color: #27272A;
+    border: 1px solid #3F3F46;
+}
+
+body.dark-mode .contact-card h2 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .contact-list .contact-item {
+    border-bottom: 1px solid #3F3F46;
+}
+
+/* ✅ 更新 h3 的深色模式 */
+body.dark-mode .contact-item h3 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .contact-content {
+    color: #A0A0A0;
+}
+
+body.dark-mode .contact-content a {
+    color: #34D399;
+}
+
+body.dark-mode .contact-content .contact-img {
+    border: 1px solid #3F3F46;
+}

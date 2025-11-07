@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - SuperPower Official Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/communication/communication.css">
+</head>
+
+<body class="dark-mode">
+
+    <div class="background-blur"></div>
+
+    <aside class="floating-buttons">
+        <button class="float-btn">🌙</button>
+        <button class="float-btn">⬆️</button>
+    </aside>
+
+    <div class="container">
+
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
+            </div>
+            <nav class="nav-right">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/about/about.html" class="nav-link">About</a>
+                <a href="https://space.bilibili.com/651837546/lists/3790652?type=season" class="nav-link"
+                    target="_blank">Lectures</a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-icon" title="">GH</a>
+                <a href="#" class="nav-icon" title="">IN</a>
+            </nav>
+        </header>
+
+        <main class="contact-page">
+
+            <h1>联系我们</h1>
+            <p class="subtitle">热烈欢迎各大企业、高校与我们交流联系！</p>
+
+            <section class="contact-card">
+                <h2>联系方式</h2>
+
+                <div class="contact-list">
+
+                    <div class="contact-item">
+                        <h3>电子邮箱</h3>
+                        <div class="contact-content">
+                            <p>我们的官方邮箱是：2253884@tongji.edu.cn</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>Bilibili</h3>
+                        <div class="contact-content">
+                            <a href="https://space.bilibili.com/651837546" target="_blank" rel="noopener noreferrer">
+                                <p>点击跳转 TJ-SuperPower战队 Bilibili 主页</p>
+                            </a>
+                            <p>请在Bilibili App 搜索 "TJ-SuperPower战队" 关注我们！</p>
+                            <img src="/images/bilibili.jpg" alt="b站账号" class="contact-img">
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <h3>小红书</h3>
+                        <div class="contact-content">
+                            <a href="https://www.xiaohongshu.com/user/profile/68de0689000000003702e32c">
+                                点击跳转战队小红书官方账号主页！
+                            </a>
+                            <p>请在小红书 App 搜索 "TJ-SuperPower" 或小红书号：27488192325 关注我们！</p>
+                            <img src="/images/rednote.png" alt="小红书账号" class="contact-img">
+                        </div>
+                    </div>
+
+                    <!-- <div class="contact-item">
+                        <h3>微信公众号</h3>
+                        <div class="contact-content">
+                            <p>请扫描下方二维码关注我们的公众号：</p>
+                            <img src="/images/wechat.png" alt="微信公众号二维码" class="contact-img">
+                        </div>
+                    </div> -->
+
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        // 1. 找到切换按钮和 <body> 标签
+        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        const body = document.body;
+
+        // 2. 检查用户上次的主题偏好 (默认深色)
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+            themeToggleBtn.innerHTML = '🌙';
+        } else {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerHTML = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggleBtn.innerHTML = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+
+</html>
