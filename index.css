@@ -181,18 +181,68 @@ button {
 }
 
 .project-card {
-    background-color: #F9FAFB;
+    background: linear-gradient(135deg, 
+        rgba(249, 250, 251, 0.95) 0%, 
+        rgba(243, 244, 246, 0.95) 100%);
     border: 1px solid #E5E7EB;
     border-radius: 16px;
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(120deg, 
+        rgba(168, 85, 247, 0.08) 0%, 
+        rgba(139, 92, 246, 0.12) 25%,
+        rgba(99, 102, 241, 0.15) 50%,
+        rgba(59, 130, 246, 0.12) 75%,
+        rgba(147, 197, 253, 0.08) 100%);
+    filter: blur(8px);
+    opacity: 1;
+    z-index: 0;
+    transition: all 0.4s ease;
+}
+
+.project-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(249, 250, 251, 1) 0%,
+        rgba(249, 250, 251, 0.9) 30%,
+        rgba(249, 250, 251, 0.4) 60%,
+        rgba(249, 250, 251, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.project-card:hover::before {
+    filter: blur(0px);
+    opacity: 0.6;
+}
+
+.project-card:hover::after {
+    opacity: 0.0
 }
 
 .card-icon {
@@ -224,22 +274,38 @@ button {
 
 .card-bg-image {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 150px;
-    height: 120px;
-    background-size: contain;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+    height: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: right bottom;
-    opacity: 0.15;
+    background-position: center right;
+    opacity: 0.3;
     z-index: 0;
+    filter: blur(1px);
+    transition: all 0.4s ease;
+    mask-image: linear-gradient(to left, 
+        rgba(0, 0, 0, 1) 20%, 
+        rgba(0, 0, 0, 0.8) 50%, 
+        rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to left, 
+        rgba(0, 0, 0, 1) 20%, 
+        rgba(0, 0, 0, 0.8) 50%, 
+        rgba(0, 0, 0, 0) 100%);
+}
+
+.project-card:hover .card-bg-image {
+    opacity: 0.5;
+    filter: blur(0px);
 }
 
 .project-card h3,
 .project-card p,
 .card-icon {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 /* --- 浮动按钮 --- */
@@ -393,12 +459,42 @@ body.dark-mode .btn-secondary:hover {
 
 /* --- 深色模式: 项目网格 --- */
 body.dark-mode .project-card {
-    background-color: #27272A;
+    background: linear-gradient(135deg, 
+        rgba(39, 39, 42, 0.95) 0%, 
+        rgba(63, 63, 70, 0.95) 100%);
     border: 1px solid #3F3F46;
 }
 
+body.dark-mode .project-card::before {
+    background: linear-gradient(120deg, 
+        rgba(16, 185, 129, 0.08) 0%, 
+        rgba(20, 184, 166, 0.10) 25%,
+        rgba(34, 211, 238, 0.12) 50%,
+        rgba(52, 211, 153, 0.10) 75%,
+        rgba(167, 243, 208, 0.08) 100%);
+    filter: blur(8px);
+    opacity: 1;
+}
+
+body.dark-mode .project-card::after {
+    background: linear-gradient(90deg, 
+        rgba(39, 39, 42, 1) 0%,
+        rgba(39, 39, 42, 0.9) 30%,
+        rgba(39, 39, 42, 0.4) 60%,
+        rgba(39, 39, 42, 0) 100%);
+}
+
 body.dark-mode .project-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .project-card:hover::before {
+    filter: blur(0px);
+    opacity: 0.6;
+}
+
+body.dark-mode .project-card:hover::after {
+    opacity: 0.7;
 }
 
 body.dark-mode .card-icon {
@@ -411,6 +507,16 @@ body.dark-mode .project-card h3 {
 
 body.dark-mode .project-card p {
     color: #A0A0A0;
+}
+
+body.dark-mode .card-bg-image {
+    opacity: 0.25;
+    filter: blur(1px);
+}
+
+body.dark-mode .project-card:hover .card-bg-image {
+    opacity: 0.4;
+    filter: blur(0px);
 }
 
 /* --- 深色模式: 浮动按钮 --- */
