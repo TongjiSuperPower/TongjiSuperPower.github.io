@@ -1,0 +1,169 @@
+/* ################################# */
+/* ###     开源汇总页 专属样式     ### */
+/* ################################# */
+
+/* --- 1. 导航栏 'Active' 状态 --- */
+/* (这个样式只会应用在包含 .active 类的链接上) */
+.nav-link.active {
+    color: #4338CA;
+    /* 浅色模式下的主色调 */
+    font-weight: 600;
+}
+
+body.dark-mode .nav-link.active {
+    color: #34D399;
+    /* 深色模式下的主色调 */
+}
+
+/* --- 2. 页面通用标题 --- */
+.page-header {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid #E5E7EB;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #6B7280;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .page-header {
+    border-bottom: 1px solid #3F3F46;
+}
+
+body.dark-mode .page-header p {
+    color: #A0A0A0;
+}
+
+
+/* --- 3. 新的开源项目卡片 (.os-card) --- */
+/* 我们复用 .project-grid 的布局 (来自 index.css) */
+
+.os-card {
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    background: #ffffff;
+    overflow: hidden;
+    /* 裁剪图片 */
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    /* 添加一个更柔和的阴影 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.os-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.os-card .card-image {
+    width: 100%;
+    height: 200px;
+    /* 固定图片高度 */
+    overflow: hidden;
+}
+
+.os-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 确保图片不变形地填满容器 */
+    transition: transform 0.3s ease;
+}
+
+.os-card:hover .card-image img {
+    transform: scale(1.05);
+    /* 悬停时轻微放大图片 */
+}
+
+.os-card .card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* 让内容区域填满剩余空间 */
+}
+
+.os-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111827;
+    transition: color 0.3s ease;
+}
+
+.os-card p {
+    font-size: 0.9rem;
+    color: #6B7280;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+    /* 将下方的 tags 和 links 推到底部 */
+    transition: color 0.3s ease;
+}
+
+.os-card .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.os-card .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    background-color: #E0E7FF;
+    /* 借用 .card-icon 的颜色 */
+    color: #4338CA;
+    border-radius: 999px;
+}
+
+.os-card .card-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.os-card .card-links .btn-secondary {
+    padding: 0.5rem 1rem;
+    /* 让按钮小一点 */
+    font-size: 0.85rem;
+}
+
+/* --- 4. .os-card 的深色模式 --- */
+
+body.dark-mode .os-card {
+    background: #27272A;
+    /* 借用 .btn-secondary 的深色 */
+    border: 1px solid #3F3F46;
+    box-shadow: none;
+}
+
+body.dark-mode .os-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .os-card h3 {
+    color: #FFFFFF;
+}
+
+body.dark-mode .os-card p {
+    color: #A0A0A0;
+}
+
+body.dark-mode .os-card .tag {
+    background-color: #3F3F46;
+    /* 借用 .card-icon 的深色 */
+    color: #A0A0A0;
+}
+
+/* .btn-secondary 的深色模式样式已在 index.css 中定义, 无需重复 */
