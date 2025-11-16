@@ -17,6 +17,12 @@
     margin-bottom: 0.5rem;
     line-height: 1.2;
     transition: color 0.3s ease;
+    text-transform: uppercase;
+    /* 变为大写 */
+    letter-spacing: 0.5px;
+    /* 轻微增加字距 */
+    text-shadow: 0 0 12px rgba(67, 56, 202, 0.3);
+    /* 品牌色辉光 */
 }
 
 .competition-page .subtitle {
@@ -46,13 +52,24 @@
 }
 
 .panel-left h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    /* 略微缩小以适应大写 */
+    font-weight: 700;
+    /* 加粗 */
     color: #4338CA;
     /* 浅色品牌色 */
-    margin-top: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #E5E7EB;
+    margin-top: 2rem;
+    /* 增加与上方内容的间距 */
+    padding-bottom: 0.25rem;
+    border-bottom: none;
+    /* 移除下划线 */
+    border-left: 4px solid #4338CA;
+    /* 添加左侧色块 */
+    padding-left: 0.75rem;
+    /* 增加左侧内边距 */
+    text-transform: uppercase;
+    /* 变为大写 */
+    letter-spacing: 0.5px;
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -72,28 +89,72 @@
     transition: color 0.3s ease;
 }
 
-.timeline {
-    display: flex;
-    justify-content: flex-start;
-    gap: 2rem;
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
+/* === 纵向时间轴 === */
+.vertical-timeline {
+    position: relative;
+    margin-top: 1.5rem;
+    padding-left: 1.5rem;
+    /* 为 "线" 和 "点" 留出空间 */
+    border-left: 2px solid #E5E7EB;
+    /* 垂直 "线" */
+    transition: border-color 0.3s ease;
 }
 
-.timeline li {
-    text-align: left;
+.timeline-item {
+    position: relative;
+    /* 为 "点" 定位 */
+    margin-bottom: 2rem;
+    /* 每一项之间的间距 */
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    /* (1.5rem padding) + (7px half-dot-width) = calc(-1.5rem - 7px) */
+    left: calc(-1.5rem - 7px);
+    /* 将点定位在线上 */
+    top: 5px;
+    /* 与日期的第一行对齐 */
+    width: 14px;
+    height: 14px;
+    background-color: #4338CA;
+    /* 浅色品牌色 */
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    /* 制造 "空心" 效果 */
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px 0px #4338CA;
+    /* 品牌色辉光 */
+}
+
+.timeline-date {
+    display: block;
     font-size: 0.85rem;
+    font-weight: 500;
     color: #6b7280;
+    /* 时间 - 灰色 */
+    margin-bottom: 0.25rem;
     transition: color 0.3s ease;
 }
 
-.timeline li strong {
-    display: block;
+.timeline-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.25rem;
+    color: #1f2937;
+    /* 标题 - 深色 */
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.timeline-desc {
+    font-size: 0.9rem;
+    color: #4b5563;
+    /* 内容 - 中灰色 */
+    line-height: 1.7;
+    margin: 0;
     transition: color 0.3s ease;
 }
 
@@ -214,6 +275,83 @@
     background-color: #ffffff;
 }
 
+/* --- 4. 赛事进程 (新) --- */
+.match-progress {
+    margin-top: 3rem;
+    /* 与上方版块的间距 */
+    padding-bottom: 2rem;
+    /* 距离页面底部的间距 */
+}
+
+.match-progress h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4338CA;
+    /* 浅色品牌色 */
+    padding-bottom: 0.25rem;
+    border-left: 4px solid #4338CA;
+    /* 左侧色块 */
+    padding-left: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 1.5rem;
+    /* 标题和表格的间距 */
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* 关键：在小屏幕上启用水平滚动 */
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background-color: #F9FAFB;
+    transition: all 0.3s ease;
+}
+
+.match-progress table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    /* 确保表格内容不会过度压缩 */
+}
+
+.match-progress th,
+.match-progress td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    /* 防止内容换行 */
+}
+
+.match-progress thead th {
+    background-color: #F3F4F6;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #D1D5DB;
+    /* 强化表头底线 */
+}
+
+.match-progress tbody tr:last-child td {
+    border-bottom: none;
+    /* 移除最后一行单元格的底边框 */
+}
+
+.match-progress tbody td {
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.match-progress .team-winner {
+    font-weight: 600;
+    color: #4338CA;
+    /* 浅色品牌色 */
+    transition: color 0.3s ease;
+}
+
 /* 响应式 (无变化) */
 @media (max-width: 992px) {
     .event-showcase {
@@ -234,11 +372,6 @@
     .event-showcase {
         padding: 1.5rem;
     }
-
-    .timeline {
-        gap: 1.5rem;
-        flex-wrap: wrap;
-    }
 }
 
 
@@ -248,6 +381,8 @@
 
 body.dark-mode .competition-page h1 {
     color: #FFFFFF;
+    text-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+    /* 品牌色辉光 */
 }
 
 body.dark-mode .competition-page .subtitle {
@@ -266,7 +401,10 @@ body.dark-mode .panel-left h2 {
 body.dark-mode .panel-left h3 {
     color: #34D399;
     /* 深色品牌色 */
-    border-bottom: 1px solid #3F3F46;
+    border-bottom: none;
+    /* 移除下划线 */
+    border-left: 4px solid #34D399;
+    /* 添加左侧色块 */
 }
 
 body.dark-mode .panel-left p {
@@ -277,12 +415,34 @@ body.dark-mode .panel-left h4 {
     color: #F9FAFB;
 }
 
-body.dark-mode .timeline li {
-    color: #A0A0A0;
+/* --- 深色模式: 纵向时间轴 --- */
+body.dark-mode .vertical-timeline {
+    border-left: 2px solid #3F3F46;
+    /* 深色线 */
 }
 
-body.dark-mode .timeline li strong {
-    color: #FFFFFF;
+body.dark-mode .timeline-dot {
+    background-color: #34D399;
+    /* 深色品牌色 */
+    border: 2px solid #27272A;
+    /* 深色背景色 */
+    box-shadow: 0 0 10px 0px #34D399;
+    /* 品牌色辉光 */
+}
+
+body.dark-mode .timeline-date {
+    color: #A0A0A0;
+    /* 时间 - 浅灰 */
+}
+
+body.dark-mode .timeline-title {
+    color: #F9FAFB;
+    /* 标题 - 白色 */
+}
+
+body.dark-mode .timeline-desc {
+    color: #A0A0A0;
+    /* 内容 - 浅灰 */
 }
 
 body.dark-mode .announcement {
@@ -321,4 +481,35 @@ body.dark-mode .venue-nav button {
 
 body.dark-mode .venue-nav button:hover {
     background-color: #3F3F46;
+}
+
+/* --- 深色模式: 赛事进程 (新) --- */
+body.dark-mode .match-progress h3 {
+    color: #34D399;
+    border-left: 4px solid #34D399;
+}
+
+body.dark-mode .table-container {
+    border: 1px solid #3F3F46;
+    background-color: #27272A;
+}
+
+body.dark-mode .match-progress th,
+body.dark-mode .match-progress td {
+    border-bottom: 1px solid #3F3F46;
+}
+
+body.dark-mode .match-progress thead th {
+    background-color: #3F3F46;
+    color: #F9FAFB;
+    border-bottom: 1px solid #52525B;
+}
+
+body.dark-mode .match-progress tbody td {
+    color: #A0A0A0;
+}
+
+body.dark-mode .match-progress .team-winner {
+    color: #34D399;
+    /* 深色品牌色 */
 }
