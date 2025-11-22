@@ -19,8 +19,8 @@
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn">🌙</button>
-        <button class="float-btn">⬆️</button>
+        <button class="float-btn" id="theme-toggle">🌙</button>
+        <button class="float-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
     </aside>
 
     <div class="container">
@@ -35,77 +35,103 @@
                 <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
                     target="_blank">Lectures</a>
                 <div class="nav-divider"></div>
-                <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="">Github</a>
-                <a href="https://space.bilibili.com/651837546" class="nav-icon" title="">Bilibili</a>
+                <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="Github">Github</a>
+                <a href="https://space.bilibili.com/651837546" class="nav-icon" title="Bilibili">Bilibili</a>
             </nav>
         </header>
 
         <main class="contact-page">
 
-            <h1>联系我们</h1>
-            <p class="subtitle">热烈欢迎各大企业、高校与我们交流联系！</p>
+            <div class="contact-header">
+                <h1>Let's Connect</h1>
+                <p class="subtitle">热烈欢迎各大企业、高校与我们交流联系！<br>无论是技术探讨还是商务合作，我们都期待您的声音。</p>
+            </div>
 
-            <section class="contact-card">
-                <h2>联系方式</h2>
+            <div class="contact-grid">
 
-                <div class="contact-list">
-
-                    <div class="contact-item">
-                        <h3>电子邮箱</h3>
-                        <div class="contact-content">
-                            <p>我们的官方邮箱是：2253884@tongji.edu.cn</p>
+                <article class="platform-card email-card">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
                         </div>
+                        <h2>官方邮箱</h2>
                     </div>
-
-                    <div class="contact-item">
-                        <h3>Bilibili</h3>
-                        <div class="contact-content">
-                            <a href="https://space.bilibili.com/651837546" target="_blank" rel="noopener noreferrer">
-                                <p>点击跳转 TJ-SuperPower战队 Bilibili 主页</p>
-                            </a>
-                            <p>请在Bilibili App 搜索 "TJ-SuperPower战队" 关注我们！</p>
-                            <img src="/images/bilibili.jpg" alt="b站账号" class="contact-img">
-                        </div>
+                    <p class="card-desc">商务合作、技术咨询或加入我们。</p>
+                    <div class="card-content highlight-bg">
+                        <code>2253884@tongji.edu.cn</code>
                     </div>
+                    <a href="mailto:2253884@tongji.edu.cn" class="card-btn">发送邮件 &rarr;</a>
+                </article>
 
-                    <div class="contact-item">
-                        <h3>小红书</h3>
-                        <div class="contact-content">
-                            <a href="https://www.xiaohongshu.com/user/profile/68de0689000000003702e32c">
-                                点击跳转战队小红书官方账号主页！
-                            </a>
-                            <p>请在小红书 App 搜索 "TJ-SuperPower" 或小红书号：27488192325 关注我们！</p>
-                            <img src="/images/rednote.png" alt="小红书账号" class="contact-img">
+                <article class="platform-card bilibili-card">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="15" x="2" y="7" rx="2" ry="2" />
+                                <polyline points="17 2 12 7 7 2" />
+                            </svg>
                         </div>
+                        <h2>Bilibili</h2>
                     </div>
+                    <p class="card-desc">观看我们的公开课、比赛实录及技术分享。</p>
 
-                    <!-- <div class="contact-item">
-                        <h3>微信公众号</h3>
-                        <div class="contact-content">
-                            <p>请扫描下方二维码关注我们的公众号：</p>
-                            <img src="/images/wechat.png" alt="微信公众号二维码" class="contact-img">
+                    <div class="img-wrapper">
+                        <img src="/images/bilibili.jpg" alt="Bilibili QR Code" class="qr-img">
+                    </div>
+                    <p class="sub-hint">搜索 "TJ-SuperPower战队"</p>
+                    <a href="https://space.bilibili.com/651837546" target="_blank" class="card-btn">访问主页 &rarr;</a>
+                </article>
+
+                <article class="platform-card xhs-card">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M2 8.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5c0 4-6 9-9 9-3-5-9-9-9-9Z" />
+                            </svg>
                         </div>
-                    </div> -->
+                        <h2>小红书</h2>
+                    </div>
+                    <p class="card-desc">关注我们的日常动态和战队生活瞬间。</p>
 
-                </div>
-            </section>
+                    <div class="img-wrapper">
+                        <img src="/images/rednote.png" alt="Xiaohongshu QR Code" class="qr-img">
+                    </div>
+                    <p class="sub-hint">小红书号：27488192325</p>
+                    <a href="https://www.xiaohongshu.com/user/profile/68de0689000000003702e32c" target="_blank"
+                        class="card-btn">查看主页 &rarr;</a>
+                </article>
+
+            </div>
         </main>
 
     </div>
 
     <script>
-        // 1. 找到切换按钮和 <body> 标签
-        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        // 逻辑保持不变，优化了选择器命名
+        const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // 2. 检查用户上次的主题偏好 (默认深色)
         const currentTheme = localStorage.getItem('theme');
 
+        // 初始化图标和状态
         if (currentTheme === 'light') {
             body.classList.remove('dark-mode');
             themeToggleBtn.innerHTML = '🌙';
         } else {
-            body.classList.add('dark-mode');
+            // 默认为 dark-mode (HTML tag上有class)
+            if (!body.classList.contains('dark-mode')) {
+                body.classList.add('dark-mode');
+            }
             themeToggleBtn.innerHTML = '☀️';
         }
 
