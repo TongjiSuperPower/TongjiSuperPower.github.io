@@ -20,7 +20,7 @@
 
     <aside class="floating-buttons">
         <button class="float-btn">🌙</button>
-        <button class="float-btn">⬆️</button>
+        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
     </aside>
 
     <div class="container">
@@ -239,6 +239,12 @@
                 localStorage.setItem('theme', 'light'); // 保存 'light'
             }
         });
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 平滑滚动
+            });
+        }
     </script>
 </body>
 
