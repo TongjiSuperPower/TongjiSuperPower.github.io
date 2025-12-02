@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优秀队员展示 - SuperPower</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="members.css">
+</head>
+
+<body class="dark-mode">
+
+    <div class="background-blur"></div>
+
+    <aside class="floating-buttons">
+        <button class="float-btn" id="themeBtn">🌙</button>
+        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+    </aside>
+
+    <div class="fixed-header-wrapper">
+        <div class="container">
+            <header class="navbar">
+                <div class="nav-left">
+                    <a href="/index.html" class="nav-logo">同济SuperPower</a>
+                </div>
+                <nav class="nav-right">
+                    <a href="/index.html" class="nav-link">Home</a>
+                    <a href="/about/about.html" class="nav-link">About</a>
+                    <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
+                        target="_blank">Lectures</a>
+                    <div class="nav-divider"></div>
+                    <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="">Github</a>
+                    <a href="https://space.bilibili.com/651837546" class="nav-icon" title="">Bilibili</a>
+                </nav>
+            </header>
+        </div>
+    </div>
+
+    <main class="snap-container" id="mainScroll">
+
+        <section class="member-section">
+            <div class="container member-content reverse-layout">
+                <div class="member-gallery">
+                    <div class="carousel" data-autoplay="true">
+                        <div class="slide active" style="background-image: url('/images/YXD-1.jpg');"></div>
+                        
+                        <button class="carousel-btn prev">❮</button>
+                        <button class="carousel-btn next">❯</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <div class="member-info">
+                    <div class="badges-wrapper">
+                        <div class="role-badge">25赛季英雄组长</div>
+                        <div class="role-badge">26赛季队长</div>
+                    </div>
+                    <h2 class="member-name">叶昕迪 Xindi Ye</h2>
+                    <h3 class="member-title">英雄机器人负责人</h3>
+                    
+                    <div class="info-block">
+                        <h4>🏆 主要贡献</h4>
+                        <p>负责了24、25赛季英雄机器人的设计、组装、调试工作，在工作中以身作则，身先士卒，带领队伍勇往直前。</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h4>🚀 经历</h4>
+                        <p>拥有丰富的机械设计与加工经验，熟练掌握 SolidWorks 与 ANSYS 仿真分析。</p>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span>SolidWorks</span>
+                        <span>ANSYS</span>
+                        <span>3D Printing</span>
+                        <span>太阳</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="member-section">
+            <div class="container member-content">
+                <div class="member-gallery">
+                    <div class="carousel" data-autoplay="true">
+                        <div class="slide active" style="background-image: url('/images/YJX-1.jpg');"></div>
+                        <div class="slide" style="background-image: url('/images/YJX-2.jpg');"></div>
+                        <div class="slide" style="background-image: url('/images/YJX-3.jpg');"></div>
+                        
+                        <button class="carousel-btn prev">❮</button>
+                        <button class="carousel-btn next">❯</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <div class="member-info">
+                    <div class="badges-wrapper">
+                         <div class="role-badge">25赛季视觉组长</div>
+                        <div class="role-badge">26赛季副队长</div>
+                    </div>
+                    <h2 class="member-name">杨佳轩 Jiaxuan Yang</h2>
+                    <h3 class="member-title">24、25赛季主力视觉</h3>
+                    
+                    <div class="info-block">
+                        <h4>🏆 主要贡献</h4>
+                        <p>负责哨兵、无人机自瞄，独立重构了装甲板识别算法，实现多线程并行识别，将识别帧率从 60fps 提升至 120fps</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h4>🚀 经历</h4>
+                        <p>曾获 RoboMaster 机甲大师高校赛全国一等奖。大二期间负责视觉组培训工作，建立了完善的新队员培养体系。</p>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span>C++</span>
+                        <span>OpenCV</span>
+                        <span>Deep Learning</span>
+                        <span>Yolo</span>
+                        <span>极致</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="member-section tbc-section">
+            <div class="tbc-container">
+                <h1 class="artistic-text" data-text="TO BE CONTINUED">TO BE CONTINUED</h1>
+                <p class="tbc-sub">更多队员 · 敬请期待</p>
+                <div class="tbc-line"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // === 1. 主题切换逻辑 ===
+        const themeToggleBtn = document.getElementById('themeBtn');
+        const body = document.body;
+        
+        function updateThemeIcon() {
+            themeToggleBtn.innerHTML = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        // 初始化
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+        } else {
+            body.classList.add('dark-mode');
+        }
+        updateThemeIcon();
+
+        // 监听点击
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateThemeIcon();
+        });
+
+        // === 2. 滚动回顶部 ===
+        function scrollToTop() {
+            document.getElementById('mainScroll').scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // === 3. 轮播图逻辑 ===
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            const slides = carousel.querySelectorAll('.slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            const prevBtn = carousel.querySelector('.prev');
+            const nextBtn = carousel.querySelector('.next');
+            let currentIndex = 0;
+            let interval;
+
+            // 初始化圆点
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetTimer();
+                });
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentIndex = index;
+            }
+
+            function nextSlide() {
+                showSlide((currentIndex + 1) % slides.length);
+            }
+
+            function prevSlide() {
+                showSlide((currentIndex - 1 + slides.length) % slides.length);
+            }
+
+            function goToSlide(index) {
+                showSlide(index);
+            }
+
+            function startTimer() {
+                if (carousel.dataset.autoplay === "true") {
+                    interval = setInterval(nextSlide, 5000);
+                }
+            }
+
+            function resetTimer() {
+                clearInterval(interval);
+                startTimer();
+            }
+
+            // 绑定事件
+            nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+            prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+            
+            // 鼠标悬停暂停
+            carousel.addEventListener('mouseenter', () => clearInterval(interval));
+            carousel.addEventListener('mouseleave', startTimer);
+
+            startTimer();
+        });
+    </script>
+</body>
+</html>
