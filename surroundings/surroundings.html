@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周边商城 - SuperPower</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="surroundings.css">
+</head>
+
+<body class="dark-mode">
+
+    <div class="background-blur"></div>
+
+    <aside class="floating-buttons">
+        <button class="float-btn" id="themeBtn">☀️</button>
+        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+    </aside>
+
+    <div class="fixed-header-wrapper">
+        <div class="container">
+            <header class="navbar">
+                <div class="nav-left">
+                    <a href="/index.html" class="nav-logo">同济SuperPower</a>
+                </div>
+                <nav class="nav-right">
+                    <a href="/index.html" class="nav-link">Home</a>
+                    <a href="/about/about.html" class="nav-link">About</a>
+                    <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
+                        target="_blank">Lectures</a>
+                    <div class="nav-divider"></div>
+                    <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="">Github</a>
+                    <a href="https://space.bilibili.com/651837546" class="nav-icon" title="">Bilibili</a>
+                </nav>
+            </header>
+        </div>
+    </div>
+
+    <!-- ===== 左侧目录导航 ===== -->
+    <nav class="section-nav" id="sectionNav" aria-label="页面目录">
+        <ul>
+            <li><a href="#hero-store" class="nav-dot active" data-label="队服展示"></a></li>
+            <li><a href="#picker-layout" class="nav-dot" data-label="选择款式"></a></li>
+            <li><a href="#specs-section" class="nav-dot" data-label="尺码指南"></a></li>
+            <li><a href="#buy-section" class="nav-dot" data-label="立即入手"></a></li>
+            <li><a href="#tbc-section" class="nav-dot" data-label="敬请期待"></a></li>
+        </ul>
+    </nav>
+
+    <!-- ===== Hero 开场 ===== -->
+    <section class="hero-store" id="hero-store">
+        <div class="hero-overlay"></div>
+        <div class="hero-store-content">
+            <span class="hero-store-eyebrow">SuperPower Store</span>
+            <h1>周边商城</h1>
+            <p class="hero-store-tagline">2026赛季队服·夏季系列</p>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>↓</span>
+            向下探索
+        </div>
+    </section>
+
+    <!-- ===== 选择器 + 详情 并排区域 ===== -->
+    <div class="picker-layout" id="picker-layout">
+
+        <!-- 左侧: 选择器 -->
+        <aside class="picker-side">
+            <div class="picker-header">
+                <h2>请选择你的兵种</h2>
+                <p>相同版型，七款印花</p>
+            </div>
+            <div class="uniform-grid" id="uniformGrid">
+                <!-- JS 动态渲染 -->
+            </div>
+        </aside>
+
+        <!-- 右侧: 详情面板 (始终可见) -->
+        <section class="detail-side">
+            <div class="detail-content">
+                <div class="detail-gallery" id="detailGallery">
+                    <div class="carousel" data-autoplay="true" id="detailCarousel">
+                        <button class="carousel-btn prev">❮</button>
+                        <button class="carousel-btn next">❯</button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="detail-info">
+                    <span class="detail-badge" id="detailBadge">2026赛季</span>
+                    <h2 class="detail-name" id="detailName"></h2>
+                    <p class="detail-subtitle" id="detailSubtitle"></p>
+                    <div class="detail-price" id="detailPrice"></div>
+                    <div class="info-block">
+                        <h4>设计灵感</h4>
+                        <p id="detailDesc"></p>
+                    </div>
+                    <div class="size-tags">
+                        <span>S</span><span>M</span><span>L</span><span>XL</span><span>XXL</span><span>3XL</span><span>4XL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===== 尺码指南 ===== -->
+    <section class="specs-section" id="specs-section">
+        <h3 class="section-heading">挑选您的尺码</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>尺码</th>
+                        <th>袖长</th>
+                        <th>肩宽</th>
+                        <th>胸围</th>
+                        <th>衣长</th>
+                        <th>参考身高</th>
+                        <th>参考体重</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>S</td><td>17</td><td>40</td><td>90</td><td>63</td><td>160</td><td>90-105</td></tr>
+                    <tr><td>M</td><td>18</td><td>42</td><td>95</td><td>65</td><td>165</td><td>105-120</td></tr>
+                    <tr><td>L</td><td>19</td><td>44</td><td>100</td><td>68</td><td>170</td><td>120-135</td></tr>
+                    <tr><td>XL</td><td>20</td><td>46</td><td>105</td><td>70</td><td>175</td><td>135-150</td></tr>
+                    <tr><td>XXL</td><td>21</td><td>48</td><td>110</td><td>72</td><td>180</td><td>150-165</td></tr>
+                    <tr><td>3XL</td><td>22</td><td>50</td><td>115</td><td>74</td><td>185</td><td>165-180</td></tr>
+                    <tr><td>4XL</td><td>23</td><td>52</td><td>120</td><td>76</td><td>190</td><td>180-195</td></tr>
+                    <tr><td>5XL(定制)</td><td>24</td><td>54</td><td>125</td><td>78</td><td>195</td><td>195-210</td></tr>
+                    <tr><td>6XL(定制)</td><td>25</td><td>56</td><td>130</td><td>80</td><td>200</td><td>210-225</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size: 12px; text-align: center; margin-top: 10px; font-weight: bold;">温馨提示：手工测量单位CM，尺寸可能会存在1~2CM的误差，尺寸误差非质量问题</p>
+        </div>
+    </section>
+
+    <!-- ===== 购买入口 ===== -->
+    <section class="buy-section" id="buy-section">
+        <div class="buy-container">
+            <div class="buy-qr-group">
+                <div class="buy-qr">
+                    <img src="/images/uniform/link.jpeg" alt="微信周边群二维码">
+                    <p class="buy-qr-hint">扫码加入微信小程序</p>
+                </div>
+                <div class="buy-qr">
+                    <img src="/images/uniform/qq.jpg" alt="QQ周边群二维码">
+                    <p class="buy-qr-hint">扫码加入QQ周边群</p>
+                </div>
+            </div>
+            <div class="buy-info">
+                <h2>立即入手</h2>
+                <p>加入周边群获取最新商品信息和购买渠道</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 结尾 TBC ===== -->
+    <section class="tbc-section" id="tbc-section">
+        <div class="tbc-container">
+            <h1 class="artistic-text" data-text="MORE COMING SOON">MORE COMING SOON</h1>
+            <p class="tbc-sub">更多周边 · 敬请期待</p>
+            <div class="tbc-line"></div>
+        </div>
+    </section>
+
+    <script>
+        // === 1. 主题切换 ===
+        const themeToggleBtn = document.getElementById('themeBtn');
+        const body = document.body;
+
+        function updateThemeIcon() {
+            themeToggleBtn.innerHTML = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+        } else {
+            body.classList.add('dark-mode');
+        }
+        updateThemeIcon();
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateThemeIcon();
+        });
+
+        // === 2. 滚动到顶部 ===
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === 2.5 左侧目录 Intersection Observer ===
+        const sectionNav = document.getElementById('sectionNav');
+        const navDots = sectionNav.querySelectorAll('.nav-dot');
+        const sections = [];
+        navDots.forEach(dot => {
+            const href = dot.getAttribute('href');
+            const el = document.querySelector(href);
+            if (el) sections.push(el);
+        });
+
+        // 平滑滚动到对应区块
+        navDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(dot.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        let activeSectionIdx = 0;
+        const sectionRatios = new Map();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                sectionRatios.set(entry.target, entry.intersectionRatio);
+            });
+
+            // 找到可见比例最高的区块
+            let maxRatio = 0;
+            let maxIdx = 0;
+            sections.forEach((sec, i) => {
+                const ratio = sectionRatios.get(sec) || 0;
+                if (ratio > maxRatio) {
+                    maxRatio = ratio;
+                    maxIdx = i;
+                }
+            });
+
+            if (maxIdx !== activeSectionIdx) {
+                navDots[activeSectionIdx].classList.remove('active');
+                navDots[maxIdx].classList.add('active');
+                activeSectionIdx = maxIdx;
+            }
+        }, {
+            threshold: [0, 0.2, 0.4, 0.6, 0.8]
+        });
+
+        sections.forEach(sec => observer.observe(sec));
+
+        // === 3. 队服数据 ===
+        const uniforms = [
+            {
+                id: 'hero',
+                name: 'Hero 吊射英雄',
+                robot: '六轮吊射英雄',
+                icon: '⛳️',
+                price: '¥199',
+                desc: '英雄是赛场上的绝对主宰，其所承载的硬核实力是战队无所畏惧的底气所在。印花巧妙融合荧光绿墨镜与闪电元素，注入了一丝从容不羁的灵魂，完美诠释了其坚不可摧的意志与势不可挡的超级力量。',
+                images: [
+                    '/images/uniform/single/six_hero_b.jpg',
+                    '/images/uniform/single/six_hero.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-home-detail.jpg'
+                ]
+            },
+            {
+                id: 'Engineer',
+                name: 'Engineer 工程',
+                robot: '啊兑兑兑兑兑',
+                icon: '🦾',
+                price: '¥199',
+                desc: '工程是赛场上的经济引擎，其所担负的重任是战队积累优势的核心底牌，独特的变形设计使其能够灵活穿梭于隧道。机械臂旁散落的金币涂鸦直指其狂揽经济的核心作用，完美诠释了其能屈能伸、从容获取资源的优美姿态。',
+                images: [
+                    '/images/uniform/single/engineer_b.jpg',
+                    '/images/uniform/single/engineer.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-away-detail.jpg'
+                ]
+            },
+            {
+                id: 'Infantry',
+                name: 'Infantry 步兵',
+                robot: '串联腿步兵·我一个大跳',
+                icon: '🪖',
+                price: '¥199',
+                desc: '步兵是赛场上的灵动先锋，其所展现的敏捷与精准是战队撕开防线的锐利尖刀。印花巧妙穿插荧光绿王冠、闪电元素，完美诠释了其在赛场上加冕称王、穿梭如风的从容姿态与势不可挡的战斗意志。',
+                images: [
+                    '/images/uniform/single/infantry_b.jpg',
+                    '/images/uniform/single/infantry.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-away-detail.jpg'
+                ]
+            },
+            {
+                id: 'sentry',
+                name: 'Sentry 哨兵',
+                robot: '超强不可过洞哨兵',
+                icon: '🔫',
+                price: '¥199',
+                desc: '哨兵是基地前岿然不动的钢铁壁垒，其所代表的绝对防御是战队最安心的后盾。印花点缀搞怪的荧光绿“眩晕眼”与火花涂鸦，在硬核的重装防线中融入了一丝戏谑的街头感，彰显其从容御敌的强悍姿态。',
+                images: [
+                    '/images/uniform/single/sentry_b.jpg',
+                    '/images/uniform/single/sentry.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-training-back.jpg'
+                ]
+            },
+            {
+                id: 'radar',
+                name: 'Radar 雷达',
+                robot: '<del> 5090 </del>雷达站',
+                icon: '📡',
+                price: '¥199',
+                desc: '雷达是赛场上的全知之眼，其所提供的视野是战队掌控战局的决胜关键。印花点缀荧光绿的信号波纹与瞄准涂鸦，在冷峻中注入了锐利的街头感，彰显其洞悉一切、精准锁定目标的敏锐姿态。',
+                images: [
+                    '/images/uniform/single/radar_b.jpg',
+                    '/images/uniform/single/radar.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-limited-detail.jpg'
+                ]
+            },
+            {
+                id: 'dart',
+                name: 'Dart 飞镖',
+                robot: '四中四(计划)飞镖机器人',
+                icon: '🎯',
+                price: '¥199',
+                desc: '飞镖是赛场上的破空利刃，其所蕴含的精准打击是战队一击制胜的终极底牌。印花点缀荧光绿的“愤怒眼”与闪电涂鸦，彰显其穿云裂石、一击必杀的锋锐姿态。',
+                images: [
+                    '/images/uniform/single/dart_b.jpg',
+                    '/images/uniform/single/dart.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-limited-detail.jpg'
+                ]
+            },
+            {
+                id: 'aerial',
+                name: 'Aerial 无人机',
+                robot: '让你飞起来！',
+                icon: '✈️',
+                price: '¥199',
+                desc: '无人机是赛场上的制空霸主，其所代表的全域视野与支援能力是战队夺取优势的战略尖兵。印花融合荧光绿的“爆炸符”与“王冠”涂鸦，完美诠释其俯瞰一切、势不可挡的超级力量。',
+                images: [
+                    '/images/uniform/single/drone_b.jpg',
+                    '/images/uniform/single/drone.jpg',
+                    '/images/uniform/single/front.jpg',
+                    // '/images/uniform-limited-detail.jpg'
+                ]
+            },
+            {
+                id: 'special',
+                name: 'SP 超级力量',
+                robot: 'CIU KAP LIK LOENG',
+                icon: '⭐',
+                price: '¥199',
+                desc: 'SuperPower 超级力量',
+                images: [
+                    '/images/uniform/single/sp_b.jpg',
+                    '/images/uniform/single/sp_front.jpg',
+                    '/images/uniform/single/sp_back.jpg',
+                    // '/images/uniform-away-front.jpg'
+                ]
+            }
+        ];
+
+        // === 4. 渲染选择卡片 ===
+        const grid = document.getElementById('uniformGrid');
+
+        uniforms.forEach(u => {
+            const card = document.createElement('div');
+            card.className = 'uniform-card';
+            card.setAttribute('data-id', u.id);
+            card.innerHTML = `
+                <span class="robot-icon">${u.icon}</span>
+                <h4>${u.name}</h4>
+            `;
+            card.addEventListener('click', () => selectUniform(u.id));
+            grid.appendChild(card);
+        });
+
+        // === 5. 详情轮播管理 ===
+        const detailCarousel = document.getElementById('detailCarousel');
+        const dotsContainer = detailCarousel.querySelector('.carousel-dots');
+        const prevBtn = detailCarousel.querySelector('.prev');
+        const nextBtn = detailCarousel.querySelector('.next');
+        let carouselInterval = null;
+        let leavingTimeout = null;
+        let currentSlideIndex = 0;
+        let totalSlides = 0;
+
+        function buildSlides(images) {
+            // 清空旧 slides/dots 及未决动画
+            detailCarousel.querySelectorAll('.slide').forEach(s => s.remove());
+            dotsContainer.querySelectorAll('.dot').forEach(d => d.remove());
+            clearInterval(carouselInterval);
+            clearTimeout(leavingTimeout);
+
+            images.forEach((img, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide' + (idx === 0 ? ' active' : '');
+                slide.style.backgroundImage = `url('${img}')`;
+                detailCarousel.insertBefore(slide, prevBtn);
+            });
+
+            totalSlides = images.length;
+            currentSlideIndex = 0;
+
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            if (totalSlides > 1) startCarouselTimer();
+        }
+
+        function showSlide(index) {
+            if (index === currentSlideIndex) return;
+            const slides = detailCarousel.querySelectorAll('.slide');
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            // 旧 slide 先加 leaving 做退出动画
+            clearTimeout(leavingTimeout);
+            const oldSlide = slides[currentSlideIndex];
+            if (oldSlide) {
+                oldSlide.classList.remove('active');
+                oldSlide.classList.add('leaving');
+                leavingTimeout = setTimeout(() => {
+                    oldSlide.classList.remove('leaving');
+                    leavingTimeout = null;
+                }, 700);
+            }
+
+            dots.forEach(d => d.classList.remove('active'));
+            // 清除新 slide 上可能残留的 leaving 类（快速连击后回绕时会出现）
+            slides[index].classList.remove('leaving');
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() { showSlide((currentSlideIndex + 1) % totalSlides); }
+        function prevSlide() { showSlide((currentSlideIndex - 1 + totalSlides) % totalSlides); }
+        function goToSlide(idx) { showSlide(idx); resetTimer(); }
+
+        function startCarouselTimer() {
+            if (totalSlides <= 1) return;
+            carouselInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetTimer() {
+            clearInterval(carouselInterval);
+            startCarouselTimer();
+        }
+
+        nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+        prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+        detailCarousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+        detailCarousel.addEventListener('mouseleave', () => { if (totalSlides > 1) startCarouselTimer(); });
+
+        // === 6. 选择 / 切换 ===
+        function selectUniform(id) {
+            const u = uniforms.find(x => x.id === id);
+            if (!u) return;
+
+            // 高亮
+            document.querySelectorAll('.uniform-card').forEach(c => c.classList.remove('active'));
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (card) card.classList.add('active');
+
+            // 填充详情
+            document.getElementById('detailName').textContent = u.name;
+            document.getElementById('detailSubtitle').innerHTML = u.robot;
+            // document.getElementById('detailPrice').textContent = u.price;
+            document.getElementById('detailDesc').textContent = u.desc;
+
+            // 重建轮播
+            buildSlides(u.images);
+
+            // 移动端: 滚动到详情区
+            if (window.innerWidth <= 860) {
+                document.querySelector('.detail-side').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // === 7. 默认选中第一款 ===
+        selectUniform('hero');
+    </script>
+</body>
+
+</html>
