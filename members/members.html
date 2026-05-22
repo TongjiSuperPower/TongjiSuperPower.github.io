@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>优秀队员展示 - SuperPower</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-ico" href="/images/logo.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="members.css">
 </head>
 
-<body class="dark-mode">
+<body class="members-page">
+    <div class="ag-blobs" aria-hidden="true">
+        <div class="ag-blob ag-blob--a"></div>
+        <div class="ag-blob ag-blob--b"></div>
+        <div class="ag-blob ag-blob--c"></div>
+    </div>
+    <div class="ag-grid" aria-hidden="true"></div>
+    <div class="cursor-spot" aria-hidden="true"></div>
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
-    <div class="background-blur"></div>
-
-    <aside class="floating-buttons">
-        <button class="float-btn" id="themeBtn">🌙</button>
-        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+    <aside class="floating-buttons" aria-label="页面快捷操作">
+        <button class="float-btn" type="button" onclick="scrollToTop()" title="回到顶部" aria-label="回到顶部">↑</button>
     </aside>
 
     <div class="fixed-header-wrapper">
@@ -35,249 +36,373 @@
                     <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
                         target="_blank">Lectures</a>
                     <div class="nav-divider"></div>
-                    <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="">Github</a>
-                    <a href="https://space.bilibili.com/651837546" class="nav-icon" title="">Bilibili</a>
+                    <a href="https://github.com/TongjiSuperPower" class="nav-icon" target="_blank">Github</a>
+                    <a href="https://space.bilibili.com/651837546" class="nav-icon" target="_blank">Bilibili</a>
                 </nav>
             </header>
         </div>
     </div>
 
     <main class="snap-container" id="mainScroll">
-
-        <section class="member-section">
-            <div class="container member-content reverse-layout">
-                <div class="member-gallery">
-                    <div class="carousel" data-autoplay="true">
-                        <div class="slide active" style="background-image: url('/images/YXD-1.jpg');"></div>
-                        
-                        <button class="carousel-btn prev">❮</button>
-                        <button class="carousel-btn next">❯</button>
-                        <div class="carousel-dots"></div>
-                    </div>
-                </div>
-
-                <div class="member-info">
-                    <div class="badges-wrapper">
-                        <div class="role-badge">25赛季英雄组组长</div>
-                        <div class="role-badge">26赛季队长</div>
-                    </div>
-                    <h2 class="member-name">叶昕迪 Xindi Ye</h2>
-                    <h3 class="member-title">英雄机器人负责人</h3>
-                    
-                    <div class="info-block">
-                        <h4>🏆 主要贡献</h4>
-                        <p>负责了24、25赛季英雄机器人的设计、组装、调试工作，在工作中以身作则，身先士卒，带领队伍勇往直前。</p>
-                    </div>
-
-                    <div class="info-block">
-                        <h4>🚀 经历</h4>
-                        <p>拥有丰富的机械设计与加工经验，熟练掌握SolidWorks。负责了狗洞英雄云台的设计工作；负责了三轮英雄的底盘设计工作；目前正在进行■■的研发工作。</p>
-                    </div>
-
-                    <div class="tech-stack">
-                        <span>SolidWorks</span>
-                        <span>HERO</span>
-                        <span>3D Printing</span>
-                        <span>太阳</span>
+        <!-- Hero: text only, centered -->
+        <section class="member-section hero-section" id="top">
+            <div class="member-container hero-layout">
+                <div class="hero-copy">
+                    <p class="eyebrow reveal">Tongji SuperPower / Roster Console</p>
+                    <h1>优秀队员展示</h1>
+                    <p class="hero-lead">
+                        这里记录机械、视觉、电控、硬件与整车调试中的关键贡献者。每一段履历都像一次任务回放：目标、贡献、技术栈和赛季记忆清晰展开。
+                    </p>
+                    <div class="nav-list reveal">
+                        <a class="nav-chip" href="#xindi">叶昕迪</a>
+                        <a class="nav-chip" href="#jiaxuan">杨佳轩</a>
+                        <a class="nav-chip" href="#dianxiong">秦殿雄</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="member-section">
-            <div class="container member-content">
-                <div class="member-gallery">
-                    <div class="carousel" data-autoplay="true">
-                        <div class="slide active" style="background-image: url('/images/YJX-4.jpg');"></div>
-                        <div class="slide" style="background-image: url('/images/YJX-2.jpg');"></div>
-                        <div class="slide" style="background-image: url('/images/YJX-3.jpg');"></div>
-                        <div class="slide" style="background-image: url('/images/YJX-1.jpg');"></div>
-                        
-                        <button class="carousel-btn prev">❮</button>
-                        <button class="carousel-btn next">❯</button>
-                        <div class="carousel-dots"></div>
+        <!-- Profile: Xindi Ye -->
+        <section class="member-section profile-section" id="xindi" data-profile="01">
+            <div class="member-container profile-layout reverse-layout">
+                <div class="profile-media reveal">
+                    <div class="portrait-console" data-carousel>
+                        <div class="slide active">
+                            <img src="/images/YXD-1.jpg" alt="叶昕迪的队员照片">
+                        </div>
+                        <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>
+                        <button class="carousel-btn next" type="button" aria-label="下一张">›</button>
+                        <div class="carousel-dots" aria-label="图片位置"></div>
                     </div>
                 </div>
-
-                <div class="member-info">
+                <article class="profile-copy reveal">
+                    <p class="eyebrow">Mission 01 / Hero Robot</p>
                     <div class="badges-wrapper">
-                         <div class="role-badge">25赛季视觉组组长</div>
-                        <div class="role-badge">26赛季副队长</div>
+                        <span class="role-badge">25赛季英雄组组长</span>
+                        <span class="role-badge">26赛季队长</span>
                     </div>
-                    <h2 class="member-name">杨佳轩 Jiaxuan Yang</h2>
-                    <h3 class="member-title">24、25赛季主力视觉</h3>
-                    
-                    <div class="info-block">
-                        <h4>🏆 主要贡献</h4>
-                        <p>主要负责哨兵、无人机自瞄。独立重构了装甲板识别算法，并实现多线程并行识别，将识别帧率从 60fps 大幅提升至 150fps。同时，开发了基于多线程的全向感知算法，在25赛季中大放异彩。</p>
+                    <h2>叶昕迪 <span>Xindi Ye</span></h2>
+                    <p class="member-title">英雄机器人负责人</p>
+                    <div class="info-grid">
+                        <section class="info-block reveal">
+                            <h3>主要贡献</h3>
+                            <p>负责 24、25 赛季英雄机器人的设计、组装、调试工作，在关键节点以身作则，带领队伍向前推进。</p>
+                        </section>
+                        <section class="info-block reveal">
+                            <h3>经历</h3>
+                            <p>拥有丰富的机械设计与加工经验，熟练掌握 SolidWorks。负责狗洞英雄云台、三轮英雄底盘设计，目前仍在推进新项目研发。</p>
+                        </section>
                     </div>
+                    <div class="tech-stack reveal" aria-label="技术标签">
+                        <span>SolidWorks</span>
+                        <span>Hero</span>
+                        <span>3D Printing</span>
+                        <span>Leadership</span>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-                    <div class="info-block">
-                        <h4>🚀 经历</h4>
-                        <p>曾获 RoboMaster 机甲大师高校赛全国一等奖。大三期间负责视觉组培训工作，建立了完善的新队员培养体系。大四转入电控组，开始负责轮腿的控制算法开发。</p>
+        <!-- Profile: Jiaxuan Yang -->
+        <section class="member-section profile-section" id="jiaxuan" data-profile="02">
+            <div class="member-container profile-layout">
+                <div class="profile-media reveal">
+                    <div class="portrait-console" data-carousel>
+                        <div class="slide active">
+                            <img src="/images/YJX-4.jpg" alt="杨佳轩的队员照片 1">
+                        </div>
+                        <div class="slide">
+                            <img src="/images/YJX-2.jpg" alt="杨佳轩的队员照片 2">
+                        </div>
+                        <div class="slide">
+                            <img src="/images/YJX-3.jpg" alt="杨佳轩的队员照片 3">
+                        </div>
+                        <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>
+                        <button class="carousel-btn next" type="button" aria-label="下一张">›</button>
+                        <div class="carousel-dots" aria-label="图片位置"></div>
                     </div>
-
-                    <div class="tech-stack">
+                </div>
+                <article class="profile-copy reveal">
+                    <p class="eyebrow">Mission 02 / Vision System</p>
+                    <div class="badges-wrapper">
+                        <span class="role-badge">25赛季视觉组组长</span>
+                        <span class="role-badge">26赛季副队长</span>
+                    </div>
+                    <h2>杨佳轩 <span>Jiaxuan Yang</span></h2>
+                    <p class="member-title">24、25赛季主力视觉</p>
+                    <div class="info-grid">
+                        <section class="info-block reveal">
+                            <h3>主要贡献</h3>
+                            <p>主要负责哨兵、无人机自瞄。独立重构装甲板识别算法，实现多线程并行识别，将识别帧率从 60fps 提升至 150fps。</p>
+                        </section>
+                        <section class="info-block reveal">
+                            <h3>经历</h3>
+                            <p>曾获 RoboMaster 机甲大师高校赛全国一等奖。大三负责视觉组培训，建立新队员培养体系；大四转入电控组，负责轮腿控制算法开发。</p>
+                        </section>
+                    </div>
+                    <div class="tech-stack reveal" aria-label="技术标签">
                         <span>C++</span>
                         <span>OpenCV</span>
                         <span>Deep Learning</span>
                         <span>Control</span>
-                        <span>极致</span>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section class="member-section">
-            <div class="container member-content reverse-layout">
-                <div class="member-gallery">
-                    <div class="carousel" data-autoplay="true">
-                        <div class="slide active" style="background-image: url('/images/QDX-1.jpg');"></div>
-                        <div class="slide" style="background-image: url('/images/QDX-2.jpg');"></div>
-                        
-                        <button class="carousel-btn prev">❮</button>
-                        <button class="carousel-btn next">❯</button>
-                        <div class="carousel-dots"></div>
+        <!-- Profile: Dianxiong Qin -->
+        <section class="member-section profile-section" id="dianxiong" data-profile="03">
+            <div class="member-container profile-layout reverse-layout">
+                <div class="profile-media reveal">
+                    <div class="portrait-console" data-carousel>
+                        <div class="slide active">
+                            <img src="/images/QDX-1.jpg" alt="秦殿雄的队员照片 1">
+                        </div>
+                        <div class="slide">
+                            <img src="/images/QDX-2.jpg" alt="秦殿雄的队员照片 2">
+                        </div>
+                        <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>
+                        <button class="carousel-btn next" type="button" aria-label="下一张">›</button>
+                        <div class="carousel-dots" aria-label="图片位置"></div>
                     </div>
                 </div>
-
-                
-                <div class="member-info">
+                <article class="profile-copy reveal">
+                    <p class="eyebrow">Mission 03 / Infantry Robot</p>
                     <div class="badges-wrapper">
-                        <div class="role-badge">25赛季步兵机械</div>
-                        <div class="role-badge">26赛季步兵组组长</div>
-                        <div class="role-badge">26赛季机械组组长</div>
+                        <span class="role-badge">25赛季步兵机械</span>
+                        <span class="role-badge">26赛季步兵组组长</span>
+                        <span class="role-badge">26赛季机械组组长</span>
                     </div>
-                    <h2 class="member-name">秦殿雄 Dianxiong Qin</h2>
-                    <h3 class="member-title">大大大大大大大秦</h3>
-                    
-                    <div class="info-block">
-                        <h4>🏆 主要贡献</h4>
-                        <p>主要负责步兵机器人的机械开发与维护工作。在Ascento与串腿的研发过程中做出巨大贡献。</p>
+                    <h2>秦殿雄 <span>Dianxiong Qin</span></h2>
+                    <p class="member-title">步兵与机械组负责人</p>
+                    <div class="info-grid">
+                        <section class="info-block reveal">
+                            <h3>主要贡献</h3>
+                            <p>主要负责步兵机器人的机械开发与维护工作，在 Ascento 与串联腿的研发过程中做出重要贡献。</p>
+                        </section>
+                        <section class="info-block reveal">
+                            <h3>经历</h3>
+                            <p>曾获 RoboMaster 机甲大师高校赛全国一等奖。参赛第一年参与 Ascento 改进维护，第二年负责串联腿底盘及云台研发。</p>
+                        </section>
                     </div>
-
-                    <div class="info-block">
-                        <h4>🚀 经历</h4>
-                        <p>曾获 RoboMaster 机甲大师高校赛全国一等奖。参赛第一年便负责Ascento的改进与维护工作，积累了大量轮腿机器人的设计经验；第二年负责了串联腿机器人的底盘及云台研发工作，结束了SuperPower没有串腿的历史。</p>
-                    </div>
-
-                    <div class="tech-stack">
+                    <div class="tech-stack reveal" aria-label="技术标签">
                         <span>SolidWorks</span>
                         <span>Mechanical</span>
                         <span>Ascento</span>
-                        <span>Tandem</span>
+                        <span>Tandem Leg</span>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section class="member-section tbc-section">
-            <div class="tbc-container">
-                <h1 class="artistic-text" data-text="TO BE CONTINUED">TO BE CONTINUED</h1>
-                <p class="tbc-sub">更多队员 · 敬请期待</p>
-                <div class="tbc-line"></div>
+        <section class="member-section tbc-section" id="more">
+            <div class="member-container tbc-container">
+                <p class="eyebrow reveal">Roster Expansion</p>
+                <h2 class="reveal">TO BE CONTINUED<span class="cursor-mark" aria-hidden="true"></span></h2>
+                <p class="reveal">更多队员，更多赛季故事，正在编队。</p>
             </div>
         </section>
-
     </main>
 
     <script>
-        // === 1. 主题切换逻辑 ===
-        const themeToggleBtn = document.getElementById('themeBtn');
-        const body = document.body;
-        
-        function updateThemeIcon() {
-            themeToggleBtn.innerHTML = body.classList.contains('dark-mode') ? '☀️' : '🌙';
-        }
+        (function () {
+            const h1 = document.querySelector('.hero-copy h1');
+            const heroLead = document.querySelector('.hero-copy .hero-lead');
+            if (!h1 || !heroLead) return;
 
-        // 初始化
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'light') {
-            body.classList.remove('dark-mode');
-        } else {
-            body.classList.add('dark-mode');
-        }
-        updateThemeIcon();
+            const titleText = h1.textContent.trim();
+            const leadText = heroLead.textContent.trim();
 
-        // 监听点击
-        themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-            updateThemeIcon();
-        });
+            h1.textContent = '';
+            heroLead.textContent = '';
 
-        // === 2. 滚动回顶部 ===
-        function scrollToTop() {
-            document.getElementById('mainScroll').scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            function typeText(element, text, startDelay, baseInterval, onComplete) {
+                let i = 0;
+                function tick() {
+                    if (i < text.length) {
+                        const span = document.createElement('span');
+                        span.className = 'type-char';
+                        span.textContent = text[i];
+                        element.appendChild(span);
+                        i++;
+                        const jitter = (Math.random() - 0.5) * 20;
+                        setTimeout(tick, baseInterval + jitter);
+                    } else if (onComplete) {
+                        onComplete();
+                    }
+                }
+                setTimeout(tick, startDelay);
+            }
+
+            typeText(h1, titleText, 360, 75, () => {
+                typeText(heroLead, leadText, 400, 60, () => {
+                    const cursor = document.createElement('span');
+                    cursor.className = 'typewriter-cursor';
+                    cursor.setAttribute('aria-hidden', 'true');
+                    heroLead.appendChild(cursor);
+                });
             });
+        })();
+
+        const body = document.body;
+        const mainScroll = document.getElementById('mainScroll');
+
+        function scrollToTop() {
+            mainScroll.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // === 3. 轮播图逻辑 ===
-        document.querySelectorAll('.carousel').forEach(carousel => {
-            const slides = carousel.querySelectorAll('.slide');
+        /* carousel */
+        document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+            const slides = Array.from(carousel.querySelectorAll('.slide'));
             const dotsContainer = carousel.querySelector('.carousel-dots');
             const prevBtn = carousel.querySelector('.prev');
             const nextBtn = carousel.querySelector('.next');
             let currentIndex = 0;
-            let interval;
+            let timer = null;
 
-            // 初始化圆点
             slides.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    goToSlide(index);
-                    resetTimer();
-                });
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = index === 0 ? 'dot active' : 'dot';
+                dot.setAttribute('aria-label', `显示第 ${index + 1} 张图片`);
+                dot.addEventListener('click', () => { showSlide(index); restartTimer(); });
                 dotsContainer.appendChild(dot);
             });
-            const dots = dotsContainer.querySelectorAll('.dot');
+
+            const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
 
             function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                
-                slides[index].classList.add('active');
-                dots[index].classList.add('active');
-                currentIndex = index;
+                slides[currentIndex].classList.remove('active');
+                dots[currentIndex].classList.remove('active');
+                currentIndex = (index + slides.length) % slides.length;
+                slides[currentIndex].classList.add('active');
+                dots[currentIndex].classList.add('active');
             }
 
-            function nextSlide() {
-                showSlide((currentIndex + 1) % slides.length);
+            function nextSlide() { showSlide(currentIndex + 1); }
+
+            function restartTimer() {
+                window.clearInterval(timer);
+                if (slides.length > 1) timer = window.setInterval(nextSlide, 5200);
             }
 
-            function prevSlide() {
-                showSlide((currentIndex - 1 + slides.length) % slides.length);
-            }
-
-            function goToSlide(index) {
-                showSlide(index);
-            }
-
-            function startTimer() {
-                if (carousel.dataset.autoplay === "true") {
-                    interval = setInterval(nextSlide, 5000);
-                }
-            }
-
-            function resetTimer() {
-                clearInterval(interval);
-                startTimer();
-            }
-
-            // 绑定事件
-            nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
-            prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
-            
-            // 鼠标悬停暂停
-            carousel.addEventListener('mouseenter', () => clearInterval(interval));
-            carousel.addEventListener('mouseleave', startTimer);
-
-            startTimer();
+            prevBtn.addEventListener('click', () => { showSlide(currentIndex - 1); restartTimer(); });
+            nextBtn.addEventListener('click', () => { showSlide(currentIndex + 1); restartTimer(); });
+            carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
+            carousel.addEventListener('mouseleave', restartTimer);
+            restartTimer();
         });
+
+        /* reveal */
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { root: mainScroll, threshold: 0.28 });
+
+        document.querySelectorAll('.reveal').forEach((node) => revealObserver.observe(node));
+
+        /* cursor */
+        window.addEventListener('pointermove', (event) => {
+            body.style.setProperty('--cursor-x', event.clientX);
+            body.style.setProperty('--cursor-y', event.clientY);
+        }, { passive: true });
+
+        /* particle network */
+        (function() {
+            const canvas = document.getElementById('particleCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let W, H;
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const COUNT = 90;
+            const particles = [];
+            let mx = -200, my = -200;
+
+            document.addEventListener('pointermove', function(e) {
+                mx = e.clientX;
+                my = e.clientY;
+            });
+
+            for (let i = 0; i < COUNT; i++) {
+                particles.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+                    r: Math.random() * 1.4 + 0.5
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+
+                for (let i = 0; i < COUNT; i++) {
+                    const p = particles[i];
+
+                    /* drift */
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    /* wrap edges */
+                    if (p.x < -20) p.x = W + 20;
+                    if (p.x > W + 20) p.x = -20;
+                    if (p.y < -20) p.y = H + 20;
+                    if (p.y > H + 20) p.y = -20;
+
+                    /* gentle mouse repulsion */
+                    const dx = p.x - mx;
+                    const dy = p.y - my;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 180 && dist > 0) {
+                        const force = (180 - dist) / 180 * 0.45;
+                        p.vx += (dx / dist) * force * 0.08;
+                        p.vy += (dy / dist) * force * 0.08;
+                    }
+
+                    /* dampen */
+                    p.vx *= 0.998;
+                    p.vy *= 0.998;
+
+                    /* draw dot */
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(66, 133, 244, 0.44)';
+                    ctx.fill();
+
+                    /* connections to nearby particles */
+                    for (let j = i + 1; j < COUNT; j++) {
+                        const q = particles[j];
+                        const ddx = p.x - q.x;
+                        const ddy = p.y - q.y;
+                        const d = Math.sqrt(ddx * ddx + ddy * ddy);
+                        if (d < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.strokeStyle = 'rgba(66, 133, 244, ' + ((1 - d / 140) * 0.13).toFixed(3) + ')';
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        })();
     </script>
 </body>
+
 </html>

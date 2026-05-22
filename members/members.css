@@ -1,419 +1,583 @@
-/* === 全局控制 === */
-/* 隐藏 body 默认滚动条，将滚动权交给 .snap-container */
-body {
-    overflow: hidden; 
+/* ── Antigravity Member Console ── */
+:root {
+    --ag-bg: #fafbfc;
+    --ag-bg-strong: #ffffff;
+    --ag-text: #0f1115;
+    --ag-muted: #5f6b7a;
+    --ag-line: rgba(0, 0, 0, 0.07);
+    --ag-panel: rgba(255, 255, 255, 0.72);
+    --ag-panel-strong: rgba(255, 255, 255, 0.88);
+    --ag-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+    --ag-shadow-lg: 0 32px 80px rgba(0, 0, 0, 0.10);
+    --ag-blue: #4285f4;
+    --cursor-x: 50;
+    --cursor-y: 50;
+    --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* === 导航栏修正 (关键部分) === */
+/* ── Body ── */
+body.members-page {
+    overflow: hidden;
+    min-height: 100vh;
+    max-width: 100vw;
+    background: var(--ag-bg);
+    color: var(--ag-text);
+    font-family: "Aptos", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+}
+
+/* ── Google-Blue Ambient Blobs ── */
+.ag-blobs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -3;
+    overflow: hidden;
+}
+
+.ag-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    will-change: transform;
+}
+
+.ag-blob--a {
+    width: 620px; height: 620px;
+    top: -200px; left: -160px;
+    background: rgba(66, 133, 244, 0.12);
+    animation: blobBreathe 14s ease-in-out infinite;
+}
+.ag-blob--b {
+    width: 500px; height: 500px;
+    bottom: -180px; right: -140px;
+    background: rgba(66, 133, 244, 0.09);
+    animation: blobBreathe 12s ease-in-out 4s infinite;
+}
+.ag-blob--c {
+    width: 380px; height: 380px;
+    top: 55%; left: 45%;
+    transform: translate(-50%, -50%);
+    background: rgba(66, 133, 244, 0.07);
+    animation: blobBreathe 16s ease-in-out 8s infinite;
+}
+
+/* ── Grid ── */
+.ag-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background-image:
+        linear-gradient(var(--ag-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--ag-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(0, 0, 0, 0.40), transparent 88%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(0, 0, 0, 0.40), transparent 88%);
+}
+
+/* ── Particle Canvas ── */
+#particleCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── Cursor Spot (Google Blue) ── */
+.cursor-spot {
+    position: fixed;
+    width: 600px; height: 600px;
+    left: -300px; top: -300px;
+    pointer-events: none;
+    z-index: -1;
+    transform: translate(calc(var(--cursor-x) * 1px), calc(var(--cursor-y) * 1px));
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.12), rgba(66, 133, 244, 0.05), transparent 70%);
+    filter: blur(80px);
+    opacity: 0.50;
+    transition: opacity 0.6s var(--ease-out);
+}
+
+/* ── Fixed Header ── */
 .fixed-header-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     z-index: 100;
-    /* 默认(浅色)背景：半透明白 + 高斯模糊 */
-    /* background-color: rgba(255, 255, 255, 0.85); */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.55);
+    border-bottom: 1px solid var(--ag-line);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+.members-page .nav-logo { color: var(--ag-text); font-weight: 700; }
+.members-page .nav-link,
+.members-page .nav-icon { color: var(--ag-muted); transition: color 0.25s var(--ease-out); }
+.members-page .nav-link:hover,
+.members-page .nav-icon:hover { color: var(--ag-text); }
+
+/* ── Floating Buttons ── */
+.members-page .floating-buttons { z-index: 130; }
+.members-page .float-btn {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--ag-line);
+    background: var(--ag-panel-strong);
+    color: var(--ag-text);
+    box-shadow: var(--ag-shadow);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: transform 0.28s var(--ease-out), background 0.28s var(--ease-out);
+}
+.members-page .float-btn:hover {
+    transform: translateY(-3px);
+    background: var(--ag-bg-strong);
+    box-shadow: var(--ag-shadow-lg);
 }
 
-/* 深色模式导航栏背景 */
-body.dark-mode .fixed-header-wrapper {
-    background-color: rgba(24, 24, 27, 0.85);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-/* 注意：内部的 .container .navbar 样式直接继承自 index.css，无需重写 */
-
-
-/* === 滚动捕捉容器 === */
+/* ── Scroll Container ── */
 .snap-container {
     height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory; /* 强制捕捉 */
+    max-width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ag-muted) transparent;
 }
 
-/* === 队员展示 Section === */
 .member-section {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
-    scroll-snap-align: start; /* 滚动停止时对齐顶部 */
+    position: relative;
     display: flex;
     align-items: center;
+    scroll-snap-align: start;
+    padding: 104px 0 42px;
+}
+
+.member-container {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+/* ── Eyebrow ── */
+.eyebrow {
+    margin: 0 0 18px;
+    color: var(--ag-muted);
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+/* ── Hero: centered text only ── */
+.hero-layout {
+    display: block;
+}
+
+.hero-copy {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.hero-copy h1 {
+    margin: 0;
+    color: var(--ag-text);
+    font-size: 5rem;
+    line-height: 0.96;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.hero-lead {
+    margin: 28px auto 0;
+    max-width: 560px;
+    color: var(--ag-muted);
+    font-size: 1.08rem;
+    line-height: 1.95;
+}
+
+/* ── Nav Chips ── */
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 36px;
     justify-content: center;
-    position: relative;
-    /* 关键：顶部留白，避免内容被固定导航栏遮挡 */
-    padding-top: 80px; 
 }
 
-.member-content {
+.nav-chip {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1px solid var(--ag-line);
+    border-radius: 12px;
+    background: var(--ag-panel);
+    color: var(--ag-text);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: transform 0.28s var(--ease-out), border-color 0.28s var(--ease-out), background 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out);
+}
+
+.nav-chip:hover {
+    transform: translateY(-3px);
+    border-color: rgba(66, 133, 244, 0.45);
+    background: rgba(66, 133, 244, 0.08);
+    box-shadow: 0 8px 24px rgba(66, 133, 244, 0.10);
+}
+
+/* ── Profile Layout: 2-column ── */
+.profile-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 左右两栏 */
-    gap: 4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr);
+    gap: 56px;
     align-items: center;
-    width: 100%;
 }
 
-/* 反向布局：让图片在右侧 (利用 Flex/Grid 的方向属性) */
-.reverse-layout {
-    direction: rtl; 
-}
-.reverse-layout > * {
-    direction: ltr; /* 恢复内部文字方向 */
+.reverse-layout .profile-media { order: 2; }
+.reverse-layout .profile-copy { order: 1; }
+
+/* ── Profile Photo ── */
+.profile-media {
+    position: relative;
 }
 
-/* === 相册轮播 (Gallery) === */
-.member-gallery {
+.profile-media::before {
+    content: "";
+    position: absolute;
+    inset: 20px -14px -14px 24px;
+    border: 1px solid rgba(66, 133, 244, 0.18);
+    border-radius: 12px;
+    transform: rotate(-2deg);
+}
+.portrait-console {
+    position: relative;
     width: 100%;
-    aspect-ratio: 4/3; /* 锁定 4:3 比例 */
-    border-radius: 20px;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    position: relative;
-    background-color: #f3f4f6;
-    transition: box-shadow 0.3s ease;
+    border: 1px solid var(--ag-line);
+    border-radius: 14px;
+    background: var(--ag-panel-strong);
+    box-shadow: var(--ag-shadow-lg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
-.carousel {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
+/* ── Carousel ── */
 .slide {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
+    inset: 0;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease;
-    transform: scale(1.05);
+    transform: scale(1.06);
+    transition: opacity 0.72s var(--ease-out), transform 0.72s var(--ease-out);
+}
+.slide.active { opacity: 1; transform: scale(1); }
+.slide img {
+    width: 100%; height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
-.slide.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* 轮播按钮 */
 .carousel-btn {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    padding: 0;
-    width: 44px;
-    height: 44px;
+    z-index: 5;
+    width: 42px; height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.30);
     border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s;
-    backdrop-filter: blur(4px);
-    z-index: 2;
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-size: 1.65rem;
+    line-height: 1;
     display: grid;
     place-items: center;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
+.carousel-btn:hover { background: rgba(66, 133, 244, 0.60); transform: translateY(-50%) scale(1.08); }
+.carousel-btn.prev { left: 16px; }
+.carousel-btn.next { right: 16px; }
 
-.carousel-btn:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.prev { left: 15px; }
-.next { right: 15px; }
-
-/* 轮播指示点 */
 .carousel-dots {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50%; bottom: 18px;
+    z-index: 6;
     display: flex;
-    gap: 10px;
-    z-index: 2;
+    gap: 8px;
+    transform: translateX(-50%);
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    width: 28px; height: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.40);
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out);
 }
+.dot.active { background: white; transform: scaleX(1.18); }
 
-.dot.active {
-    background: #fff;
-    transform: scale(1.3);
+/* ── Profile Watermark ── */
+.profile-section::before {
+    content: attr(data-profile);
+    position: absolute;
+    right: max(28px, calc((100vw - 1180px) / 2));
+    top: 104px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.05);
+    font-size: 12rem;
+    line-height: 1;
+    font-weight: 900;
+    pointer-events: none;
 }
+/* ── Profile Copy ── */
+.profile-copy { max-width: 560px; }
 
-/* === 队员信息文本 === */
-.member-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-/* === 新增：标签容器 === */
 .badges-wrapper {
-    display: flex;          /* 启用 Flex 布局 */
-    flex-wrap: wrap;        /* 如果标签太多，允许自动换行 */
-    gap: 0.8rem;            /* 标签之间的间距 */
-    align-self: flex-start; /* 整体靠左对齐 */
-    margin-bottom: 0.5rem;  /* 与下方名字保持一点距离 */
-}
-/* === 修改：原有标签样式微调 === */
-.role-badge {
-    /* 删掉原本的 align-self: flex-start; 因为现在由 wrapper 控制对齐了 */
-    /* 其他样式保持不变 */
-    display: inline-block;
-    background: linear-gradient(90deg, #A855F7, #3B82F6);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 99px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    
-    /* 可选：为了防止标签换行时挤在一起，加个行高控制 */
-    line-height: 1.2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 22px;
 }
 
-.member-name {
-    font-size: 2.5rem;
+.role-badge {
+    padding: 7px 12px;
+    border: 1px solid var(--ag-line);
+    border-radius: 12px;
+    background: var(--ag-panel);
+    color: var(--ag-text);
+    font-size: 0.82rem;
     font-weight: 800;
-    color: #111827;
-    line-height: 1.1;
-    margin-top: -0.5rem;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.profile-copy h2 {
+    margin: 0;
+    color: var(--ag-text);
+    font-size: 3.7rem;
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+}
+
+.profile-copy h2 span {
+    display: block;
+    margin-top: 8px;
+    color: var(--ag-muted);
+    font-size: 1.12rem;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: 0;
 }
 
 .member-title {
-    font-size: 1.25rem;
-    color: #6B7280;
-    font-weight: 500;
-    margin-top: -1rem;
+    margin: 18px 0 0;
+    color: var(--ag-muted);
+    font-size: 1.18rem;
+    font-weight: 800;
 }
 
-.info-block h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+/* ── Info Grid ── */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.info-block {
+    padding: 18px 0 0;
+    border-top: 1px solid var(--ag-line);
+}
+
+.info-block h3 {
+    margin: 0 0 10px;
+    color: var(--ag-text);
+    font-size: 0.96rem;
+    font-weight: 900;
 }
 
 .info-block p {
-    color: #4B5563;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    margin: 0;
+    color: var(--ag-muted);
+    font-size: 0.98rem;
+    line-height: 1.85;
 }
 
-/* 技术栈标签 */
+/* ── Tech Stack ── */
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    gap: 10px;
+    margin-top: 30px;
 }
 
 .tech-stack span {
-    background-color: #F3F4F6;
-    color: #4B5563;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid #E5E7EB;
+    padding: 8px 12px;
+    border: 1px solid var(--ag-line);
+    border-radius: 12px;
+    background: var(--ag-panel);
+    color: var(--ag-muted);
+    font-size: 0.83rem;
+    font-weight: 800;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 }
 
-/* === 深色模式适配 (Dark Mode) === */
-body.dark-mode .member-gallery {
-    background-color: #27272A;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+/* ── TBC Section ── */
+.tbc-section { text-align: center; }
+.tbc-container { display: grid; place-items: center; }
+.tbc-container h2 {
+    margin: 0;
+    color: var(--ag-text);
+    font-size: 4.4rem;
+    line-height: 1.05;
+    font-weight: 950;
+    letter-spacing: -0.01em;
+}
+.tbc-container p:last-child {
+    max-width: 560px;
+    margin: 22px auto 0;
+    color: var(--ag-muted);
+    font-size: 1.04rem;
 }
 
-body.dark-mode .role-badge {
-    background: #34D399; /* 绿色主题 */
-    color: #18181B;
+/* ── Cursor Mark ── */
+.cursor-mark {
+    display: inline-block;
+    width: 0.08em; height: 0.78em;
+    margin-left: 0.12em;
+    background: var(--ag-blue);
+    vertical-align: -0.04em;
+    animation: blinkCursor 0.9s steps(1) infinite;
 }
 
-body.dark-mode .member-name {
-    color: #F9FAFB;
+/* ── Typewriter ── */
+.type-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: typeIn 0.35s var(--ease-out) forwards;
 }
 
-body.dark-mode .member-title {
-    color: #A0A0A0;
+.typewriter-cursor {
+    display: inline-block;
+    width: 2px; height: 1em;
+    margin-left: 2px;
+    background: var(--ag-blue);
+    vertical-align: text-bottom;
+    animation: blinkCursor 0.9s steps(1) infinite;
 }
 
-body.dark-mode .info-block h4 {
-    color: #E5E7EB;
+/* ── Reveal ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out), filter 0.75s var(--ease-out);
+    filter: blur(4px);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+.reveal > * {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(3px);
+    transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out), filter 0.55s var(--ease-out);
+}
+.reveal.is-visible > * { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+.reveal.is-visible > *:nth-child(1) { transition-delay: 0.00s; }
+.reveal.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+.reveal.is-visible > *:nth-child(3) { transition-delay: 0.15s; }
+.reveal.is-visible > *:nth-child(4) { transition-delay: 0.22s; }
+.reveal.is-visible > *:nth-child(5) { transition-delay: 0.28s; }
+.reveal.is-visible > *:nth-child(6) { transition-delay: 0.34s; }
+.reveal.is-visible > *:nth-child(7) { transition-delay: 0.39s; }
+.reveal.is-visible > *:nth-child(8) { transition-delay: 0.44s; }
+
+/* ── Keyframes ── */
+@keyframes blinkCursor { 50% { opacity: 0; } }
+@keyframes typeIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes blobBreathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    25%      { transform: scale(1.10); opacity: 1; }
+    50%      { transform: scale(1.03); opacity: 0.70; }
+    75%      { transform: scale(1.14); opacity: 0.85; }
 }
 
-body.dark-mode .info-block p {
-    color: #D1D5DB;
-}
-
-body.dark-mode .tech-stack span {
-    background-color: #27272A;
-    color: #D1D5DB;
-    border-color: #3F3F46;
-}
-
-/* === 响应式设计 (Mobile) === */
-@media (max-width: 992px) {
-    .member-content {
+/* ── Responsive ── */
+@media (max-width: 1080px) {
+    .profile-layout {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: center;
+        gap: 34px;
     }
+    .reverse-layout .profile-media,
+    .reverse-layout .profile-copy { order: initial; }
+    .profile-copy { max-width: none; }
+}
 
-    .reverse-layout {
-        direction: ltr; /* 移动端统一图片在上，不交错 */
+@media (max-width: 768px) {
+    .member-section {
+        min-height: 100vh;
+        height: auto;
+        padding: 126px 0 36px;
     }
+    .member-container { width: min(100% - 28px, 640px); }
 
-    .member-gallery {
-        max-width: 500px;
-        margin: 0 auto;
-    }
+    .hero-copy h1 { font-size: 3.2rem; }
+    .hero-lead { font-size: 0.98rem; line-height: 1.75; }
 
-    .member-info {
-        align-items: center;
-    }
-    
-    .tech-stack {
+    .portrait-console { aspect-ratio: 1 / 1; }
+    .profile-media::before { inset: 14px -8px -9px 14px; }
+    .carousel-btn { width: 38px; height: 38px; }
+
+    .profile-section::before { top: 118px; right: 18px; font-size: 7rem; }
+    .profile-copy h2 { font-size: 2.55rem; }
+    .tbc-container h2 { font-size: 3rem; }
+}
+
+@media (max-width: 520px) {
+    .fixed-header-wrapper .container { padding: 0 0.85rem; }
+    .members-page .nav-right {
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        width: 100%;
+        gap: 0.68rem 0.92rem;
         justify-content: center;
     }
-    
-    .role-badge {
-        align-self: center;
-    }
+    .members-page .nav-link,
+    .members-page .nav-icon { font-size: 0.88rem; }
+    .members-page .nav-divider { display: none; }
 
-    /* 移动端如果内容太长，允许滚动，不强制一页展示 */
-    .snap-container {
-        scroll-snap-type: y proximity; /* 放宽捕捉力度 */
-    }
+    .member-section { padding-top: 148px; }
+    .member-container { width: calc(100% - 32px); }
 
-    .member-section {
-        height: auto;
-        min-height: 100vh;
-        padding: 100px 0 3rem 0;
-    }
+    .hero-copy h1 { font-size: 2.5rem; }
+    .hero-lead { max-width: 100%; font-size: 0.93rem; }
+
+    .nav-list { display: grid; grid-template-columns: 1fr; gap: 9px; }
+    .nav-chip { text-align: center; }
+
+    .profile-copy h2 { font-size: 2.25rem; }
+    .info-block p { font-size: 0.94rem; }
+    .profile-section::before { font-size: 5rem; }
 }
 
-/* === 结尾页：艺术字样式 === */
-
-/* 容器布局 */
-.tbc-section {
-    flex-direction: column; /* 垂直排列 */
-    text-align: center;
-}
-
-.tbc-container {
-    position: relative;
-    padding: 2rem;
-    /* 简单的入场动画 */
-    animation: fadeInUp 1s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-/* 艺术字主体 */
-.artistic-text {
-    font-size: clamp(3rem, 8vw, 6rem); /* 响应式字体大小 */
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 0;
-    line-height: 1.1;
-    
-    /* 浅色模式：紫蓝渐变 */
-    background: linear-gradient(135deg, #A855F7 0%, #3B82F6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    
-    /* 投影增加层次感 */
-    filter: drop-shadow(0 10px 20px rgba(59, 130, 246, 0.2));
-    
-    /* 呼吸动画 */
-    animation: breathing 3s ease-in-out infinite;
-}
-
-/* 副标题 */
-.tbc-sub {
-    font-size: 1.2rem;
-    color: #6B7280;
-    margin-top: 1.5rem;
-    letter-spacing: 0.3em;
-    font-weight: 500;
-}
-
-/* 装饰线条 */
-.tbc-line {
-    width: 60px;
-    height: 4px;
-    background: #E5E7EB;
-    margin: 2rem auto 0;
-    border-radius: 2px;
-}
-
-/* === 动画定义 === */
-@keyframes breathing {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 10px 20px rgba(59, 130, 246, 0.2));
-    }
-    50% {
-        transform: scale(1.05); /* 放大 5% */
-        filter: drop-shadow(0 15px 30px rgba(168, 85, 247, 0.4));
-    }
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* === 深色模式适配 === */
-body.dark-mode .artistic-text {
-    /* 深色模式：荧光绿渐变 (呼应 Logo) */
-    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    
-    /* 发光效果 */
-    filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4));
-}
-
-body.dark-mode .tbc-sub {
-    color: #9CA3AF;
-}
-
-body.dark-mode .tbc-line {
-    background: #3F3F46;
-}
-
-/* 调整深色模式下的呼吸动画颜色 */
-body.dark-mode .artistic-text {
-    animation-name: breathingDark;
-}
-
-@keyframes breathingDark {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4));
-    }
-    50% {
-        transform: scale(1.05);
-        filter: drop-shadow(0 0 40px rgba(52, 211, 153, 0.6));
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
     }
 }
