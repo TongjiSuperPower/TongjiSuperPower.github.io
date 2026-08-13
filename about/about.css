@@ -1,0 +1,631 @@
+/* =========================================
+   About 页面样式 (过往荣誉 · 分类展示)
+   依赖 index.css 的 .container / .hero /
+   .floating-buttons 与 body.dark-mode 机制
+   ========================================= */
+
+/* --- 主题变量 (深色为默认) --- */
+body {
+    --ab-surface: #27272A;            /* 卡片表面 */
+    --ab-surface-2: #1F1F22;          /* 次级表面 */
+    --ab-border: #3F3F46;             /* 边框 */
+    --ab-text: #F9FAFB;               /* 主文字 */
+    --ab-text-2: #A0A0A0;             /* 次级文字 */
+    --ab-accent: #34D399;             /* 站点强调色 (深色=绿) */
+    --ab-accent-2: #22D3EE;
+    --ab-gold: #F59E0B;               /* 冠军金 */
+    --ab-bronze: #C08A4E;             /* 季军铜 */
+    --ab-bg-glow: rgba(52, 211, 153, 0.08);
+}
+
+/* 浅色模式 */
+body:not(.dark-mode) {
+    --ab-surface: #FFFFFF;
+    --ab-surface-2: #F3F4F6;
+    --ab-border: #E5E7EB;
+    --ab-text: #111827;
+    --ab-text-2: #6B7280;
+    --ab-accent: #4338CA;             /* 站点强调色 (浅色=靛蓝) */
+    --ab-accent-2: #6366F1;
+    --ab-bg-glow: rgba(99, 102, 241, 0.07);
+}
+
+/* =========================================
+   1. 版块头
+   ========================================= */
+.honor-section {
+    margin-bottom: 5rem;
+}
+
+.section-head {
+    margin-bottom: 2.5rem;
+}
+
+.section-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ab-accent);
+    border: 1px solid color-mix(in srgb, var(--ab-accent) 35%, transparent);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 0.9rem;
+}
+
+.section-head h2 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--ab-text);
+    letter-spacing: 0.02em;
+}
+
+.section-head .section-sub {
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--ab-text-2);
+}
+
+/* =========================================
+   2. 比赛成绩时间线
+   ========================================= */
+.timeline {
+    position: relative;
+}
+
+/* 年份分组: 桌面端三列网格 (年份列 | 竖线列 | 卡片列) */
+.tl-year-group {
+    position: relative; /* 竖线/节点的定位锚点 */
+    display: grid;
+    grid-template-columns: 5.5rem 1.2rem 1fr;
+    column-gap: 1rem;
+    padding-bottom: 2.5rem;
+}
+
+.tl-year-group:last-child {
+    padding-bottom: 0;
+}
+
+/* 年份标签列 */
+.tl-year {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: var(--ab-text);
+    padding-top: 0.6rem;
+}
+
+.tl-year small {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--ab-text-2);
+    margin-top: 0.1rem;
+}
+
+/* 竖线: 作为第 2 列 grid 项纵向铺满 */
+.tl-year-group::before {
+    content: '';
+    grid-column: 2;
+    grid-row: 1;
+    width: 2px;
+    justify-self: center;
+    background: linear-gradient(to bottom, var(--ab-border) 0%, var(--ab-border) 90%, transparent 100%);
+}
+
+/* 连接点: 同样放在第 2 列，覆盖在竖线顶端 */
+.tl-node {
+    grid-column: 2;
+    grid-row: 1;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ab-accent);
+    border: 3px solid var(--ab-surface);
+    box-shadow: 0 0 0 3px var(--ab-border), 0 0 12px color-mix(in srgb, var(--ab-accent) 50%, transparent);
+    justify-self: center;
+    align-self: start;
+    margin-top: 0.75rem;
+    z-index: 1;
+}
+
+/* 卡片列 */
+.tl-entries {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    min-width: 0;
+}
+
+/* 链接包裹整卡时占满列宽 */
+.tl-entries > a {
+    display: block;
+}
+
+/* 时间线条目卡片 */
+.tl-entry {
+    position: relative;
+    background: var(--ab-surface);
+    border: 1px solid var(--ab-border);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* 非主打卡片裁切圆角内的背景图，内容置于其上 */
+.tl-entry:not(.featured) {
+    overflow: hidden;
+}
+
+.tl-entry:not(.featured) > :not(.entry-bg) {
+    position: relative;
+    z-index: 1;
+}
+
+/* 常规条目背景图 (右侧淡出) */
+.tl-entry .entry-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    background-size: cover;
+    background-position: center right;
+    opacity: 0.14;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+}
+
+.tl-entry:hover .entry-bg {
+    opacity: 0.2;
+}
+
+.tl-year-group:last-child .tl-entry:last-child {
+    margin-bottom: 0;
+}
+
+.tl-entry:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.35);
+    border-color: color-mix(in srgb, var(--ab-accent) 45%, var(--ab-border));
+}
+
+/* 名次徽章 */
+.rank-chip {
+    flex-shrink: 0;
+    min-width: 76px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: 8px;
+    padding: 0.45rem 0.6rem;
+    color: #FFFFFF;
+}
+
+.rank-gold   { background: linear-gradient(135deg, #F59E0B, #D97706); box-shadow: 0 4px 14px -4px rgba(245, 158, 11, 0.55); }
+.rank-bronze { background: linear-gradient(135deg, #D6A15F, #A96C2F); box-shadow: 0 4px 14px -4px rgba(192, 138, 78, 0.5); }
+.rank-top4   { background: linear-gradient(135deg, #34D399, #0EA5E9); box-shadow: 0 4px 14px -4px rgba(52, 211, 153, 0.5); }
+.rank-top8   { background: linear-gradient(135deg, #8B5CF6, #6366F1); box-shadow: 0 4px 14px -4px rgba(139, 92, 246, 0.5); }
+
+/* 条目文字 */
+.tl-entry-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.tl-entry-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ab-text);
+    margin-bottom: 0.25rem;
+}
+
+.tl-entry-desc {
+    font-size: 0.9rem;
+    color: var(--ab-text-2);
+    line-height: 1.55;
+}
+
+/* 查看捷报 提示 */
+.tl-link-hint {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ab-accent);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+}
+
+.tl-link-hint .arrow {
+    transition: transform 0.25s ease;
+}
+
+.tl-entry:hover .tl-link-hint .arrow {
+    transform: translateX(4px);
+}
+
+/* --- 主打卡片: 2026 殿军 --- */
+.tl-entry.featured {
+    position: relative;
+    padding: 1.7rem 1.8rem;
+    border: 1px solid transparent;
+    background:
+        linear-gradient(var(--ab-surface), var(--ab-surface)) padding-box,
+        linear-gradient(120deg, #34D399, #22D3EE, #818CF8) border-box;
+    box-shadow: 0 18px 44px -16px color-mix(in srgb, var(--ab-accent) 45%, transparent);
+}
+
+/* 背景图片装饰 (26gs.jpeg) */
+.tl-entry.featured .featured-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.16;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+}
+
+.tl-entry.featured > *:not(.featured-bg):not(.new-flag) {
+    position: relative;
+    z-index: 1;
+}
+
+.tl-entry.featured .rank-chip {
+    font-size: 0.95rem;
+    min-width: 88px;
+    padding: 0.55rem 0.7rem;
+}
+
+.tl-entry.featured .tl-entry-title {
+    font-size: 1.25rem;
+    background: linear-gradient(90deg, var(--ab-text), color-mix(in srgb, var(--ab-text) 55%, var(--ab-accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* "最新战绩" 角标 */
+.new-flag {
+    position: absolute !important;
+    top: -0.7rem !important;
+    left: 1.4rem;
+    z-index: 2;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #18181B;
+    background: linear-gradient(90deg, #34D399, #22D3EE);
+    border-radius: 999px;
+    padding: 0.28rem 0.75rem;
+    box-shadow: 0 6px 16px -4px rgba(52, 211, 153, 0.6);
+}
+
+/* 主打卡片整卡可点 */
+.tl-entry.featured a {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 13px;
+}
+
+.tl-entry.featured a:focus-visible {
+    outline: 2px solid var(--ab-accent);
+    outline-offset: 2px;
+}
+
+/* 2026 组: 年份压窄 */
+.tl-year-group.latest .tl-year {
+    color: var(--ab-accent);
+}
+
+/* =========================================
+   3. 开源获奖 卡片展架
+   ========================================= */
+.os-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.os-card {
+    background: var(--ab-surface);
+    border: 1px solid var(--ab-border);
+    border-radius: 14px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.os-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -14px rgba(0, 0, 0, 0.35);
+    border-color: color-mix(in srgb, var(--ab-accent) 45%, var(--ab-border));
+}
+
+.os-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+}
+
+.os-icon {
+    font-size: 1.5rem;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    background: var(--ab-surface-2);
+    border: 1px solid var(--ab-border);
+    border-radius: 10px;
+}
+
+.os-year-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ab-accent);
+    border: 1px solid color-mix(in srgb, var(--ab-accent) 35%, transparent);
+    border-radius: 999px;
+    padding: 0.25rem 0.7rem;
+}
+
+.os-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ab-text);
+    margin-bottom: 0.5rem;
+}
+
+.os-card p {
+    font-size: 0.9rem;
+    color: var(--ab-text-2);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 1.1rem;
+}
+
+.os-card .os-link {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ab-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    width: fit-content;
+}
+
+.os-card .os-link .arrow {
+    transition: transform 0.25s ease;
+}
+
+.os-card:hover .os-link .arrow {
+    transform: translateX(4px);
+}
+
+/* 敬请期待 占位卡 */
+.os-card.placeholder {
+    opacity: 0.55;
+    border-style: dashed;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 200px;
+    cursor: default;
+}
+
+.os-card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--ab-border);
+}
+
+.os-card.placeholder .os-icon {
+    margin-bottom: 0.8rem;
+}
+
+.os-card.placeholder h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ab-text-2);
+    margin-bottom: 0.2rem;
+}
+
+.os-card.placeholder p {
+    font-size: 0.82rem;
+    margin-bottom: 0;
+    flex: none;
+}
+
+/* =========================================
+   4. RM Award 聚光卡
+   ========================================= */
+.award-card {
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--ab-border);
+    background: var(--ab-surface);
+    min-height: 300px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.award-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.4);
+}
+
+.award-photo {
+    flex: 0 0 42%;
+    background-size: cover;
+    background-position: center 30%;
+    position: relative;
+}
+
+/* 照片右缘渐隐，融入卡片 */
+.award-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 55%, var(--ab-surface) 100%);
+}
+
+.award-body {
+    flex: 1;
+    padding: 2.4rem 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.award-badge {
+    width: fit-content;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #18181B;
+    background: linear-gradient(90deg, #FDE68A, #F59E0B);
+    border-radius: 999px;
+    padding: 0.32rem 0.85rem;
+    box-shadow: 0 6px 18px -6px rgba(245, 158, 11, 0.6);
+}
+
+.award-body h3 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--ab-text);
+}
+
+.award-quote {
+    font-size: 1.02rem;
+    color: var(--ab-text-2);
+    font-style: italic;
+}
+
+/* =========================================
+   5. 动效降级
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+    .tl-entry,
+    .os-card,
+    .award-card {
+        transition: none;
+    }
+    .tl-entry:hover .tl-link-hint .arrow,
+    .os-card:hover .os-link .arrow {
+        transform: none;
+    }
+}
+
+/* =========================================
+   6. 响应式
+   ========================================= */
+@media (max-width: 768px) {
+    /* 时间线: 年份回到流内、竖线/节点绝对定位靠左 */
+    .tl-year-group {
+        display: block;
+        padding-left: 1.6rem;
+    }
+
+    .tl-year-group::before {
+        position: absolute;
+        left: 0.3rem;
+        top: 0.45rem;
+        bottom: 0;
+        width: 2px;
+    }
+
+    .tl-node {
+        position: absolute;
+        left: 0.3rem;
+        top: 0.45rem;
+        margin-top: 0;
+        transform: translateX(-50%);
+    }
+
+    .tl-year {
+        position: static;
+        width: auto;
+        text-align: left;
+        font-size: 1.25rem;
+        padding-top: 0;
+        margin-bottom: 0.6rem;
+    }
+
+    .tl-entries {
+        gap: 0.9rem;
+    }
+
+    .tl-entry {
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        padding: 1.2rem 1.25rem;
+    }
+
+    .tl-entry.featured {
+        padding: 1.5rem 1.3rem;
+    }
+
+    .tl-entry.featured .featured-bg {
+        width: 60%;
+        opacity: 0.12;
+    }
+
+    .tl-entry .entry-bg {
+        width: 55%;
+        opacity: 0.11;
+    }
+
+    .tl-link-hint {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .new-flag {
+        left: 1.1rem !important;
+    }
+
+    /* RM Award: 上下堆叠 */
+    .award-card {
+        flex-direction: column;
+    }
+
+    .award-photo {
+        flex: none;
+        height: 220px;
+    }
+
+    .award-photo::after {
+        background: linear-gradient(to bottom, transparent 55%, var(--ab-surface) 100%);
+    }
+
+    .award-body {
+        padding: 1.6rem 1.5rem 2rem;
+    }
+
+    .section-head h2 {
+        font-size: 1.55rem;
+    }
+}
