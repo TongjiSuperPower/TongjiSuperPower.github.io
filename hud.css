@@ -1,0 +1,863 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --hud-ink: #0a0d0c;
+    --hud-panel: rgba(16, 21, 19, 0.9);
+    --hud-line: rgba(148, 163, 184, 0.28);
+    --hud-text: #e2e8f0;
+    --hud-muted: #94a3b8;
+    --hud-signal: #53f6a1;
+    --hud-signal-dim: rgba(83, 246, 161, 0.14);
+    --site-font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+    --hud-mono: var(--site-font);
+    --hud-body: var(--site-font);
+    --radius-control: 10px;
+    --radius-card: 16px;
+    --radius-media: 14px;
+}
+
+body {
+    font-family: var(--hud-body);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+body.dark-mode,
+body.members-page {
+    background-color: var(--hud-ink);
+    color: var(--hud-text);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.members-page h1,
+body.members-page h2,
+body.members-page h3 {
+    color: var(--hud-text);
+}
+
+.background-blur {
+    right: 0 !important;
+    transform: none;
+    pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+.nav-logo, .nav-link, .nav-icon, .btn, button,
+.eyebrow, .section-eyebrow, code, .tag, .rank-chip,
+.hero-store-eyebrow, .hero-store-tagline, .new-flag,
+.timeline-date, .tl-year, .team-sigil, .hud-status {
+    font-family: var(--hud-mono);
+}
+
+.nav-logo, h1, h2, h3 {
+    letter-spacing: -0.025em;
+}
+
+.nav-link, .nav-icon, .btn, .eyebrow, .section-eyebrow,
+.hero-store-eyebrow, .hud-status {
+    letter-spacing: 0.015em;
+}
+
+.hud-icon {
+    width: 1.15em;
+    height: 1.15em;
+    display: block;
+    flex: 0 0 auto;
+    vector-effect: non-scaling-stroke;
+}
+
+[data-hud-icon] {
+    display: inline-grid;
+    place-items: center;
+}
+
+.card-icon {
+    border-radius: 2px !important;
+    border: 1px solid rgba(83, 246, 161, 0.32);
+    color: #047857;
+    background: rgba(83, 246, 161, 0.1) !important;
+}
+
+body.dark-mode .card-icon,
+body.members-page .card-icon {
+    color: var(--hud-signal);
+}
+
+.float-btn {
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+}
+
+.navbar {
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.btn {
+    border-radius: 6px !important;
+}
+
+.float-btn .hud-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.project-card, .os-card, .platform-card, .tl-entry,
+.award-card, .uniform-card, .info-block, .venue-card,
+.event-showcase, .pool-item {
+    position: relative;
+}
+
+.project-card, .os-card, .platform-card, .tl-entry,
+.award-card, .uniform-card, .info-block, .venue-card,
+.event-showcase, .pool-item { border-radius: 8px !important; }
+
+.hud-corner {
+    --hud-corner-size: 11px;
+    position: absolute;
+    width: var(--hud-corner-size);
+    height: var(--hud-corner-size);
+    z-index: 8;
+    pointer-events: none;
+    opacity: 0.68;
+    color: #64748b;
+}
+
+.hud-corner--tl { top: 6px; left: 6px; border-top: 1px solid; border-left: 1px solid; }
+.hud-corner--tr { top: 6px; right: 6px; border-top: 1px solid; border-right: 1px solid; }
+.hud-corner--bl { bottom: 6px; left: 6px; border-bottom: 1px solid; border-left: 1px solid; }
+.hud-corner--br { bottom: 6px; right: 6px; border-bottom: 1px solid; border-right: 1px solid; }
+
+.project-card:hover .hud-corner,
+.os-card:hover .hud-corner,
+.platform-card:hover .hud-corner,
+.tl-entry:hover .hud-corner,
+.uniform-card:hover .hud-corner {
+    color: var(--hud-signal);
+    opacity: 1;
+}
+
+.hud-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 0.8rem;
+    padding: 4px 7px;
+    border: 1px solid rgba(83, 246, 161, 0.28);
+    background: var(--hud-signal-dim);
+    color: #047857;
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+    letter-spacing: 0.08em;
+}
+
+body.dark-mode .hud-status,
+body.members-page .hud-status {
+    color: var(--hud-signal);
+}
+
+.hud-status i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 0 rgba(83, 246, 161, 0.6);
+    animation: hud-pulse 2s ease-out infinite;
+}
+
+.hud-status b { font: inherit; }
+
+.hud-module-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.hud-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #047857;
+    font: 700 0.5rem/1 var(--hud-mono);
+    letter-spacing: 0.09em;
+}
+
+body.dark-mode .hud-live,
+body.members-page .hud-live { color: var(--hud-signal); }
+
+.hud-live i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: hud-breathe 1.8s ease-in-out infinite;
+}
+
+.hud-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+    color: var(--hud-signal);
+    font: 600 0.68rem/1 var(--hud-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hud-kicker::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    box-shadow: 0 0 12px currentColor;
+    animation: hud-breathe 1.8s ease-in-out infinite;
+}
+
+.team-sigil {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+}
+
+.team-sigil .hud-icon { width: 15px; height: 15px; }
+
+.arrow .hud-icon,
+.card-btn [data-hud-icon] .hud-icon,
+.hero-scroll-hint .hud-icon { width: 1em; height: 1em; }
+
+.card-btn [data-hud-icon],
+.hero-scroll-hint [data-hud-icon] { display: inline-grid; vertical-align: -0.12em; }
+
+.rank-chip {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.rank-chip .hud-icon { width: 14px; height: 14px; }
+
+.os-icon .hud-icon,
+.robot-icon .hud-icon { width: 1.2em; height: 1.2em; }
+
+#result-display:has(.hud-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+#result-display .hud-icon { width: 1.2em; height: 1.2em; }
+
+body.dark-mode .project-card,
+body.dark-mode .os-card,
+body.dark-mode .platform-card,
+body.dark-mode .event-showcase,
+body.dark-mode .venue-card {
+    border-color: var(--hud-line);
+}
+
+body.dark-mode .project-card p,
+body.dark-mode .os-card p,
+body.dark-mode .platform-card p,
+body.dark-mode .section-sub,
+body.dark-mode .subtitle {
+    color: var(--hud-muted);
+}
+
+@keyframes hud-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(83, 246, 161, 0.55); }
+    70%, 100% { box-shadow: 0 0 0 7px rgba(83, 246, 161, 0); }
+}
+
+@keyframes hud-breathe {
+    0%, 100% { opacity: 0.45; transform: scale(0.82); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 640px) {
+    .hud-status b { display: none; }
+    .hud-status { padding: 4px; margin-left: 0.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hud-status i, .hud-kicker::before, .hud-live i { animation: none; }
+}
+
+/* =========================================================
+   CINEMATIC PAGE RHYTHM
+   Full-width chapter layout inspired by engineering team sites.
+   ========================================================= */
+
+.navbar {
+    min-height: 78px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: rgba(5, 7, 6, 0.94);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.12);
+    box-shadow: 0 0 0 100vmax rgba(5, 7, 6, 0.94);
+    clip-path: inset(0 -100vmax);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-logo {
+    color: #f8fafc;
+    white-space: nowrap;
+}
+
+.nav-right {
+    min-width: 0;
+}
+
+.nav-link,
+.nav-icon,
+body.dark-mode .nav-link,
+body.dark-mode .nav-icon {
+    color: #cbd5e1;
+    font-size: 0.78rem;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link::after,
+.nav-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -9px;
+    height: 1px;
+    background: var(--hud-signal);
+    transition: right 220ms ease;
+}
+
+.nav-link:hover::after,
+.nav-icon:hover::after {
+    right: 0;
+}
+
+.fixed-header-wrapper .navbar {
+    position: relative;
+}
+
+/* Home: hero followed by a sequence of full-bleed visual chapters. */
+.home-page .container {
+    max-width: 1180px;
+}
+
+.home-page .hero {
+    min-height: calc(100svh - 78px);
+    padding: clamp(5rem, 10vh, 9rem) 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
+    align-items: center;
+    gap: clamp(2rem, 7vw, 7rem);
+    position: relative;
+}
+
+.home-page .hero::before {
+    content: none;
+}
+
+.home-page .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.home-motion .hero-content {
+    transform: translate3d(0, var(--hero-shift, 0), 0);
+    opacity: var(--hero-opacity, 1);
+    will-change: transform, opacity;
+}
+
+.home-motion .hero-logo {
+    transform: translate3d(0, var(--hero-logo-shift, 0), 0);
+    opacity: var(--hero-opacity, 1);
+    will-change: transform, opacity;
+}
+
+.home-page .hero h1 {
+    font-size: clamp(1.25rem, 2.5vw, 2.4rem);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+}
+
+.home-page .hero h2 {
+    max-width: 760px;
+    font-size: clamp(3.9rem, 8.3vw, 7.8rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.home-page .hero-buttons {
+    margin-top: clamp(2.2rem, 5vh, 4rem);
+}
+
+.home-page .hero-buttons .btn {
+    min-height: 44px;
+    padding-inline: 1.5rem;
+}
+
+.home-page .hero-slogan {
+    margin-top: clamp(2rem, 4vh, 3.2rem);
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.14em !important;
+}
+
+.home-page .hero-logo {
+    width: min(100%, 500px);
+    height: min(42vw, 430px);
+    min-height: 290px;
+    padding: clamp(1rem, 3vw, 2.5rem);
+    position: relative;
+}
+
+.home-page .hero-logo::before,
+.home-page .hero-logo::after {
+    content: none;
+}
+
+.home-page .hero-logo::before {
+    top: 0;
+    left: 0;
+    border-top: 1px solid var(--hud-signal);
+    border-left: 1px solid var(--hud-signal);
+}
+
+.home-page .hero-logo::after {
+    right: 0;
+    bottom: 0;
+    border-right: 1px solid var(--hud-signal);
+    border-bottom: 1px solid var(--hud-signal);
+}
+
+.home-page .hero-logo img {
+    width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 18px 50px rgba(0, 0, 0, 0.5));
+}
+
+.home-page .project-grid {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    background: #050706;
+}
+
+.home-page .project-grid > a {
+    display: block;
+    min-width: 0;
+}
+
+.home-page .project-card {
+    min-height: min(82svh, 880px);
+    padding: clamp(3rem, 8vw, 8rem);
+    border: 0 !important;
+    border-top: 1px solid rgba(226, 232, 240, 0.12) !important;
+    border-radius: 0 !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    isolation: isolate;
+    background: #080b0a !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.home-page .project-card::before {
+    inset: 0;
+    z-index: 1;
+    opacity: 1 !important;
+    filter: none !important;
+    background:
+        linear-gradient(180deg, rgba(3, 5, 4, 0.82) 0%, rgba(3, 5, 4, 0.28) 42%, rgba(3, 5, 4, 0.74) 100%),
+        linear-gradient(90deg, rgba(3, 5, 4, 0.38), transparent 50%, rgba(3, 5, 4, 0.38)) !important;
+}
+
+.home-page .project-card::after {
+    inset: 0;
+    z-index: 1;
+    opacity: 1 !important;
+    background: radial-gradient(circle at center, transparent 0%, rgba(2, 4, 3, 0.12) 48%, rgba(2, 4, 3, 0.62) 100%) !important;
+}
+
+.home-page .card-bg-image {
+    inset: -6% 0;
+    width: 100%;
+    height: auto;
+    z-index: 0;
+    opacity: 0.72 !important;
+    filter: saturate(0.72) contrast(1.08) brightness(0.72) !important;
+    background-position: center;
+    background-size: cover;
+    mask-image: none;
+    -webkit-mask-image: none;
+    transform: translate3d(0, var(--chapter-shift, 0), 0) scale(1.08);
+    transition: transform 900ms cubic-bezier(.2,.7,.2,1), filter 500ms ease !important;
+    will-change: transform;
+}
+
+.home-page .project-card:hover .card-bg-image {
+    opacity: 0.78 !important;
+    filter: saturate(0.92) contrast(1.08) brightness(0.78) !important;
+    transform: translate3d(0, var(--chapter-shift, 0), 0) scale(1.11);
+}
+
+.home-page .project-card .card-icon,
+.home-page .project-card h3,
+.home-page .project-card p {
+    z-index: 3;
+}
+
+.home-page .project-card .card-icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 1.5rem;
+    color: var(--hud-signal);
+    background: rgba(4, 9, 7, 0.55) !important;
+    border-color: rgba(83, 246, 161, 0.55);
+    backdrop-filter: blur(10px);
+    border-radius: 10px !important;
+}
+
+.home-page .project-card .card-icon .hud-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.home-page .project-card h3,
+body.dark-mode.home-page .project-card h3 {
+    justify-content: center;
+    color: #f8fafc;
+    font-size: clamp(2.6rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.15rem;
+    text-shadow: 0 3px 30px rgba(0, 0, 0, 0.72);
+}
+
+.home-page .project-card p,
+body.dark-mode.home-page .project-card p {
+    max-width: 620px;
+    color: #d7dee8;
+    font-size: clamp(0.9rem, 1.4vw, 1.08rem);
+    line-height: 1.8;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.95);
+}
+
+.home-page .project-card .hud-live {
+    color: var(--hud-signal);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+}
+
+.home-page .project-card .hud-corner {
+    --hud-corner-size: 24px;
+    margin: clamp(1rem, 2vw, 2rem);
+    color: rgba(226, 232, 240, 0.58);
+}
+
+/* Scroll reveal: one coordinated entrance per chapter. */
+.home-motion .project-card .card-icon,
+.home-motion .project-card h3,
+.home-motion .project-card p {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+    filter: blur(5px);
+    transition:
+        opacity 700ms cubic-bezier(.2,.7,.2,1),
+        transform 850ms cubic-bezier(.16,1,.3,1),
+        filter 700ms ease;
+}
+
+.home-motion .project-card.is-visible .card-icon,
+.home-motion .project-card.is-visible h3,
+.home-motion .project-card.is-visible p {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+}
+
+.home-motion .project-card .card-icon { transition-delay: 40ms; }
+.home-motion .project-card h3 { transition-delay: 130ms; }
+.home-motion .project-card p { transition-delay: 230ms; }
+.home-motion .project-card p + p { transition-delay: 310ms; }
+
+.home-motion .project-card::after {
+    transition: opacity 900ms ease !important;
+}
+
+.home-motion .project-card:not(.is-visible)::after {
+    opacity: 0.72 !important;
+}
+
+@media (max-width: 900px) {
+    .home-page .hero {
+        grid-template-columns: 1fr;
+        text-align: left;
+        gap: 2.5rem;
+    }
+
+    .home-page .hero-logo {
+        position: absolute;
+        right: -6vw;
+        bottom: 7vh;
+        width: min(56vw, 390px);
+        height: auto;
+        min-height: 0;
+        opacity: 0.24;
+        z-index: 0;
+    }
+
+    .home-page .hero-buttons {
+        justify-content: flex-start;
+    }
+}
+
+/* Home back-to-top control: quiet, tactile, and centered at the viewport edge. */
+.home-page .floating-buttons {
+    top: 50%;
+    right: clamp(1rem, 2vw, 2rem);
+    bottom: auto;
+    transform: translateY(-50%);
+    z-index: 30;
+}
+
+body.home-page .back-to-top {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 12px !important;
+    background: rgba(16, 21, 19, 0.82);
+    color: var(--hud-muted);
+    box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition:
+        opacity 180ms ease,
+        transform 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+body.home-page .back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+body.home-page .back-to-top.is-visible:hover {
+    transform: translateY(-3px);
+    border-color: rgba(83, 246, 161, 0.5);
+    background: rgba(20, 31, 26, 0.94);
+    color: var(--hud-signal);
+    box-shadow:
+        0 18px 38px rgba(0, 0, 0, 0.38),
+        0 0 0 3px rgba(83, 246, 161, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+body.home-page .back-to-top.is-visible:active {
+    transform: translateY(-1px);
+}
+
+body.home-page .back-to-top:focus-visible {
+    outline: 2px solid var(--hud-signal);
+    outline-offset: 3px;
+}
+
+body.home-page .back-to-top .hud-icon {
+    width: 20px;
+    height: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.home-page .back-to-top {
+        transition: none;
+    }
+}
+
+/* Unified rounded-rectangle geometry. */
+button,
+.btn,
+.float-btn,
+.card-btn,
+.carousel-btn,
+.buy-link,
+.nav-chip,
+.role-badge,
+.tag,
+.rank-chip,
+.section-eyebrow,
+.new-flag,
+.os-year-tag,
+.award-badge,
+.detail-badge {
+    border-radius: var(--radius-control) !important;
+}
+
+.project-card,
+.os-card,
+.platform-card,
+.tl-entry,
+.award-card,
+.uniform-card,
+.info-block,
+.venue-card,
+.event-showcase,
+.pool-item,
+.announcement,
+.picker-side,
+.detail-side {
+    border-radius: var(--radius-card) !important;
+}
+
+.card-icon,
+.icon-box,
+.os-icon,
+.card-image,
+.img-wrapper,
+.portrait-console,
+.detail-gallery,
+.highlight-bg,
+.specs-table-wrapper {
+    border-radius: var(--radius-media) !important;
+}
+
+.float-btn {
+    width: 48px;
+    height: 40px;
+}
+
+/* Full-bleed home chapters intentionally remain edge-to-edge. */
+.home-page .project-card {
+    border-radius: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        min-height: 66px;
+        flex-direction: row !important;
+        gap: 1rem !important;
+    }
+
+    .nav-left {
+        flex-direction: row !important;
+        flex: 0 0 auto;
+    }
+
+    .nav-right {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        gap: 1rem !important;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: none;
+        padding-right: 1.8rem;
+        mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 30px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 30px), transparent 100%);
+    }
+
+    .nav-right::-webkit-scrollbar { display: none; }
+    .nav-divider { display: none; }
+
+    .nav-link,
+    .nav-icon,
+    body.dark-mode .nav-link,
+    body.dark-mode .nav-icon {
+        flex: 0 0 auto;
+        font-size: 0.68rem;
+    }
+
+    .home-page .hero {
+        min-height: calc(100svh - 66px);
+        padding: 5rem 0;
+    }
+
+    .home-page .hero h2 {
+        font-size: clamp(3.35rem, 16vw, 5.2rem);
+    }
+
+    .home-page .project-card {
+        min-height: 72svh;
+        padding-inline: 1.5rem;
+    }
+
+    .home-page .project-card h3,
+    body.dark-mode.home-page .project-card h3 {
+        font-size: clamp(2.3rem, 11vw, 3.8rem);
+    }
+}
+
+/* One type system across every page. Keep hierarchy in weight and scale only. */
+body,
+body * {
+    font-family: var(--site-font) !important;
+    text-transform: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em !important;
+}
+
+.nav-link,
+.nav-icon,
+.btn,
+.eyebrow,
+.section-eyebrow,
+.tag,
+.rank-chip,
+code {
+    letter-spacing: 0 !important;
+}
+
+/* Remove the former tactical overlay; functional line icons remain. */
+.hud-corner,
+.hud-status,
+.hud-live,
+.hud-kicker,
+.ag-grid,
+#particleCanvas,
+.cursor-spot {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-page .hero-content,
+    .home-page .hero-logo,
+    .home-page .card-bg-image,
+    .home-page .project-card .card-icon,
+    .home-page .project-card h3,
+    .home-page .project-card p {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        transition: none !important;
+    }
+}

@@ -8,19 +8,21 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/openSource/openSource.css">
+    <link rel="stylesheet" href="/hud.css">
+    <script src="/hud-icons.js"></script>
 </head>
 
 <body class="dark-mode">
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn">🌙</button>
-        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+        <button class="float-btn" data-hud-icon="moon" aria-label="切换明暗主题"></button>
+        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -49,7 +51,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/sp_vision_25.png" alt="sp_vision_25图片">
+                    <img src="/images/open-source/sp-vision-2025.png" alt="sp_vision_25图片">
                 </div>
                 <div class="card-content">
                     <h3>sp_vision_25</h3>
@@ -71,7 +73,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/sp_middleware.png" alt="sp_middleware图片">
+                    <img src="/images/open-source/sp-middleware.png" alt="sp_middleware图片">
                 </div>
                 <div class="card-content">
                     <h3>sp_middleware</h3>
@@ -89,7 +91,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/tutorial.jpg" alt="Tutorial图片">
+                    <img src="/images/open-source/tutorial.jpg" alt="Tutorial图片">
                 </div>
                 <div class="card-content">
                     <h3>2026赛季培训资料</h3>
@@ -109,7 +111,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/ascento.JPG" alt="Ascento图片">
+                    <img src="/images/open-source/ascento.jpg" alt="Ascento图片">
                 </div>
                 <div class="card-content">
                     <h3>开链四连杆轮腿步兵</h3>
@@ -129,7 +131,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/25RMUC.jpg" alt="赛季">
+                    <img src="/images/team/seasons/2025-rmuc.jpg" alt="赛季">
                 </div>
                 <div class="card-content">
                     <h3>2025赛季规划开源</h3>
@@ -148,7 +150,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/jibo.jpg" alt="中心供弹">
+                    <img src="/images/open-source/central-ammo-feed.jpg" alt="中心供弹">
                 </div>
                 <div class="card-content">
                     <h3>英雄中心供弹结构</h3>
@@ -166,7 +168,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/capacitance.jpg" alt="超级电容">
+                    <img src="/images/open-source/super-capacitor.jpg" alt="超级电容">
                 </div>
                 <div class="card-content">
                     <h3>模拟环路超级电容</h3>
@@ -185,7 +187,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/tutorial25.png" alt="Tutorial图片">
+                    <img src="/images/open-source/tutorial-2025.png" alt="Tutorial图片">
                 </div>
                 <div class="card-content">
                     <h3>2025赛季培训资料</h3>
@@ -218,10 +220,10 @@
 
         if (currentTheme === 'light') {
             body.classList.remove('dark-mode');
-            themeToggleBtn.innerHTML = '🌙'; // 显示月亮 (点击可切回深色)
+            HUD.setIcon(themeToggleBtn, 'moon');
         } else {
             body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '☀️'; // 显示太阳 (点击可切为浅色)
+            HUD.setIcon(themeToggleBtn, 'sun');
         }
 
         themeToggleBtn.addEventListener('click', () => {
@@ -230,11 +232,11 @@
 
             if (body.classList.contains('dark-mode')) {
                 // 如果现在是深色模式
-                themeToggleBtn.innerHTML = '☀️';
+                HUD.setIcon(themeToggleBtn, 'sun');
                 localStorage.setItem('theme', 'dark'); // 保存 'dark'
             } else {
                 // 如果现在是浅色模式
-                themeToggleBtn.innerHTML = '🌙';
+                HUD.setIcon(themeToggleBtn, 'moon');
                 localStorage.setItem('theme', 'light'); // 保存 'light'
             }
         });

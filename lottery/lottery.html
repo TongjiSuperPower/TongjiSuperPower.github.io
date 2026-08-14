@@ -7,10 +7,12 @@
     <title>幸运抽奖 - SuperPower</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/hud.css">
+    <script src="/hud-icons.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -420,8 +422,8 @@
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn">🌙</button>
-        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+        <button class="float-btn" data-hud-icon="moon" aria-label="切换明暗主题"></button>
+        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -485,7 +487,7 @@
                 let dotClass = 'dot-blue';
                 if (prize.rarity === 'rare-gold') dotClass = 'dot-gold';
                 if (prize.rarity === 'rare-purple') dotClass = 'dot-purple';
-                if (prize.rarity === 'rare-red') dotClass = 'dot-red'; // 👈 新增这一行
+                if (prize.rarity === 'rare-red') dotClass = 'dot-red';
 
                 // 判断是否售罄
                 const isSoldOut = prize.stock <= 0;
@@ -516,16 +518,16 @@
 
         if (currentTheme === 'light') {
             body.classList.remove('dark-mode');
-            themeToggleBtn.innerHTML = '🌙';
+            HUD.setIcon(themeToggleBtn, 'moon');
         } else {
             body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '☀️';
+            HUD.setIcon(themeToggleBtn, 'sun');
         }
 
         themeToggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
-            themeToggleBtn.innerHTML = isDark ? '☀️' : '🌙';
+            HUD.setIcon(themeToggleBtn, isDark ? 'sun' : 'moon');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
@@ -542,14 +544,14 @@
         // stock: 初始库存
         // rarity: 决定颜色和特效 (rare-blue, rare-purple, rare-gold)
         const defaultPrizes = [
-            { id: 1, name: "队内3D打印周边", img: "/images/sp_3d.jpg", rarity: "rare-blue", weight: 80, stock: 30 },
-            { id: 2, name: "SP 笔记本", img: "/images/sp_benzi.jpg", rarity: "rare-blue", weight: 70, stock: 5 },
-            { id: 3, name: "DJI 冰箱贴", img: "/images/dji_bxt.jpg", rarity: "rare-purple", weight: 30, stock: 21 },
-            { id: 4, name: "国赛八强PCB纪念板", img: "/images/pcb.jpg", rarity: "rare-gold", weight: 15, stock: 8 },
-            { id: 5, name: "DJI 帆布袋", img: "/images/dji_fbd.jpg", rarity: "rare-gold", weight: 10, stock: 2 } ,
-            { id: 6, name: "DJI 迷你斜挎包", img: "/images/dji_xkb.jpg", rarity: "rare-gold", weight: 10, stock: 1 } ,
-            { id: 7, name: "DJI 雨伞", img: "/images/dji_ys.jpg", rarity: "rare-red", weight: 5, stock: 2 } ,
-            { id: 8, name: "DJI 鸭舌帽", img: "/images/dji_ysm.jpg", rarity: "rare-red", weight: 5, stock: 1 } 
+            { id: 1, name: "队内3D打印周边", img: "/images/store/lottery/superpower-3d-print.jpg", rarity: "rare-blue", weight: 80, stock: 30 },
+            { id: 2, name: "SP 笔记本", img: "/images/store/lottery/superpower-notebook.jpg", rarity: "rare-blue", weight: 70, stock: 5 },
+            { id: 3, name: "DJI 冰箱贴", img: "/images/store/lottery/dji-fridge-magnet.jpg", rarity: "rare-purple", weight: 30, stock: 21 },
+            { id: 4, name: "国赛八强PCB纪念板", img: "/images/store/lottery/rmuc-pcb.jpg", rarity: "rare-gold", weight: 15, stock: 8 },
+            { id: 5, name: "DJI 帆布袋", img: "/images/store/lottery/dji-tote-bag.jpg", rarity: "rare-gold", weight: 10, stock: 2 } ,
+            { id: 6, name: "DJI 迷你斜挎包", img: "/images/store/lottery/dji-crossbody-bag.jpg", rarity: "rare-gold", weight: 10, stock: 1 } ,
+            { id: 7, name: "DJI 雨伞", img: "/images/store/lottery/dji-umbrella.jpg", rarity: "rare-red", weight: 5, stock: 2 } ,
+            { id: 8, name: "DJI 鸭舌帽", img: "/images/store/lottery/dji-cap.jpg", rarity: "rare-red", weight: 5, stock: 1 }
         ];
 
         // 读取本地存储，如果没有则使用默认值
@@ -713,7 +715,7 @@
                 }
 
                 // === 结果展示与特效 ===
-                resultDisplay.innerText = `🎉 恭喜获得：${winner.name}`;
+                resultDisplay.innerHTML = `${HUD.icon('sparkles')}<span>恭喜获得：${winner.name}</span>`;
                 resultDisplay.style.opacity = '1';
                 
                 // 1. 清除旧的特效类
@@ -738,7 +740,7 @@
             const defaults = { origin: { y: 0.7 }, zIndex: 9999 };
             
             if (rarity === 'rare-red') {
-                // === 🔴 红色大奖：全屏持续轰炸 (两侧+中间) ===
+                // 红色大奖：全屏持续轰炸（两侧与中间）
                 const duration = 3000;
                 const end = Date.now() + duration;
                 const colors = ['#DC2626', '#FF0000', '#F59E0B', '#FFFFFF'];
@@ -780,7 +782,7 @@
                 }());
 
             } else if (rarity === 'rare-gold') {
-                // === 🟡 金色传说：经典版 (两侧喷射 + 中间流星雨) ===
+                // 金色传说：经典版（两侧喷射与中间流星雨）
                 const count = 200;
                 const colors = ['#F59E0B', '#FCD34D', '#FFFBEB', '#FFD700'];
                 
@@ -803,11 +805,11 @@
                 }, 400);
 
             } else if (rarity === 'rare-purple') {
-                // === 🟣 紫色史诗 ===
+                // 紫色史诗
                 confetti({ ...defaults, particleCount: 300, spread: 120, colors: ['#8B5CF6', '#D8B4FE', '#C084FC'] });
                 
             } else {
-                // === 🔵 蓝色普通 ===
+                // 蓝色普通
                 confetti({ ...defaults, particleCount: 100, spread: 80, colors: ['#3B82F6', '#93C5FD'] });
             }
         }

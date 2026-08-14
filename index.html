@@ -7,18 +7,20 @@
     <title>SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/hud.css">
+    <script src="/hud-icons.js"></script>
 </head>
 
-<body class="dark-mode">
+<body class="dark-mode home-page">
 
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn">🌙</button>
-        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" aria-label="回到顶部"
+            title="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -42,27 +44,17 @@
             <div class="hero-content">
                 <h1><span class="gradient-text">SuperPower's</span></h1>
                 <h2>Official Website</h2>
-                <div class="hero-buttons">
-                    <a href="/about/about.html">
-                        <button class="btn btn-primary">About Us</button>
-                    </a>
-                    <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" target="_blank">
-                        <button class="btn btn-secondary">Lectures</button>
-                    </a>
-                    <a href="https://github.com/TongjiSuperPower" target="_blank">
-                        <button class="btn btn-secondary">Github</button>
-                    </a>
-                </div>
+                <p class="hero-slogan">山止川行、驰而不息</p>
             </div>
             <div class="hero-logo">
-                <img src="/images/ts_logo.png" alt="SuperPower Logo">
+                <img src="/images/brand/superpower-logo.png" alt="SuperPower Logo">
             </div>
         </main>
 
         <section class="project-grid">
             <a href="/openSource/openSource.html">
                 <article class="project-card">
-                    <div class="card-icon">📚</div>
+                    <div class="card-icon" data-hud-icon="book"></div>
                     <h3>开源汇总</h3>
                     <p>一起共建开源环境</p>
                     <p>人人为我，我为人人</p>
@@ -74,46 +66,46 @@
 
             <a href="/members/members.html">
                 <article class="project-card">
-                    <div class="card-icon">🌞</div>
+                    <div class="card-icon" data-hud-icon="users"></div>
                     <h3>优秀队员展示</h3>
                     <p>一支优秀的队伍源自一群优秀队员</p>
-                    <div class="card-bg-image" style="background-image: url('/images/25GS.jpg');"></div>
+                    <div class="card-bg-image" style="background-image: url('/images/team/seasons/2025-gs.jpg');"></div>
                 </article>
             </a>
 
-            <a href="/robots/robots.html">
+            <a href="/robots/timeline.html">
                 <article class="project-card">
-                    <div class="card-icon">🤖</div>
+                    <div class="card-icon" data-hud-icon="bot"></div>
                     <h3>机器人介绍</h3>
                     <p>一众优秀的机器人为队伍立下汗马功劳</p>
-                    <div class="card-bg-image" style="background-image:url('/images/ascento.JPG');"></div>
+                    <div class="card-bg-image" style="background-image:url('/images/open-source/ascento.jpg');"></div>
                 </article>
             </a>
 
             <a href="/competition/competition.html">
                 <article class="project-card">
-                    <div class="card-icon">🎮</div>
+                    <div class="card-icon" data-hud-icon="gamepad"></div>
                     <h3>精彩赛事</h3>
                     <p>志豪杯现已开赛</p>
-                    <div class="card-bg-image" style="background-image: url('/images/champion.jpg');"></div>
+                    <div class="card-bg-image" style="background-image: url('/images/competition/champion.jpg');"></div>
                 </article>
             </a>
 
             <a href="/surroundings/surroundings.html">
                 <article class="project-card">
-                    <div class="card-icon">🎁</div>
+                    <div class="card-icon" data-hud-icon="package"></div>
                     <h3>周边商城</h3>
                     <p>精心设计的周边翘首以盼</p>
-                    <div class="card-bg-image" style="background-image: url('images/surroundings.jpg');"></div>
+                    <div class="card-bg-image" style="background-image: url('/images/store/store-cover.jpg');"></div>
                 </article>
             </a>
 
             <a href="/communication/communication.html">
                 <article class="project-card">
-                    <div class="card-icon">📪</div>
+                    <div class="card-icon" data-hud-icon="mail"></div>
                     <h3>联系我们</h3>
                     <p>欢迎任何赞助、交流活动</p>
-                    <div class="card-bg-image" style="background-image: url('images/contact.png');"></div>
+                    <div class="card-bg-image" style="background-image: url('/images/contact/contact-card.png');"></div>
                 </article>
             </a>
 
@@ -121,43 +113,28 @@
 
     </div>
 
+    <footer class="home-footer">
+        <p>Copyright © 2025 SuperPower. All rights reserved.</p>
+    </footer>
+
     <script>
-        // 1. 找到切换按钮和 <body> 标签
-        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
-        const body = document.body;
-
-        // 2. 检查用户上次的主题偏好 (默认深色)
-        const currentTheme = localStorage.getItem('theme');
-
-        if (currentTheme === 'light') {
-            body.classList.remove('dark-mode');
-            themeToggleBtn.innerHTML = '🌙'; // 显示月亮 (点击可切回深色)
-        } else {
-            body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '☀️'; // 显示太阳 (点击可切为浅色)
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            // 切换 body 上的 .dark-mode 类
-            body.classList.toggle('dark-mode');
-
-            if (body.classList.contains('dark-mode')) {
-                // 如果现在是深色模式
-                themeToggleBtn.innerHTML = '☀️';
-                localStorage.setItem('theme', 'dark'); // 保存 'dark'
-            } else {
-                // 如果现在是浅色模式
-                themeToggleBtn.innerHTML = '🌙';
-                localStorage.setItem('theme', 'light'); // 保存 'light'
-            }
-        });
+        const backToTopButton = document.querySelector('.back-to-top');
 
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // 平滑滚动
+                behavior: 'smooth'
             });
         }
+
+        function updateBackToTopVisibility() {
+            const showButton = window.scrollY > window.innerHeight * 0.65;
+            backToTopButton.classList.toggle('is-visible', showButton);
+        }
+
+        backToTopButton.addEventListener('click', scrollToTop);
+        window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+        updateBackToTopVisibility();
     </script>
 </body>
 

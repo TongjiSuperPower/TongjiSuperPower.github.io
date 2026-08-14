@@ -56,22 +56,26 @@ var menu = document.querySelector(".ri-menu-line");
 var close = document.querySelector(".ri-close-line");
 var navbar = document.querySelector(".subnav");
 
-menu.addEventListener("click",function(){
-  navbar.style.top="0%";
-})
+if (menu && close && navbar) {
+  menu.addEventListener("click",function(){
+    navbar.style.top="0%";
+  })
 
-close.addEventListener("click",function(){
-  navbar.style.top="-109%";
-})
+  close.addEventListener("click",function(){
+    navbar.style.top="-109%";
+  })
+}
 
 
 var Store = document.querySelector("#Store");
 var hovermenu = document.querySelector(".nav3");
 
-Store.addEventListener("mousemove",function(){
-  hovermenu.style.top="5%";
-})
+if (Store && hovermenu) {
+  Store.addEventListener("mousemove",function(){
+    hovermenu.style.top="5%";
+  })
 
-Store.addEventListener("mouseleave",function(){
-  hovermenu.style.top="-100%";
-})
+  Store.addEventListener("mouseleave",function(){
+    hovermenu.style.top="-100%";
+  })
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器人赛季时间轴 - SuperPower</title>
+    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/hud.css">
+    <link rel="stylesheet" href="/robots/timeline.css">
+    <script src="/hud-icons.js"></script>
+</head>
+
+<body class="dark-mode robot-timeline-page">
+    <div class="background-blur"></div>
+
+    <div class="container">
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
+            </div>
+            <nav class="nav-right">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/about/about.html" class="nav-link">About</a>
+                <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
+                    target="_blank">Lectures</a>
+                <div class="nav-divider"></div>
+                <a href="https://github.com/TongjiSuperPower" class="nav-icon" target="_blank">Github</a>
+                <a href="https://space.bilibili.com/651837546" class="nav-icon" target="_blank">Bilibili</a>
+            </nav>
+        </header>
+
+        <main class="robot-archive">
+            <header class="archive-header">
+                <p class="archive-eyebrow">SuperPower Robot Archive</p>
+                <h1>机器人赛季时间轴</h1>
+                <p>从 2023 赛季开始，沿时间轴查看战队机器人。</p>
+            </header>
+
+            <ol class="season-timeline" aria-label="机器人赛季时间轴">
+                <li class="season-item history-item">
+                    <div class="season-marker" aria-hidden="true"><span>2023</span></div>
+                    <article class="season-card history-card">
+                        <p class="season-label">2023赛季</p>
+                        <h2>2023</h2>
+                        <p>机器人赛季档案</p>
+                    </article>
+                </li>
+
+                <li class="season-item history-item">
+                    <div class="season-marker" aria-hidden="true"><span>2024</span></div>
+                    <article class="season-card history-card">
+                        <p class="season-label">2024赛季</p>
+                        <h2>2024</h2>
+                        <p>机器人赛季档案</p>
+                    </article>
+                </li>
+
+                <li class="season-item history-item">
+                    <div class="season-marker" aria-hidden="true"><span>2025</span></div>
+                    <a class="season-card history-card archive-card season-photo-card" href="/robots/robots.html"
+                        aria-label="进入2025赛季机器人展示"
+                        style="--season-photo: url('/images/team/seasons/2025-gs.jpg'); --season-photo-position: center 48%;">
+                        <p class="season-label">2025赛季</p>
+                        <h2>2025</h2>
+                        <p>机器人赛季档案</p>
+                        <span class="enter-link">进入机器人展示 <span data-hud-icon="external"></span></span>
+                    </a>
+                </li>
+
+                <li class="season-item current-item">
+                    <div class="season-marker current-marker" aria-hidden="true"><span>2026</span></div>
+                    <article class="season-card current-card reserved-card season-photo-card"
+                        style="--season-photo: url('/images/team/seasons/2026-gs.jpeg'); --season-photo-position: center 56%;">
+                        <div class="current-copy">
+                            <p class="season-label">2026赛季 · 当前</p>
+                            <h2>2026</h2>
+                            <p>赛季资料待更新</p>
+                        </div>
+                    </article>
+                </li>
+            </ol>
+        </main>
+    </div>
+</body>
+
+</html>

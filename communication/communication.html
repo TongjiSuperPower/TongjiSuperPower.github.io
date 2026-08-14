@@ -7,11 +7,13 @@
     <title>联系我们 - SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-ico" href="/images/logo.png" />
+    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/communication/communication.css">
+    <link rel="stylesheet" href="/hud.css">
+    <script src="/hud-icons.js"></script>
 </head>
 
 <body class="dark-mode">
@@ -19,8 +21,8 @@
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn" id="theme-toggle">🌙</button>
-        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+        <button class="float-btn" id="theme-toggle" data-hud-icon="moon" aria-label="切换明暗主题"></button>
+        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -65,7 +67,7 @@
                     <div class="card-content highlight-bg">
                         <code>2253884@tongji.edu.cn</code>
                     </div>
-                    <a href="mailto:2253884@tongji.edu.cn" class="card-btn">发送邮件 &rarr;</a>
+                    <a href="mailto:2253884@tongji.edu.cn" class="card-btn">发送邮件 <span data-hud-icon="external"></span></a>
                 </article>
 
                 <article class="platform-card bilibili-card">
@@ -83,10 +85,10 @@
                     <p class="card-desc">观看我们的公开课、比赛实录及技术分享。</p>
 
                     <div class="img-wrapper">
-                        <img src="/images/bilibili.jpg" alt="Bilibili QR Code" class="qr-img">
+                        <img src="/images/contact/bilibili-qr.jpg" alt="Bilibili QR Code" class="qr-img">
                     </div>
                     <p class="sub-hint">搜索 "TJ-SuperPower战队"</p>
-                    <a href="https://space.bilibili.com/651837546" target="_blank" class="card-btn">访问主页 &rarr;</a>
+                    <a href="https://space.bilibili.com/651837546" target="_blank" class="card-btn">访问主页 <span data-hud-icon="external"></span></a>
                 </article>
 
                 <article class="platform-card xhs-card">
@@ -104,11 +106,11 @@
                     <p class="card-desc">关注我们的日常动态和战队生活瞬间。</p>
 
                     <div class="img-wrapper">
-                        <img src="/images/rednote.png" alt="Xiaohongshu QR Code" class="qr-img">
+                        <img src="/images/contact/rednote-qr.png" alt="Xiaohongshu QR Code" class="qr-img">
                     </div>
                     <p class="sub-hint">小红书号：27488192325</p>
                     <a href="https://www.xiaohongshu.com/user/profile/68de0689000000003702e32c" target="_blank"
-                        class="card-btn">查看主页 &rarr;</a>
+                        class="card-btn">查看主页 <span data-hud-icon="external"></span></a>
                 </article>
 
             </div>
@@ -126,22 +128,22 @@
         // 初始化图标和状态
         if (currentTheme === 'light') {
             body.classList.remove('dark-mode');
-            themeToggleBtn.innerHTML = '🌙';
+            HUD.setIcon(themeToggleBtn, 'moon');
         } else {
             // 默认为 dark-mode (HTML tag上有class)
             if (!body.classList.contains('dark-mode')) {
                 body.classList.add('dark-mode');
             }
-            themeToggleBtn.innerHTML = '☀️';
+            HUD.setIcon(themeToggleBtn, 'sun');
         }
 
         themeToggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
-                themeToggleBtn.innerHTML = '☀️';
+                HUD.setIcon(themeToggleBtn, 'sun');
                 localStorage.setItem('theme', 'dark');
             } else {
-                themeToggleBtn.innerHTML = '🌙';
+                HUD.setIcon(themeToggleBtn, 'moon');
                 localStorage.setItem('theme', 'light');
             }
         });

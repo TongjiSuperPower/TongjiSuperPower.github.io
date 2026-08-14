@@ -586,3 +586,39 @@ body.dark-mode .float-btn {
 body.dark-mode .float-btn:hover {
     background-color: #3F3F46;
 }
+
+/* --- 首页版权栏 --- */
+.home-footer {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid rgba(100, 116, 139, 0.18);
+    background-color: #f8fafc;
+    color: #64748b;
+    text-align: center;
+}
+
+.home-footer p {
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+body.dark-mode .home-footer {
+    border-top-color: rgba(148, 163, 184, 0.16);
+    background-color: var(--hud-ink, #0a0d0c);
+    color: var(--hud-muted, #94a3b8);
+}
+
+@media (max-width: 768px) {
+    .home-footer {
+        min-height: 88px;
+        padding-inline: 1rem;
+    }
+
+    .home-footer p {
+        font-size: 0.78rem;
+    }
+}

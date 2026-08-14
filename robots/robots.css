@@ -13,8 +13,8 @@
 
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif;
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI',
+        'Microsoft YaHei', sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -144,7 +144,7 @@ body.dark-mode .nav-icon {
     justify-content: center;
     flex-direction: column; */
     /* background-color:black; */
-    background-image: url("../images/Hero_Dog_Black.JPG");
+    background-image: url("../images/robots/2025/hero-dog-black.jpg");
     background-position: center;
     overflow: hidden;
     position: relative;
@@ -196,7 +196,7 @@ body.dark-mode .nav-icon {
     height: 80vh;
     width: 100vw;
     color: rgb(255, 255, 255);
-    background-image: url("../images/Standard_White.JPG");
+    background-image: url("../images/robots/2025/standard-white.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -210,7 +210,7 @@ body.dark-mode .nav-icon {
     height: 80vh;
     width: 100vw;
     color: rgb(255, 255, 255);
-    background-image: url("../images/Engineer_Black.JPG");
+    background-image: url("../images/robots/2025/engineer-black.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -259,7 +259,7 @@ body.dark-mode .nav-icon {
 
 .section4-1 {
     width: 50%;
-    background-image: url("../images/Sentry_Black.JPG");
+    background-image: url("../images/robots/2025/sentry-black.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -269,7 +269,7 @@ body.dark-mode .nav-icon {
 
 .section4-2 {
     width: 50%;
-    background-image: url("../images/Drone_White.JPG");
+    background-image: url("../images/robots/2025/drone-white.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -282,7 +282,7 @@ body.dark-mode .nav-icon {
 
 .section5-1 {
     width: 50%;
-    background-image: url("../images/Dart_White.JPG");
+    background-image: url("../images/robots/2025/dart-white.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -292,7 +292,7 @@ body.dark-mode .nav-icon {
 
 .section5-2 {
     width: 50%;
-    background-image: url("../images/Radar_Black.JPG");
+    background-image: url("../images/robots/2025/radar-black.jpg");
 }
 
 .text4 {
@@ -302,21 +302,6 @@ body.dark-mode .nav-icon {
 .text4 p {
     font-size: 20px;
     line-height: 3px;
-}
-
-.section6-1 {
-    width: 50%;
-    background-image: url("Assests/card4.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 3px;
-}
-
-.section6-2 {
-    width: 50%;
-    background-image: url("Assests/card5.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .text5 {
@@ -367,32 +352,32 @@ body.dark-mode .nav-icon {
 }
 
 .s1 {
-    background-image: url("../images/resp1.jpeg");
+    background-image: url("../images/robots/2025/gallery-01.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .s2 {
-    background-image: url("../images/resp2.jpeg");
+    background-image: url("../images/robots/2025/gallery-02.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .s3 {
-    background-image: url("../images/resp3.jpeg");
+    background-image: url("../images/robots/2025/gallery-03.jpeg");
     background-repeat: no-repeat;
     width: 100%;
     background-size: cover;
 }
 
 .s4 {
-    background-image: url("../images/resp4.jpeg");
+    background-image: url("../images/robots/2025/gallery-04.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .s5 {
-    background-image: url("../images/resp5.jpeg");
+    background-image: url("../images/robots/2025/gallery-05.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -551,7 +536,7 @@ footer {
 
 
     .hero-section2 {
-        background-image: url("Assests/iphone15white.jpg");
+        background-image: url("../images/robots/mobile/iphone-15-white.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -566,10 +551,6 @@ footer {
 
     .links {
         font-size: 3vh;
-    }
-
-    .hero {
-        background-image: url("Assests/iphon15resp.jpg");
     }
 
     .hero-p h2 {
@@ -600,10 +581,6 @@ footer {
         height: 150vh;
     }
 
-    .section5-1 {
-        background-image: url("Assests/card2.jpg");
-    }
-
     .text1 h3 {
         font-weight: 400;
     }
@@ -629,23 +606,23 @@ footer {
     }
 
     .s1 {
-        background-image: url("../images/resp1.jpeg");
+        background-image: url("../images/robots/2025/gallery-01.jpeg");
     }
 
     .s2 {
-        background-image: url("../images/resp2.jpeg");
+        background-image: url("../images/robots/2025/gallery-02.jpeg");
     }
 
     .s3 {
-        background-image: url("../images/resp3.jpeg");
+        background-image: url("../images/robots/2025/gallery-03.jpeg");
     }
 
     .s4 {
-        background-image: url("../images/resp4.jpeg");
+        background-image: url("../images/robots/2025/gallery-04.jpeg");
     }
 
     .s5 {
-        background-image: url("../images/resp5.jpeg");
+        background-image: url("../images/robots/2025/gallery-05.jpeg");
     }
 
     footer {
