@@ -7,7 +7,9 @@
     <title>SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-ico" href="/images/brand/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/hud.css">
@@ -47,7 +49,8 @@
                 <p class="hero-slogan">山止川行、驰而不息</p>
             </div>
             <div class="hero-logo">
-                <img src="/images/brand/superpower-logo.png" alt="SuperPower Logo">
+                <img src="/images/brand/superpower-logo.png" alt="SuperPower Logo" width="1024" height="1024"
+                    decoding="async" fetchpriority="high">
             </div>
         </main>
 
@@ -58,8 +61,8 @@
                     <h3>开源汇总</h3>
                     <p>一起共建开源环境</p>
                     <p>人人为我，我为人人</p>
-                    <div class="card-bg-image"
-                        style="background-image: url(https://api.star-history.com/svg?repos=TongjiSuperPower/sp_vision_25&type=Date);">
+                    <div class="card-bg-image" data-bg="https://api.star-history.com/svg?repos=TongjiSuperPower/sp_vision_25&amp;type=Date"
+                        aria-hidden="true">
                     </div>
                 </article>
             </a>
@@ -69,7 +72,7 @@
                     <div class="card-icon" data-hud-icon="users"></div>
                     <h3>优秀队员展示</h3>
                     <p>一支优秀的队伍源自一群优秀队员</p>
-                    <div class="card-bg-image" style="background-image: url('/images/team/seasons/2025-gs.jpg');"></div>
+                    <div class="card-bg-image" data-bg="/images/team/seasons/2025-gs-card.webp" aria-hidden="true"></div>
                 </article>
             </a>
 
@@ -78,7 +81,7 @@
                     <div class="card-icon" data-hud-icon="bot"></div>
                     <h3>机器人介绍</h3>
                     <p>一众优秀的机器人为队伍立下汗马功劳</p>
-                    <div class="card-bg-image" style="background-image:url('/images/open-source/ascento.jpg');"></div>
+                    <div class="card-bg-image" data-bg="/images/open-source/ascento-card.webp" aria-hidden="true"></div>
                 </article>
             </a>
 
@@ -87,7 +90,7 @@
                     <div class="card-icon" data-hud-icon="gamepad"></div>
                     <h3>精彩赛事</h3>
                     <p>志豪杯现已开赛</p>
-                    <div class="card-bg-image" style="background-image: url('/images/competition/champion.jpg');"></div>
+                    <div class="card-bg-image" data-bg="/images/competition/champion-card.webp" aria-hidden="true"></div>
                 </article>
             </a>
 
@@ -96,7 +99,7 @@
                     <div class="card-icon" data-hud-icon="package"></div>
                     <h3>周边商城</h3>
                     <p>精心设计的周边翘首以盼</p>
-                    <div class="card-bg-image" style="background-image: url('/images/store/store-cover.jpg');"></div>
+                    <div class="card-bg-image" data-bg="/images/store/store-cover-card.webp" aria-hidden="true"></div>
                 </article>
             </a>
 
@@ -105,7 +108,7 @@
                     <div class="card-icon" data-hud-icon="mail"></div>
                     <h3>联系我们</h3>
                     <p>欢迎任何赞助、交流活动</p>
-                    <div class="card-bg-image" style="background-image: url('/images/contact/contact-card.png');"></div>
+                    <div class="card-bg-image" data-bg="/images/contact/contact-card.webp" aria-hidden="true"></div>
                 </article>
             </a>
 
@@ -135,6 +138,48 @@
         backToTopButton.addEventListener('click', scrollToTop);
         window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
         updateBackToTopVisibility();
+
+        const lazyCardBackgrounds = document.querySelectorAll('.card-bg-image[data-bg]');
+
+        function loadCardBackground(element) {
+            if (element.classList.contains('is-loading') || element.classList.contains('is-loaded')) {
+                return;
+            }
+
+            element.classList.add('is-loading');
+            const image = new Image();
+            image.decoding = 'async';
+            image.onload = () => {
+                element.style.backgroundImage = `url("${element.dataset.bg}")`;
+                element.classList.remove('is-loading');
+                element.classList.add('is-loaded');
+            };
+            image.onerror = () => {
+                element.classList.remove('is-loading');
+                element.classList.add('is-load-error');
+            };
+            image.src = element.dataset.bg;
+        }
+
+        if ('IntersectionObserver' in window) {
+            const cardBackgroundObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    loadCardBackground(entry.target);
+                    observer.unobserve(entry.target);
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.05
+            });
+
+            lazyCardBackgrounds.forEach((background) => cardBackgroundObserver.observe(background));
+        } else {
+            lazyCardBackgrounds.forEach(loadCardBackground);
+        }
     </script>
 </body>
 

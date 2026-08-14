@@ -520,6 +520,17 @@ body.dark-mode .nav-icon {
     transform: translate3d(0, var(--chapter-shift, 0), 0) scale(1.11);
 }
 
+.home-page .card-bg-image[data-bg]:not(.is-loaded) {
+    opacity: 0 !important;
+}
+
+.home-page .card-bg-image[data-bg].is-loaded {
+    transition:
+        opacity 360ms ease,
+        transform 900ms cubic-bezier(.2,.7,.2,1),
+        filter 500ms ease !important;
+}
+
 .home-page .project-card .card-icon,
 .home-page .project-card h3,
 .home-page .project-card p {
