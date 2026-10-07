@@ -1,2 +1,9 @@
 CLAUDE.md
 tmp/
+
+# Local system metadata and generated preview artifacts.
+.DS_Store
+/.playwright-cli/
+/output/playwright/
+__pycache__/
+*.py[cod]

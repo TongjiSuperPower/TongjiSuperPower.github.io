@@ -11,9 +11,11 @@
     --site-font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
     --hud-mono: var(--site-font);
     --hud-body: var(--site-font);
-    --radius-control: 10px;
-    --radius-card: 16px;
-    --radius-media: 14px;
+    /* One fixed-radius family for media, surfaces and controls. */
+    --radius-base: 16px;
+    --radius-control: var(--radius-base);
+    --radius-card: var(--radius-base);
+    --radius-media: var(--radius-base);
 }
 
 body {
@@ -77,7 +79,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .card-icon {
-    border-radius: 2px !important;
+    border-radius: var(--radius-base) !important;
     border: 1px solid rgba(83, 246, 161, 0.32);
     color: #047857;
     background: rgba(83, 246, 161, 0.1) !important;
@@ -89,7 +91,7 @@ body.members-page .card-icon {
 }
 
 .float-btn {
-    border-radius: 8px !important;
+    border-radius: var(--radius-base) !important;
     font-size: 1rem !important;
 }
 
@@ -98,7 +100,7 @@ body.members-page .card-icon {
 }
 
 .btn {
-    border-radius: 6px !important;
+    border-radius: var(--radius-base) !important;
 }
 
 .float-btn .hud-icon {
@@ -114,7 +116,7 @@ body.members-page .card-icon {
 
 .project-card, .os-card, .platform-card, .tl-entry,
 .award-card, .uniform-card, .info-block, .venue-card,
-.event-showcase, .pool-item { border-radius: 8px !important; }
+.event-showcase, .pool-item { border-radius: var(--radius-base) !important; }
 
 .hud-corner {
     --hud-corner-size: 11px;
@@ -297,9 +299,6 @@ body.dark-mode .subtitle {
    ========================================================= */
 
 .navbar {
-    min-height: 78px;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
     position: sticky;
     top: 0;
     z-index: 90;
@@ -316,17 +315,11 @@ body.dark-mode .subtitle {
     white-space: nowrap;
 }
 
-.nav-right {
-    min-width: 0;
-}
-
 .nav-link,
 .nav-icon,
 body.dark-mode .nav-link,
 body.dark-mode .nav-icon {
     color: #cbd5e1;
-    font-size: 0.78rem;
-    font-weight: 600;
     position: relative;
 }
 
@@ -357,7 +350,7 @@ body.dark-mode .nav-icon {
 }
 
 .home-page .hero {
-    min-height: calc(100svh - 78px);
+    min-height: calc(100svh - var(--site-nav-height));
     padding: clamp(5rem, 10vh, 9rem) 0;
     display: grid;
     grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
@@ -545,7 +538,7 @@ body.dark-mode .nav-icon {
     background: rgba(4, 9, 7, 0.55) !important;
     border-color: rgba(83, 246, 161, 0.55);
     backdrop-filter: blur(10px);
-    border-radius: 10px !important;
+    border-radius: var(--radius-base) !important;
 }
 
 .home-page .project-card .card-icon .hud-icon {
@@ -642,20 +635,62 @@ body.dark-mode.home-page .project-card p {
     }
 }
 
-/* Home back-to-top control: quiet, tactile, and centered at the viewport edge. */
-.home-page .floating-buttons {
+/* Shared back-to-top geometry. Pages may customize color and motion only. */
+body .floating-buttons {
+    --floating-edge: 24px;
+    position: fixed;
     top: 50%;
-    right: clamp(1rem, 2vw, 2rem);
+    right: max(var(--floating-edge), env(safe-area-inset-right));
     bottom: auto;
+    left: auto;
     transform: translateY(-50%);
-    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 48px;
+    gap: 12px;
+    z-index: 110;
 }
 
-body.home-page .back-to-top {
+/* Keep the last (back-to-top) button centered even when a theme button sits above. */
+body .floating-buttons > .float-btn {
+    flex-shrink: 0;
+}
+
+body .floating-buttons .back-to-top {
+    box-sizing: border-box;
     width: 48px;
     height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: var(--radius-control) !important;
+    cursor: pointer;
+    line-height: 1;
+}
+
+body .floating-buttons .back-to-top .hud-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+body .floating-buttons .back-to-top:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    body .floating-buttons { --floating-edge: 16px; }
+}
+
+/* Home keeps its scroll-triggered entrance and dark glass finish. */
+body.home-page .back-to-top {
     border: 1px solid rgba(148, 163, 184, 0.24);
-    border-radius: 12px !important;
     background: rgba(16, 21, 19, 0.82);
     color: var(--hud-muted);
     box-shadow:
@@ -703,18 +738,15 @@ body.home-page .back-to-top:focus-visible {
     outline-offset: 3px;
 }
 
-body.home-page .back-to-top .hud-icon {
-    width: 20px;
-    height: 20px;
-}
-
 @media (prefers-reduced-motion: reduce) {
-    body.home-page .back-to-top {
-        transition: none;
+    body .floating-buttons .back-to-top {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
     }
 }
 
-/* Unified rounded-rectangle geometry. */
+/* One global fixed-radius family; semantic aliases intentionally share a value. */
 button,
 .btn,
 .float-btn,
@@ -729,7 +761,11 @@ button,
 .new-flag,
 .os-year-tag,
 .award-badge,
-.detail-badge {
+.detail-badge,
+.season-marker,
+.enter-link,
+.size-tags span,
+.pool-item .stock {
     border-radius: var(--radius-control) !important;
 }
 
@@ -745,7 +781,13 @@ button,
 .pool-item,
 .announcement,
 .picker-side,
-.detail-side {
+.detail-side,
+.detail-content,
+.buy-container,
+.season-card,
+.raffle-window,
+.l-card,
+.table-container {
     border-radius: var(--radius-card) !important;
 }
 
@@ -757,8 +799,24 @@ button,
 .portrait-console,
 .detail-gallery,
 .highlight-bg,
-.specs-table-wrapper {
+.specs-table-wrapper,
+.venue-image-placeholder,
+.buy-qr img {
     border-radius: var(--radius-media) !important;
+}
+
+/* Match full-cover hit areas to the card, including its keyboard focus outline. */
+.tl-entry.featured a {
+    border-radius: inherit;
+}
+
+/* A QR image sits 8px + a 1px border inside its frame: concentric inset corners. */
+.img-wrapper {
+    --media-inset: calc(.5rem + 1px);
+    background-clip: padding-box;
+}
+.img-wrapper .qr-img {
+    border-radius: max(0px, calc(var(--radius-media) - var(--media-inset)));
 }
 
 .float-btn {
@@ -772,42 +830,8 @@ button,
 }
 
 @media (max-width: 768px) {
-    .navbar {
-        min-height: 66px;
-        flex-direction: row !important;
-        gap: 1rem !important;
-    }
-
-    .nav-left {
-        flex-direction: row !important;
-        flex: 0 0 auto;
-    }
-
-    .nav-right {
-        flex: 1 1 auto;
-        justify-content: flex-start;
-        gap: 1rem !important;
-        overflow-x: auto;
-        overscroll-behavior-inline: contain;
-        scrollbar-width: none;
-        padding-right: 1.8rem;
-        mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 30px), transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 30px), transparent 100%);
-    }
-
-    .nav-right::-webkit-scrollbar { display: none; }
-    .nav-divider { display: none; }
-
-    .nav-link,
-    .nav-icon,
-    body.dark-mode .nav-link,
-    body.dark-mode .nav-icon {
-        flex: 0 0 auto;
-        font-size: 0.68rem;
-    }
-
     .home-page .hero {
-        min-height: calc(100svh - 66px);
+        min-height: calc(100svh - var(--site-nav-height));
         padding: 5rem 0;
     }
 

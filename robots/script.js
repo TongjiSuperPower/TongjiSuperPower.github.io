@@ -1,81 +1,152 @@
-function loco(){
-    gsap.registerPlugin(ScrollTrigger);
+(() => {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const scenes = [...document.querySelectorAll(".hero-section")];
+  const activeScenes = new Set();
+  const revealedScenes = new Set();
+  const animations = new Set();
+  let observer;
+  let frame = 0;
 
-// Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
+  function animateText(scene) {
+    scene.classList.remove("scene-pending");
+    scene.classList.add("scene-revealed");
+    if (reducedMotion.matches || revealedScenes.has(scene)) return;
+    revealedScenes.add(scene);
 
-const locoScroll = new LocomotiveScroll({
-  el: document.querySelector("body"),
-  smooth: true
-});
-// each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
-locoScroll.on("scroll", ScrollTrigger.update);
+    scene.querySelectorAll(".hero-section-p > *").forEach((element, index) => {
+      const animation = element.animate([
+        { opacity: 0, transform: "translate3d(0, 28px, 0)" },
+        { opacity: 1, transform: "translate3d(0, 0, 0)" }
+      ], {
+        duration: 1000,
+        delay: 100 + index * 130,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        fill: "backwards"
+      });
+      animations.add(animation);
+      animation.onfinish = animation.oncancel = () => animations.delete(animation);
+    });
+  }
 
-// tell ScrollTrigger to use these proxy methods for the "body" element since Locomotive Scroll is hijacking things
-ScrollTrigger.scrollerProxy("body", {
-  scrollTop(value) {
-    return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
-  }, // we don't have to define a scrollLeft because we're only scrolling vertically.
-  getBoundingClientRect() {
-    return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
-  },
-  // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
-  pinType: document.querySelector("body").style.transform ? "transform" : "fixed"
-});
+  function renderDepth() {
+    frame = 0;
+    if (reducedMotion.matches || document.hidden) return;
+    const height = window.innerHeight;
+    const travel = window.innerWidth <= 700 ? 8 : 22;
+    // Read every active scene before writing transforms to avoid layout thrashing.
+    const positions = [...activeScenes].map(scene => {
+      const rect = scene.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (height - rect.top) / (height + rect.height)));
+      return { scene, progress };
+    });
+    positions.forEach(({ scene, progress }) => {
+      scene.style.setProperty("--scene-y", `${((progress - 0.5) * travel).toFixed(2)}px`);
+      scene.style.setProperty("--scene-scale", (1.06 - progress * 0.025).toFixed(4));
+    });
+  }
 
-// each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll. 
-ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+  function scheduleDepth() {
+    if (!frame && !reducedMotion.matches && !document.hidden) {
+      frame = requestAnimationFrame(renderDepth);
+    }
+  }
 
-// after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
-ScrollTrigger.refresh();
+  function configureScenes() {
+    observer?.disconnect();
+    cancelAnimationFrame(frame);
+    frame = 0;
+    activeScenes.clear();
+    animations.forEach(animation => animation.cancel());
+    scenes.forEach(scene => {
+      scene.classList.remove("scene-motion", "scene-pending", "scene-active", "scene-revealed");
+      scene.style.removeProperty("--scene-y");
+      scene.style.removeProperty("--scene-scale");
+    });
+    // Default HTML stays visible when motion is disabled or browser APIs are absent.
+    if (reducedMotion.matches || !window.IntersectionObserver || !Element.prototype.animate) return;
 
-}
-loco()
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(({ target, isIntersecting }) => {
+        target.classList.toggle("scene-active", isIntersecting);
+        if (isIntersecting) {
+          activeScenes.add(target);
+          animateText(target);
+        } else {
+          activeScenes.delete(target);
+        }
+      });
+      scheduleDepth();
+    }, { threshold: 0.06 });
 
-var swiper = new Swiper(".mySwiper", {
-  slidesPerView: "1.2",
-  centeredSlides: true,
-  spaceBetween: 10,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: false
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-      keyboard: true,
-      loop:true
-});
+    scenes.forEach(scene => {
+      scene.classList.add("scene-motion");
+      if (!revealedScenes.has(scene)) scene.classList.add("scene-pending");
+      observer.observe(scene);
+    });
+  }
 
+  configureScenes();
+  window.addEventListener("scroll", scheduleDepth, { passive: true });
+  window.addEventListener("resize", scheduleDepth, { passive: true });
+  reducedMotion.addEventListener("change", configureScenes);
+  document.addEventListener("visibilitychange", scheduleDepth);
 
-var menu = document.querySelector(".ri-menu-line");
-var close = document.querySelector(".ri-close-line");
-var navbar = document.querySelector(".subnav");
+  // Preserve the gallery and its controls; slow its easing and pause off screen.
+  if (typeof Swiper !== "function") return;
+  const gallery = document.querySelector(".mySwiper");
+  const swiper = new Swiper(gallery, {
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    spaceBetween: 10,
+    speed: reducedMotion.matches ? 0 : 850,
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    autoplay: { delay: 4800, disableOnInteraction: true, pauseOnMouseEnter: true },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    keyboard: { enabled: true, onlyInViewport: true },
+    loop: true
+  });
+  let galleryVisible = false;
+  let interacted = false;
+  let hovered = false;
 
-if (menu && close && navbar) {
-  menu.addEventListener("click",function(){
-    navbar.style.top="0%";
-  })
+  function updateAutoplay() {
+    swiper.params.speed = reducedMotion.matches ? 0 : 850;
+    const paused = reducedMotion.matches || document.hidden || !galleryVisible ||
+      interacted || hovered || gallery.contains(document.activeElement);
+    if (paused) swiper.autoplay.stop();
+    else if (!swiper.autoplay.running) swiper.autoplay.start();
+    if (reducedMotion.matches) {
+      swiper.setTransition(0);
+      swiper.slideTo(swiper.activeIndex, 0);
+    }
+  }
 
-  close.addEventListener("click",function(){
-    navbar.style.top="-109%";
-  })
-}
-
-
-var Store = document.querySelector("#Store");
-var hovermenu = document.querySelector(".nav3");
-
-if (Store && hovermenu) {
-  Store.addEventListener("mousemove",function(){
-    hovermenu.style.top="5%";
-  })
-
-  Store.addEventListener("mouseleave",function(){
-    hovermenu.style.top="-100%";
-  })
-}
+  // Native hover/focus events also handle reduced-motion changes at runtime.
+  gallery.addEventListener("pointerenter", event => {
+    if (event.pointerType !== "mouse") return;
+    hovered = true;
+    updateAutoplay();
+  });
+  gallery.addEventListener("pointerleave", () => { hovered = false; updateAutoplay(); });
+  gallery.addEventListener("focusin", updateAutoplay);
+  gallery.addEventListener("focusout", () => queueMicrotask(updateAutoplay));
+  function stopAfterInteraction() { interacted = true; updateAutoplay(); }
+  swiper.on("sliderFirstMove", stopAfterInteraction);
+  gallery.addEventListener("click", event => {
+    if (event.target.closest(".swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet")) {
+      stopAfterInteraction();
+    }
+  });
+  gallery.addEventListener("keydown", event => {
+    if (["ArrowLeft", "ArrowRight", "Enter", " "].includes(event.key)) stopAfterInteraction();
+  });
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(([entry]) => {
+      galleryVisible = entry.isIntersecting;
+      updateAutoplay();
+    }, { threshold: 0.2 }).observe(gallery);
+  }
+  reducedMotion.addEventListener("change", updateAutoplay);
+  document.addEventListener("visibilitychange", updateAutoplay);
+  updateAutoplay();
+})();

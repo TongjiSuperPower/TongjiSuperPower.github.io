@@ -49,6 +49,7 @@ body.dark-mode .page-header p {
 
 .os-card {
     border: 1px solid #E5E7EB;
+    background-clip: padding-box;
     border-radius: 16px;
     background: #ffffff;
     overflow: hidden;
@@ -83,6 +84,25 @@ body.dark-mode .page-header p {
 .os-card:hover .card-image img {
     transform: scale(1.05);
     /* 悬停时轻微放大图片 */
+}
+
+/* Repository graphics must show the full name, both counts and the snapshot date. */
+.os-card .repo-cover {
+    background: linear-gradient(135deg, #687ee9, #7953a9);
+}
+
+.os-card .document-cover {
+    background: var(--hud-ink);
+}
+
+.os-card .repo-cover img,
+.os-card .document-cover img {
+    object-fit: contain;
+}
+
+.os-card:hover .repo-cover img,
+.os-card:hover .document-cover img {
+    transform: none;
 }
 
 .os-card .card-content {
@@ -130,10 +150,12 @@ body.dark-mode .page-header p {
 
 .os-card .card-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
 }
 
 .os-card .card-links .btn-secondary {
+    min-height: 44px;
     padding: 0.5rem 1rem;
     /* 让按钮小一点 */
     font-size: 0.85rem;

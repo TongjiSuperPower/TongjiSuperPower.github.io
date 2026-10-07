@@ -10,7 +10,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/competition/competition.css">
@@ -24,7 +23,7 @@
 
     <aside class="floating-buttons">
         <button class="float-btn" data-hud-icon="moon" aria-label="切换明暗主题"></button>
-        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -320,7 +319,7 @@
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // 平滑滚动
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' // 平滑滚动
             });
         }
     </script>

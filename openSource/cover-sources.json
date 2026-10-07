@@ -1,0 +1,143 @@
+[
+  {
+    "article_id": 1970332,
+    "source": "https://bbs.robomaster.com/article/1970332",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/a0b274487418441e94ae7441cf6dddaa1790134523447/9590c41203c87630befc62b95c91227a.jpg",
+    "image": "/images/open-source/captain-experience-2026-cover.jpg",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "9af4a8353c66d5b82dec8a3a9a979f355f42ba82a206d64ba735f334914f256e",
+    "bytes": 155029
+  },
+  {
+    "article_id": 1969888,
+    "source": "https://bbs.robomaster.com/article/1969888",
+    "source_image": null,
+    "image": "/images/team/seasons/2026-gs.jpeg",
+    "kind": "team-photo-user-selected",
+    "checked_on": "2026-10-08",
+    "sha256": "6b819b4809ee880a77fdb12b8d9744fcd678d499a7b05aaa92f352e6f1ee0550",
+    "bytes": 137421,
+    "reason": "按用户明确要求，战队传承分析封面使用2026赛季战队合影。"
+  },
+  {
+    "article_id": 1940647,
+    "source": "https://bbs.robomaster.com/article/1940647",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/0565014876ed44bfb82c7c3c9baa72d41787285854487/%E6%9E%9C%E5%86%BB.jpg",
+    "image": "/images/open-source/engineer-2026-cover.jpg",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "a98a1d64d6d85cfe9bb6c7d4e5b4026d7aa4730f9a809235d256c648b84075d9",
+    "bytes": 133227
+  },
+  {
+    "article_id": 1892264,
+    "source": "https://bbs.robomaster.com/article/1892264",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/923bb12d087248ca9f01cf279a5336c31781699950598/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260617195520_2969_77.jpg",
+    "image": "/images/open-source/central-ammo-feed-2026-cover.jpg",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "79cf3447fab5453087c3455e0865718d98dbc1d1d12b850f558f77f2afcccfd5",
+    "bytes": 190576
+  },
+  {
+    "article_id": 814729,
+    "source": "https://bbs.robomaster.com/article/814729",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/9561180d25db44fc951b0295d253f05e1761110999704/image.png",
+    "image": "/images/open-source/training-2026-cover.png",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "4cb3c8d4cc988111230ef78be196c60e1ba2eb5c8c07427697c1e8dfafe420ba",
+    "bytes": 3224048
+  },
+  {
+    "article_id": 769697,
+    "source": "https://bbs.robomaster.com/article/769697",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/d62b7fdf94f842fa8d8edbf9754c72c21766647302828/image.png",
+    "image": "/images/open-source/wheel-leg-infantry-2025-cover.png",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "05102b2b170a0e6c49ea0a8ed8275f97fb5720365f5a8f58cd14ac16362988b3",
+    "bytes": 755224
+  },
+  {
+    "article_id": 579219,
+    "source": "https://bbs.robomaster.com/article/579219",
+    "source_image": "https://hz-rm-bbs-web-prod.oss-cn-hangzhou.aliyuncs.com/89d544b39a5945d1a7f554822d3992fb1742817175451/IMG_20240514_025725.jpg",
+    "image": "/images/open-source/super-capacitor-2025-cover.jpg",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "dbbd961bbbae3bbbb41d3fcd32d28696719d7ce001c8148286ee50a967398c1d",
+    "bytes": 2941511
+  },
+  {
+    "article_id": 349122,
+    "source": "https://bbs.robomaster.com/article/349122",
+    "source_image": "https://bbs-web-static.robomaster.com/bbs-prod/e227317afd684d5d8565539c677e0a08/image.png",
+    "image": "/images/open-source/central-ammo-feed-2025-cover.png",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "fd5caf815257f3b5829ff88211ed5be746e79b86371808bdfee78df2e5e7a394",
+    "bytes": 1833388
+  },
+  {
+    "article_id": 110598,
+    "source": "https://bbs.robomaster.com/article/110598",
+    "source_image": "https://bbs-web-static.robomaster.com/bbs-prod/653ea39593ca425280ec25028074bb8f/5265d020c7260612f1acf8c5ebd1620.png",
+    "image": "/images/open-source/tutorial-2025.png",
+    "kind": "forum-cover",
+    "checked_on": "2026-10-08",
+    "sha256": "241a732b666c52634997a0f5f4d188b36c84018841559c58dc8dffaad213aefe",
+    "bytes": 1940959
+  },
+  {
+    "article_id": 1969880,
+    "source": "https://bbs.robomaster.com/article/1969880",
+    "source_image": null,
+    "image": "/images/team/seasons/2026-gs.jpeg",
+    "kind": "team-photo-fallback",
+    "checked_on": "2026-10-08",
+    "reason": "论坛列表及原帖无封面；按用户要求使用战队合影。",
+    "sha256": "6b819b4809ee880a77fdb12b8d9744fcd678d499a7b05aaa92f352e6f1ee0550"
+  },
+  {
+    "article_id": 1969314,
+    "source": "https://bbs.robomaster.com/article/1969314",
+    "source_image": null,
+    "image": "/images/team/seasons/2026-gs.jpeg",
+    "kind": "team-photo-fallback",
+    "checked_on": "2026-10-08",
+    "reason": "论坛列表及原帖无封面；按用户要求使用战队合影。",
+    "sha256": "6b819b4809ee880a77fdb12b8d9744fcd678d499a7b05aaa92f352e6f1ee0550"
+  },
+  {
+    "article_id": 1940444,
+    "source": "https://bbs.robomaster.com/article/1940444",
+    "source_image": null,
+    "image": "/images/team/seasons/2026-gs.jpeg",
+    "kind": "team-photo-fallback",
+    "checked_on": "2026-10-08",
+    "reason": "论坛列表及原帖无封面；按用户要求使用战队合影。",
+    "sha256": "6b819b4809ee880a77fdb12b8d9744fcd678d499a7b05aaa92f352e6f1ee0550"
+  },
+  {
+    "article_id": 1312932,
+    "source": "https://bbs.robomaster.com/article/1312932",
+    "source_image": null,
+    "image": "/images/team/seasons/2026-gs.jpeg",
+    "kind": "team-photo-fallback",
+    "checked_on": "2026-10-08",
+    "reason": "论坛列表及原帖无封面；按用户要求使用战队合影。",
+    "sha256": "6b819b4809ee880a77fdb12b8d9744fcd678d499a7b05aaa92f352e6f1ee0550"
+  },
+  {
+    "article_id": 769683,
+    "source": "https://bbs.robomaster.com/article/769683",
+    "source_image": null,
+    "image": "/images/team/seasons/2025-rmuc.jpg",
+    "kind": "team-photo-fallback",
+    "checked_on": "2026-10-08",
+    "reason": "论坛列表及原帖无封面；按用户要求使用战队合影。",
+    "sha256": "2b9d1812fc191f3980da14c9700033e82c097f6a92a3d5bb50b6e819e11c910a"
+  }
+]

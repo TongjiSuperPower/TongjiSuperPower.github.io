@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
     <title>联系我们 - SuperPower Official Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/communication/communication.css">
@@ -23,8 +23,7 @@
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn" id="theme-toggle" data-hud-icon="moon" aria-label="切换明暗主题"></button>
-        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -121,38 +120,10 @@
     </div>
 
     <script>
-        // 逻辑保持不变，优化了选择器命名
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        const currentTheme = localStorage.getItem('theme');
-
-        // 初始化图标和状态
-        if (currentTheme === 'light') {
-            body.classList.remove('dark-mode');
-            HUD.setIcon(themeToggleBtn, 'moon');
-        } else {
-            // 默认为 dark-mode (HTML tag上有class)
-            if (!body.classList.contains('dark-mode')) {
-                body.classList.add('dark-mode');
-            }
-            HUD.setIcon(themeToggleBtn, 'sun');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                HUD.setIcon(themeToggleBtn, 'sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                HUD.setIcon(themeToggleBtn, 'moon');
-                localStorage.setItem('theme', 'light');
-            }
-        });
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // 平滑滚动
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' // 平滑滚动
             });
         }
     </script>

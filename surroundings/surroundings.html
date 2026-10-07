@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
     <title>周边商城 - SuperPower</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="surroundings.css">
     <link rel="stylesheet" href="/hud.css">
@@ -22,8 +22,7 @@
     <div class="background-blur"></div>
 
     <aside class="floating-buttons">
-        <button class="float-btn" id="themeBtn" data-hud-icon="sun" aria-label="切换明暗主题"></button>
-        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
     </aside>
 
     <div class="fixed-header-wrapper">
@@ -174,31 +173,9 @@
     </section>
 
     <script>
-        // === 1. 主题切换 ===
-        const themeToggleBtn = document.getElementById('themeBtn');
-        const body = document.body;
-
-        function updateThemeIcon() {
-            HUD.setIcon(themeToggleBtn, body.classList.contains('dark-mode') ? 'sun' : 'moon');
-        }
-
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'light') {
-            body.classList.remove('dark-mode');
-        } else {
-            body.classList.add('dark-mode');
-        }
-        updateThemeIcon();
-
-        themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-            updateThemeIcon();
-        });
-
         // === 2. 滚动到顶部 ===
         function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
         }
 
         // === 2.5 左侧目录 Intersection Observer ===

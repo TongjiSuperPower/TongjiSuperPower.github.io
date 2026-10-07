@@ -1,0 +1,42 @@
+{
+  "WeltStalin/sp_rf_2026-OpenSource": {
+    "repository": "WeltStalin/sp_rf_2026-OpenSource",
+    "source": "https://api.github.com/repos/WeltStalin/sp_rf_2026-OpenSource",
+    "stars": 12,
+    "forks": 0,
+    "description": "同济大学SuperPower战队2026年雷达解析信息波开源文件",
+    "language": "Python",
+    "license": "",
+    "checked_at": "2026-10-08T00:21:30+08:00"
+  },
+  "TsukiShima987/sp_antidrone_26": {
+    "repository": "TsukiShima987/sp_antidrone_26",
+    "source": "https://api.github.com/repos/TsukiShima987/sp_antidrone_26",
+    "stars": 6,
+    "forks": 1,
+    "description": "",
+    "language": "C",
+    "license": "",
+    "checked_at": "2026-10-08T00:21:31+08:00"
+  },
+  "TongjiSuperPower/sp_vision_25": {
+    "repository": "TongjiSuperPower/sp_vision_25",
+    "source": "https://api.github.com/repos/TongjiSuperPower/sp_vision_25",
+    "stars": 659,
+    "forks": 163,
+    "description": "同济大学SuperPower战队25赛季视觉框架",
+    "language": "C",
+    "license": "MIT",
+    "checked_at": "2026-10-08T00:21:31+08:00"
+  },
+  "TongjiSuperPower/sp_middleware": {
+    "repository": "TongjiSuperPower/sp_middleware",
+    "source": "https://api.github.com/repos/TongjiSuperPower/sp_middleware",
+    "stars": 22,
+    "forks": 8,
+    "description": "同济大学SuperPower战队电控中间件",
+    "language": "C++",
+    "license": "",
+    "checked_at": "2026-10-08T00:21:32+08:00"
+  }
+}

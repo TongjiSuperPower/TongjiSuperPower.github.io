@@ -11,7 +11,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="/openSource/openSource.css">
@@ -24,7 +23,7 @@
 
     <aside class="floating-buttons">
         <button class="float-btn" data-hud-icon="moon" aria-label="切换明暗主题"></button>
-        <button class="float-btn" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部"></button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
     </aside>
 
     <div class="container">
@@ -51,9 +50,211 @@
 
         <section class="project-grid">
 
-            <article class="os-card">
+            <!-- 2026赛季补充资料：2026-10-08核对RoboMaster论坛原帖，项目资料及使用条款以原帖为准。 -->
+            <article class="os-card" aria-label="串联腿步兵底盘控制系统">
                 <div class="card-image">
-                    <img src="/images/open-source/sp-vision-2025.png" alt="sp_vision_25图片">
+                    <img src="/images/team/seasons/2026-gs.jpeg" alt="2026赛季SuperPower战队合影" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>串联腿步兵底盘控制系统</h3>
+                    <p>围绕2026赛季串联腿步兵的底盘电控开发，分享方案设计、控制实现与整车联调中的经验和问题。当前提供阶段性技术报告，部分内容仍在完善，文档与代码将随后续开发持续补充。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">步兵</span>
+                        <span class="tag">底盘控制</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1969880" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="串联腿步兵底盘控制系统 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="雷达解析信息波算法">
+                <div class="card-image repo-cover">
+                    <img src="/images/open-source/weltstalin-sp-rf-2026-opensource-cover.svg" alt="WeltStalin/sp_rf_2026-OpenSource：12 stars，0 forks（2026-10-08）" loading="lazy" decoding="async" width="1260" height="656">
+                </div>
+                <div class="card-content">
+                    <h3>雷达解析信息波算法</h3>
+                    <p>面向2026赛季雷达无线链路，整合协议编解码、GFSK调制解调、NanoSDR收发与网页调试台。支持纯软件回环、硬件回环及独立收发，并提供ROS 2接口，便于接入雷达工作空间。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">雷达</span>
+                        <span class="tag">GNU Radio</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://github.com/WeltStalin/sp_rf_2026-OpenSource" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="雷达解析信息波算法 GitHub仓库">GitHub</a>
+                        <a href="https://bbs.robomaster.com/article/1942083" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="雷达解析信息波算法 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="无人机反制算法">
+                <div class="card-image repo-cover">
+                    <img src="/images/open-source/tsukishima987-sp-antidrone-26-cover.svg" alt="TsukiShima987/sp_antidrone_26：6 stars，1 forks（2026-10-08）" loading="lazy" decoding="async" width="1260" height="656">
+                </div>
+                <div class="card-content">
+                    <h3>无人机反制算法</h3>
+                    <p>面向2026赛季雷达反制任务，使用Blender生成训练数据，结合YOLO识别、三维定位与EKF跟踪完成瞄准。包含延时补偿及反制等级切换逻辑，分享从数据准备到视觉控制的软件实现。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">视觉算法</span>
+                        <span class="tag">ROS 2</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://github.com/TsukiShima987/sp_antidrone_26" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="无人机反制算法 GitHub仓库">GitHub</a>
+                        <a href="https://bbs.robomaster.com/article/1941197" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="无人机反制算法 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="单臂隧道工程结构与技术方案">
+                <div class="card-image">
+                    <img src="/images/open-source/engineer-2026-cover.jpg" alt="2026赛季单臂隧道工程机器人" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>单臂隧道工程结构与技术方案</h3>
+                    <p>分享适应2026赛季过洞需求的单臂工程方案，涵盖机械、嵌入式与算法的设计及迭代。提供SolidWorks 2025整车与自定义控制器图纸、技术方案和测试视频；半自动装配仅作测试参考，未在赛场使用。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">工程</span>
+                        <span class="tag">机械设计</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1940647" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="单臂隧道工程结构与技术方案 博客原文（RoboMaster论坛）">博客原文</a>
+                        <a href="https://bbs.robomaster.com/wiki/36312070" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="单臂隧道工程结构与技术方案 技术文档">技术文档</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="大弹丸中心供弹机械设计指南">
+                <div class="card-image">
+                    <img src="/images/open-source/central-ammo-feed-2026-cover.jpg" alt="2026赛季大弹丸中心供弹机构" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>大弹丸中心供弹机械设计指南</h3>
+                    <p>从英雄机器人的空间布局与配平需求出发，总结拨盘结构、弹舱布局、关键尺寸和卡弹问题的设计经验。提供设计指南与多实体模型，便于结合自身构型调整；相关结论以实际测试和经验总结为主。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">英雄</span>
+                        <span class="tag">中心供弹</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1892264" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="大弹丸中心供弹机械设计指南 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="2026赛季规划">
+                <div class="card-image">
+                    <img src="/images/team/seasons/2026-gs.jpeg" alt="2026赛季SuperPower战队合影" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>2026赛季规划</h3>
+                    <p>整理本赛季备赛中的技术路线、任务分工、时间节点和管理思路，将研发安排与团队协作放在同一份规划中呈现，为其他队伍制定赛季计划、协调资源与推进项目提供参考。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">赛季规划</span>
+                        <span class="tag">项目管理</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1312932" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季规划 博客原文（RoboMaster论坛）">博客原文</a>
+                        <a href="https://bbs.robomaster.com/wiki/24617704" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季规划 规划文档">规划文档</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="2026赛季战术开源">
+                <div class="card-image">
+                    <img src="/images/team/seasons/2026-gs.jpeg" alt="2026赛季SuperPower战队合影" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>2026赛季战术开源</h3>
+                    <p>围绕规则解读、技术辅助战术和赛场执行展开，分享各兵种定位、雷达信息波与自定义客户端的应用思路。附联盟赛、分区赛与国赛战术资料，以及操作手训练计划和赛间复盘记录。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">战术策略</span>
+                        <span class="tag">操作手训练</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1969314" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季战术开源 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="2026赛季成本控制">
+                <div class="card-image">
+                    <img src="/images/team/seasons/2026-gs.jpeg" alt="2026赛季SuperPower战队合影" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>2026赛季成本控制</h3>
+                    <p>从赛季财务数据与日常执行流程两方面梳理成本管理实践，涵盖预算支出、申购报销、飞书多维表格自动化、物资及供应商管理，为建立可追踪的经费与资源管理流程提供参考。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">成本控制</span>
+                        <span class="tag">团队运营</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1940444" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季成本控制 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="2026赛季战队传承分析">
+                <div class="card-image">
+                    <img src="/images/team/seasons/2026-gs.jpeg" alt="2026赛季SuperPower战队合影" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>2026赛季战队传承分析</h3>
+                    <p>结合薪火传承奖申请材料与赛季总结，梳理人员培养、技术积累及流程机制建设。通过招新培训、工程与串联腿研发等案例，分享如何让经验留在队内、让新队员参与完整的研发过程。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">人才培养</span>
+                        <span class="tag">技术传承</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1969888" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季战队传承分析 博客原文（RoboMaster论坛）">博客原文</a>
+                        <a href="https://bbs.robomaster.com/wiki/50476348" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季战队传承分析 传承文档">传承文档</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="os-card" aria-label="2026赛季优秀队长经验分享">
+                <div class="card-image document-cover">
+                    <img src="/images/open-source/captain-experience-2026-cover.jpg" alt="2026赛季优秀队长经验分享论坛封面" loading="lazy" decoding="async">
+                </div>
+                <div class="card-content">
+                    <h3>2026赛季优秀队长经验分享</h3>
+                    <p>由2026赛季队长叶昕迪整理，回顾从梯队队员到队长的成长与管理实践，分享对团队长期发展、技术积累、制度建设和管理交接的思考。原帖提供完整经验分享PDF，供队伍管理者交流参考。</p>
+                    <div class="card-tags">
+                        <span class="tag">2026</span>
+                        <span class="tag">队长经验</span>
+                        <span class="tag">团队管理</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="https://bbs.robomaster.com/article/1970332" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季优秀队长经验分享 博客原文（RoboMaster论坛）">博客原文</a>
+                    </div>
+                </div>
+            </article>
+
+
+            <article class="os-card">
+                <div class="card-image repo-cover">
+                    <img src="/images/open-source/tongjisuperpower-sp-vision-25-cover.svg" alt="TongjiSuperPower/sp_vision_25：659 stars，163 forks（2026-10-08）" loading="lazy" decoding="async" width="1260" height="656">
                 </div>
                 <div class="card-content">
                     <h3>sp_vision_25</h3>
@@ -67,15 +268,15 @@
                     <div class="card-links">
                         <a href="https://github.com/TongjiSuperPower/sp_vision_25" target="_blank"
                             class="btn btn-secondary">GitHub</a>
-                        <a href="https://bbs.robomaster.com/article/803315?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/803315?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="sp_vision_25 博客原文（RoboMaster论坛）">博客原文</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
-                <div class="card-image">
-                    <img src="/images/open-source/sp-middleware.png" alt="sp_middleware图片">
+                <div class="card-image repo-cover">
+                    <img src="/images/open-source/tongjisuperpower-sp-middleware-cover.svg" alt="TongjiSuperPower/sp_middleware：22 stars，8 forks（2026-10-08）" loading="lazy" decoding="async" width="1260" height="656">
                 </div>
                 <div class="card-content">
                     <h3>sp_middleware</h3>
@@ -93,7 +294,7 @@
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/open-source/tutorial.jpg" alt="Tutorial图片">
+                    <img src="/images/open-source/training-2026-cover.png" alt="2026赛季新生培训课程封面" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>2026赛季培训资料</h3>
@@ -105,15 +306,15 @@
                     <div class="card-links">
                         <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" target="_blank"
                             class="btn btn-secondary">B站视频合集</a>
-                        <a href="https://bbs.robomaster.com/article/814729?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/814729?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2026赛季培训资料 博客原文（RoboMaster论坛）">博客原文</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/open-source/ascento.jpg" alt="Ascento图片">
+                    <img src="/images/open-source/wheel-leg-infantry-2025-cover.png" alt="2025赛季开链四连杆轮腿步兵论坛封面" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>开链四连杆轮腿步兵</h3>
@@ -125,15 +326,17 @@
                         <span class="tag">Control Algorithm</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://bbs.robomaster.com/article/769697?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/769697?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="开链四连杆轮腿步兵 博客原文（RoboMaster论坛）">博客原文</a>
+                        <a href="https://bbs.robomaster.com/wiki/9302731" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="开链四连杆轮腿步兵 技术文档">技术文档</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/team/seasons/2025-rmuc.jpg" alt="赛季">
+                    <img src="/images/team/seasons/2025-rmuc.jpg" alt="2025赛季SuperPower战队合影" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>2025赛季规划开源</h3>
@@ -144,15 +347,17 @@
                         <span class="tag">Management</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://bbs.robomaster.com/article/769683?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/769683?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2025赛季规划开源 博客原文（RoboMaster论坛）">博客原文</a>
+                        <a href="https://bbs.robomaster.com/wiki/5433786" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2025赛季规划开源 规划文档">规划文档</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/open-source/central-ammo-feed.jpg" alt="中心供弹">
+                    <img src="/images/open-source/central-ammo-feed-2025-cover.png" alt="2025赛季英雄中心供弹结构示意图" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>英雄中心供弹结构</h3>
@@ -162,15 +367,15 @@
                         <span class="tag">Hero</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://bbs.robomaster.com/article/349122?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/349122?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="英雄中心供弹结构 博客原文（RoboMaster论坛）">博客原文</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/open-source/super-capacitor.jpg" alt="超级电容">
+                    <img src="/images/open-source/super-capacitor-2025-cover.jpg" alt="模拟环路超级电容控制板" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>模拟环路超级电容</h3>
@@ -181,15 +386,15 @@
                         <span class="tag">Capacitance</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://bbs.robomaster.com/article/579219?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/579219?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="模拟环路超级电容 博客原文（RoboMaster论坛）">博客原文</a>
                     </div>
                 </div>
             </article>
 
             <article class="os-card">
                 <div class="card-image">
-                    <img src="/images/open-source/tutorial-2025.png" alt="Tutorial图片">
+                    <img src="/images/open-source/tutorial-2025.png" alt="2025赛季新生培训课程封面" loading="lazy" decoding="async">
                 </div>
                 <div class="card-content">
                     <h3>2025赛季培训资料</h3>
@@ -201,8 +406,8 @@
                     <div class="card-links">
                         <a href="https://space.bilibili.com/651837546/lists/3790652?type=season" target="_blank"
                             class="btn btn-secondary">B站视频合集</a>
-                        <a href="https://bbs.robomaster.com/article/110598?source=4" target="_blank"
-                            class="btn btn-secondary">文档</a>
+                        <a href="https://bbs.robomaster.com/article/110598?source=4" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary" aria-label="2025赛季培训资料 博客原文（RoboMaster论坛）">博客原文</a>
                     </div>
                 </div>
             </article>
@@ -245,7 +450,7 @@
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // 平滑滚动
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' // 平滑滚动
             });
         }
     </script>

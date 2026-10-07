@@ -208,14 +208,16 @@
 
 .venue-nav {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    display: flex;
-    gap: 0.5rem;
+    inset: 0;
     z-index: 10;
+    pointer-events: none;
 }
 
 .venue-nav button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -227,6 +229,9 @@
     color: #374151;
     transition: all 0.3s ease;
 }
+
+.venue-nav .venue-btn-prev { left: 10px; }
+.venue-nav .venue-btn-next { right: 10px; }
 
 .venue-nav button:hover {
     background-color: #ffffff;

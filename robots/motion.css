@@ -1,0 +1,177 @@
+/* Motion stays local to the 2025 archive; the existing scenes remain intact. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Natural page height keeps the last slide and footer inside the scroll range. */
+#main,
+#page1 {
+    height: auto;
+    width: 100%;
+}
+
+.container {
+    padding: 0;
+}
+
+.navbar {
+    left: auto;
+}
+
+.hero-section {
+    width: 100%;
+    isolation: isolate;
+}
+
+.hero-section2,
+.hero-section3 {
+    width: auto;
+}
+
+.hero-section4 > .hero-section {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.slider {
+    width: auto;
+    overflow: hidden;
+}
+
+.hero-section.scene-motion::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    background-repeat: inherit;
+    transform: translate3d(0, var(--scene-y, 0px), 0) scale(var(--scene-scale, 1.04));
+    pointer-events: none;
+}
+
+.scene-motion.scene-active::before {
+    will-change: transform;
+}
+
+.scene-motion.scene-revealed::before {
+    animation: scene-arrive 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scene-pending .hero-section-p > * {
+    opacity: 0;
+}
+
+@keyframes scene-arrive {
+    from {
+        transform: translate3d(0, 12px, 0) scale(1.085);
+    }
+    to {
+        transform: translate3d(0, var(--scene-y, 0px), 0) scale(var(--scene-scale, 1.04));
+    }
+}
+
+.mySwiper .swiper-wrapper {
+    transition-timing-function: cubic-bezier(0.22, 0.68, 0, 1);
+}
+
+.mySwiper .swiper-slide {
+    opacity: 0.6;
+    transition: opacity 850ms ease;
+}
+
+.mySwiper .swiper-slide-active,
+.swiper:not(.swiper-initialized) .swiper-slide {
+    opacity: 1;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    min-width: 44px;
+    min-height: 44px;
+    transition: opacity 200ms ease, transform 300ms ease;
+}
+
+.swiper-pagination-bullet {
+    position: relative;
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* Keep the visual dots small while giving touch and keyboard users a full target. */
+.swiper-pagination-bullet::after {
+    content: "";
+    position: absolute;
+    inset: -10px -4px;
+}
+
+.swiper-pagination-bullet-active {
+    transform: scale(1.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .swiper-button-next:hover { transform: translateX(3px); }
+    .swiper-button-prev:hover { transform: translateX(-3px); }
+}
+
+footer {
+    width: 100%;
+    height: auto;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.footer2 {
+    margin: 0;
+}
+
+.footer3 {
+    width: 100%;
+    margin: 0;
+    padding: 24px;
+}
+
+.panel1 {
+    position: static;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 500px) {
+    .hero-section4 {
+        height: auto;
+    }
+
+    .hero-section4 > .hero-section {
+        flex: none;
+        width: calc(100% - 6px);
+        height: 75vh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    .hero-section.scene-motion::before {
+        animation: none;
+        transform: none;
+    }
+
+    .scene-pending .hero-section-p > * {
+        opacity: 1;
+    }
+
+    .swiper-wrapper,
+    .swiper-slide,
+    .swiper-button-next,
+    .swiper-button-prev,
+    .swiper-pagination-bullet {
+        transition: none !important;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        transform: none;
+    }
+}

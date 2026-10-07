@@ -1,0 +1,91 @@
+/* Shared navigation geometry. Page styles may change colors and materials only. */
+:root {
+    --site-nav-height: 80px;
+    --site-nav-gutter: max(22px, 5vw);
+    --site-nav-width: min(1440px, calc(100vw - 2 * var(--site-nav-gutter)));
+    --site-nav-logo-size: 19px;
+    --site-nav-link-size: 14px;
+}
+
+.navbar {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: var(--site-nav-width);
+    max-width: none;
+    height: var(--site-nav-height);
+    min-height: var(--site-nav-height);
+    /* Center on the viewport regardless of each page's content max-width. */
+    margin: 0 calc((100% - var(--site-nav-width)) / 2);
+    padding: 0;
+    border-bottom: 1px solid transparent;
+}
+
+.navbar .nav-left {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.navbar .nav-right {
+    display: grid;
+    /* Reserve the same positions even on pages with fewer existing links. */
+    grid-template-columns: 48px 48px 70px 1px 56px 56px;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+    padding: 0;
+}
+
+.navbar :is(.nav-logo, .nav-link, .nav-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    font-family: var(--site-font, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif);
+    line-height: 1.5;
+    white-space: nowrap;
+    text-transform: none;
+}
+
+.navbar .nav-logo {
+    font-size: var(--site-nav-logo-size);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.navbar :is(.nav-link, .nav-icon) {
+    font-size: var(--site-nav-link-size);
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.navbar .nav-divider {
+    width: 1px;
+    height: 16px;
+}
+
+@media (max-width: 700px) {
+    :root {
+        --site-nav-height: 112px;
+        --site-nav-logo-size: 17px;
+        --site-nav-link-size: 12px;
+    }
+
+    .navbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 44px 44px;
+        align-content: center;
+        gap: 0;
+    }
+
+    .navbar .nav-left { justify-content: center; }
+    .navbar .nav-right {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0;
+    }
+    .navbar .nav-divider { display: none; }
+}
