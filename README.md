@@ -22,12 +22,27 @@ python3 -m http.server 8765 --bind 127.0.0.1
 | `about/`、`competition/`、`communication/` | 战队介绍、赛事展示、联系我们 |
 | `members/` | 优秀队员展示及轮播动效 |
 | `robots/timeline.html` | 机器人赛季时间轴 |
-| `robots/robots.html`、`robots/motion.css`、`robots/script.js` | 2025 机器人展示及动效 |
+| `robots/2025/robots.html`、`robots/2025/motion.css`、`robots/2025/script.js` | 2025 机器人展示及动效 |
+| `robots/2026/robots.html`、`robots/2026/robots.css`、`robots/2026/script.js` | 2026 机器人展示及动效；图片使用同名 WebP 与 `-mobile` 版本，原始 JPG 保留在 `images/robots/2026/` |
 | `openSource/` | 开源汇总、配图生成脚本及来源记录 |
 | `surroundings/`、`lottery/` | 周边商城及抽奖页面 |
 | `images/`、`fonts/` | 图片和本地字体；字体来源及许可随文件保留 |
 
-修改页面前请遵循根目录 [AGENTS.md](AGENTS.md) 和对应目录内的约定。机器人详情页独立使用样式，不引入 `hud.css`；优秀队员页保留浅色风格。首页、周边商城和联系我们固定为深色模式。
+修改页面前请遵循根目录 [AGENTS.md](AGENTS.md) 和对应目录内的约定。2025 机器人详情页独立使用样式，不引入 `hud.css`；优秀队员页保留浅色风格。首页、周边商城和联系我们固定为深色模式。
+
+## 2026 机器人弹幕
+
+弹幕内容统一在 `robots/2026/danmaku-messages.js` 的 `danmakuMessages` 数组中维护。添加时在数组中追加一行，例如：
+
+```js
+export const danmakuMessages = [
+    '俞选涛，我的镖呢？',
+    // 保留原有条目，在这里继续添加。
+    '这里填写新的弹幕',
+];
+```
+
+每条弹幕使用引号包住，条目之间使用英文逗号；保存后刷新 2026 机器人页面即可生效。弹幕随机选取、允许重复；系统启用减少动态效果时改为静态列表。展示逻辑在 `robots/2026/danmaku.js`，无需修改它来增加文字。
 
 ## 临时纪录片开屏
 
