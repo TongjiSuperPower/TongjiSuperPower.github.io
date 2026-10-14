@@ -134,7 +134,7 @@
 
 - 时间轴顺序为 2023、2024、2025、2026。
 - 2025 是可查看的历史赛季，继续链接到 `/robots/2025/robots.html`。
-- 2026 是当前赛季，链接到 `/robots/2026/robots.html`；该页按 Hero、Engineer、Infantry、Standard、Drone、Sentry、Dart、Radar 的顺序展示。
+- 2026 是当前赛季，链接到 `/robots/2026/robots.html`；该页按 Hero、Leg Hero、Engineer、Tandem、Mecanum、Drone、Sentry、Dart、Radar 的顺序展示。
 - 2025 卡片配图使用 `/images/team/seasons/2025-gs.jpg`。
 - 2026 卡片配图使用 `/images/team/seasons/2026-gs.jpeg`。
 - 时间轴卡片不使用机器人抠图；赛季合影可以作为卡片背景。
