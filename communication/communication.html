@@ -1,132 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="dark">
-    <title>联系我们 - SuperPower Official Website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
-
-    <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/communication/communication.css">
-    <link rel="stylesheet" href="/hud.css">
-    <script src="/hud-icons.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>页面已迁移 · 同济 SuperPower</title>
+    <meta http-equiv="refresh" content="0;url=/join/contact/">
+    <link rel="canonical" href="https://superpower.icu/join/contact/">
 </head>
-
-<body class="dark-mode">
-
-    <div class="background-blur"></div>
-
-    <aside class="floating-buttons">
-        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
-    </aside>
-
-    <div class="container">
-
-        <header class="navbar">
-            <div class="nav-left">
-                <a href="/index.html" class="nav-logo">同济SuperPower</a>
-            </div>
-            <nav class="nav-right">
-                <a href="/index.html" class="nav-link">Home</a>
-                <a href="/about/about.html" class="nav-link">About</a>
-                <a href="https://space.bilibili.com/651837546/lists/6386496?type=season" class="nav-link"
-                    target="_blank">Lectures</a>
-                <div class="nav-divider"></div>
-                <a href="https://github.com/TongjiSuperPower" class="nav-icon" title="Github">Github</a>
-                <a href="https://space.bilibili.com/651837546" class="nav-icon" title="Bilibili">Bilibili</a>
-            </nav>
-        </header>
-
-        <main class="contact-page">
-
-            <div class="contact-header">
-                <h1>Let's Connect</h1>
-                <p class="subtitle">热烈欢迎各大企业、高校与我们交流联系！<br>无论是技术探讨还是商务合作，我们都期待您的声音。</p>
-            </div>
-
-            <div class="contact-grid">
-
-                <article class="platform-card email-card">
-                    <div class="card-header">
-                        <div class="icon-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2" />
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                            </svg>
-                        </div>
-                        <h2>官方邮箱</h2>
-                    </div>
-                    <p class="card-desc">商务合作、技术咨询或加入我们。</p>
-                    <div class="card-content highlight-bg">
-                        <code>2253884@tongji.edu.cn</code>
-                    </div>
-                    <a href="mailto:2253884@tongji.edu.cn" class="card-btn">发送邮件 <span data-hud-icon="external"></span></a>
-                </article>
-
-                <article class="platform-card bilibili-card">
-                    <div class="card-header">
-                        <div class="icon-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <rect width="20" height="15" x="2" y="7" rx="2" ry="2" />
-                                <polyline points="17 2 12 7 7 2" />
-                            </svg>
-                        </div>
-                        <h2>Bilibili</h2>
-                    </div>
-                    <p class="card-desc">观看我们的公开课、比赛实录及技术分享。</p>
-
-                    <div class="img-wrapper">
-                        <img src="/images/contact/bilibili-qr.jpg" alt="Bilibili QR Code" class="qr-img">
-                    </div>
-                    <p class="sub-hint">搜索 "TJ-SuperPower战队"</p>
-                    <a href="https://space.bilibili.com/651837546" target="_blank" class="card-btn">访问主页 <span data-hud-icon="external"></span></a>
-                </article>
-
-                <article class="platform-card xhs-card">
-                    <div class="card-header">
-                        <div class="icon-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M2 8.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5c0 4-6 9-9 9-3-5-9-9-9-9Z" />
-                            </svg>
-                        </div>
-                        <h2>小红书</h2>
-                    </div>
-                    <p class="card-desc">关注我们的日常动态和战队生活瞬间。</p>
-
-                    <div class="img-wrapper">
-                        <img src="/images/contact/rednote-qr.png" alt="Xiaohongshu QR Code" class="qr-img">
-                    </div>
-                    <p class="sub-hint">小红书号：27488192325</p>
-                    <a href="https://www.xiaohongshu.com/user/profile/68de0689000000003702e32c" target="_blank"
-                        class="card-btn">查看主页 <span data-hud-icon="external"></span></a>
-                </article>
-
-            </div>
-        </main>
-
-    </div>
-
-    <script>
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' // 平滑滚动
-            });
-        }
-    </script>
+<body>
+    <p>页面已迁移，<a href="/join/contact/">进入新版页面</a>。</p>
+    <script>location.replace("/join/contact/" + location.search + location.hash);</script>
 </body>
-
 </html>
