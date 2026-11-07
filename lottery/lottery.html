@@ -1,14 +1,832 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>页面已迁移 · 同济 SuperPower</title>
-    <meta http-equiv="refresh" content="0;url=/store/lottery/">
-    <link rel="canonical" href="https://superpower.icu/store/lottery/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幸运抽奖 - SuperPower</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/favicon-180.png">
+    
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/hud.css">
+    <script src="/hud-icons.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* =========================================
+           抽奖页面专用样式 (Lottery Specific Styles)
+           ========================================= */
+
+        /* 布局容器 */
+        .lottery-section {
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 70vh;
+        }
+
+        .lottery-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .lottery-header p {
+            color: #6B7280;
+            margin-bottom: 3rem;
+        }
+
+        /* --- 变量定义 --- */
+        :root {
+            --card-width: 140px;
+            --card-height: 140px;
+            --gap: 10px;
+            --visible-cards: 5; 
+        }
+
+        /* --- 3D 圆筒容器 --- */
+        .raffle-window {
+            position: relative;
+            /* 宽度 = (卡片宽+间距)*数量 - 最后一个间距 */
+            width: calc((var(--card-width) + var(--gap)) * var(--visible-cards) - var(--gap));
+            max-width: 100vw; /* 防止手机溢出 */
+            height: calc(var(--card-height) + 40px); /* 留出阴影空间 */
+            
+            background: #F3F4F6; /* 浅色模式背景 */
+            border-radius: 4px; 
+            
+            /* 核心：两端渐变消失遮罩 */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+
+            /* 核心：内阴影模拟圆筒立体感 */
+            box-shadow: inset 0 15px 20px -10px rgba(0,0,0,0.15), 
+                        inset 0 -15px 20px -10px rgba(0,0,0,0.15);
+            
+            margin-bottom: 2rem;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* --- 滚动轨道 --- */
+        .raffle-track {
+            display: flex;
+            gap: var(--gap);
+            padding-left: calc(50% - var(--card-width)/2); /* 居中对齐起始点 */
+            will-change: transform;
+            height: 100%;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        /* --- 奖品卡片 --- */
+        .l-card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: #ffffff;
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            
+            /* 阴影让卡片浮起 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 4px solid transparent; /* 加粗一点，让颜色更明显 */
+        }
+
+        .l-card img {
+            width: 65%;
+            height: 65%;
+            object-fit: contain;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .l-card p {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 600;
+            color: #374151;
+            width: 90%;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 库存文字 */
+        .stock-tag {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-top: 2px;
+        }
+
+        .rare-gold { border-bottom-color: #F59E0B !important; }
+        .rare-purple { border-bottom-color: #8B5CF6 !important; }
+        .rare-blue { border-bottom-color: #3B82F6 !important; }
+
+        /* --- 中间指针 --- */
+        .marker {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            /* 浅色模式指针：紫色 */
+            background: linear-gradient(to bottom, transparent, #4338CA 20%, #4338CA 80%, transparent);
+            z-index: 20;
+            box-shadow: 0 0 10px rgba(67, 56, 202, 0.5);
+            border-radius: 2px;
+        }
+        .marker::before, .marker::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+        .marker::before { top: -2px; border-top: 10px solid #4338CA; }
+        .marker::after { bottom: -2px; border-bottom: 10px solid #4338CA; }
+
+        /* --- 结果显示文字 --- */
+        #result-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-height: 2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: #111827;
+        }
+
+        /* =========================================
+           深色模式适配 (Dark Mode Overrides)
+           ========================================= */
+        
+        body.dark-mode .lottery-header p { color: #A0A0A0; }
+        body.dark-mode #result-display { color: #F9FAFB; }
+
+        body.dark-mode .raffle-window {
+            background: #18181B; /* 深色圆筒内部 */
+            /* 加深内阴影 */
+            box-shadow: inset 0 20px 30px -10px rgba(0,0,0,1), 
+                        inset 0 -20px 30px -10px rgba(0,0,0,1);
+        }
+
+        body.dark-mode .l-card {
+            background: linear-gradient(145deg, #27272A, #1F1F22);
+            
+            /* 关键修改：只改变上、左、右的边框颜色，不要动底部 */
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-left: 1px solid rgba(255,255,255,0.08);
+            border-right: 1px solid rgba(255,255,255,0.08);
+            /* 底部保持由 rarity 类控制，或者默认透明 */
+            border-bottom: 4px solid transparent; 
+            
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode .l-card p { color: #E5E7EB; }
+
+        /* 深色模式指针：绿色 (匹配主页风格) */
+        body.dark-mode .marker {
+             background: linear-gradient(to bottom, transparent, #34D399 20%, #34D399 80%, transparent);
+             box-shadow: 0 0 15px #34D399;
+        }
+        body.dark-mode .marker::before { border-top-color: #34D399; }
+        body.dark-mode .marker::after { border-bottom-color: #34D399; }
+
+        /* 稀有度发光增强 */
+        body.dark-mode .rare-gold { box-shadow: 0 5px 15px rgba(245, 158, 11, 0.15); }
+        body.dark-mode .rare-purple { box-shadow: 0 5px 15px rgba(139, 92, 246, 0.15); }
+
+        /* =========================================
+           移动端适配
+           ========================================= */
+        @media (max-width: 768px) {
+            :root {
+                --card-width: 100px;
+                --card-height: 100px;
+                --visible-cards: 3; /* 手机只显示3个 */
+            }
+        }
+
+        /* === 奖池库存展示样式 === */
+        .pool-section {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 1300px; /* 限制最大宽度 */
+            padding: 0 1rem;
+        }
+
+        .pool-section h3 {
+            margin-bottom: 1.5rem;
+            color: #4B5563;
+            font-size: 1.2rem;
+        }
+        body.dark-mode .pool-section h3 { color: #D1D5DB; }
+
+        /* === 奖池列表容器 (平铺均分版) === */
+        .pool-grid {
+            display: flex;
+            flex-wrap: nowrap;       /* 强制不换行 */
+            justify-content: center; /* 居中显示 */
+            gap: 10px;               /* 稍微减小间距，省空间 */
+            width: 100%;
+        }
+
+        /* === 奖池单个卡片 (自动伸缩) === */
+        .pool-item {
+            flex: 1;                 /* 关键：大家均分宽度 */
+            min-width: 50px;            /* 关键：允许被压缩到比内容更窄，防止撑爆屏幕 */
+            
+            background: #fff;
+            border-radius: 8px;
+            padding: 8px 4px;        /* 减小内边距，省空间 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .pool-item {
+            background: #27272A;
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        .pool-item.sold-out {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .pool-item img {
+            width: 100%;            /* 图片宽度跟随卡片 */
+            max-width: 100px;        /* 限制最大宽度，防止太大 */
+            height: auto;
+            aspect-ratio: 1/1;      /* 保持正方形比例 */
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .pool-item .name {
+            font-size: 11px;        /* 字体稍微改小一点 */
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+            
+            /* 名字太长就显示省略号，防止换行撑坏布局 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        body.dark-mode .pool-item .name { color: #eee; }
+
+        .pool-item .stock {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: #E5E7EB;
+            color: #374151;
+            margin-top: 2px;
+            
+            /* 防止库存文字换行 */
+            white-space: nowrap;
+        }
+        body.dark-mode .pool-item .stock { background: #3F3F46; color: #9CA3AF; }
+
+        /* 稀有度圆点 (稍微调小一点) */
+        .rarity-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .dot-gold { background: #F59E0B; box-shadow: 0 0 5px #F59E0B; }
+        .dot-purple { background: #8B5CF6; box-shadow: 0 0 5px #8B5CF6; }
+        .dot-blue { background: #3B82F6; box-shadow: 0 0 5px #3B82F6; }
+        .dot-red { background: #DC2626; box-shadow: 0 0 5px #DC2626; }
+
+        /* === 新增：横向滚动条美化 (让它看起来更精致) === */
+        .pool-grid::-webkit-scrollbar {
+            height: 6px;               /* 滚动条高度 */
+        }
+
+        .pool-grid::-webkit-scrollbar-track {
+            background: transparent;   /* 轨道透明 */
+        }
+
+        .pool-grid::-webkit-scrollbar-thumb {
+            background-color: #E5E7EB; /* 浅灰色滑块 */
+            border-radius: 10px;       /* 圆角 */
+        }
+
+        /* 深色模式下的滚动条 */
+        body.dark-mode .pool-grid::-webkit-scrollbar-thumb {
+            background-color: #3F3F46; /* 深灰色滑块 */
+        }
+
+
+        /* =========================================
+        大屏幕优化 (Large Screen Optimization)
+        ========================================= */
+
+        /* 当屏幕宽度大于 1200px 时 (PC端) */
+        @media (min-width: 1200px) {
+            :root {
+                /* 增加可视卡片数量：从 5 张变成 7 张 */
+                /* 我们的 JS 会自动读取这个变量来计算宽度，所以无需改 JS */
+                --visible-cards: 7; 
+                
+                /* 稍微调大一点卡片尺寸，更大气 */
+                --card-width: 220px;
+                --card-height: 220px;
+            }
+
+            .lottery-header h2 {
+                font-size: 3.5rem; /* 标题字号加大 */
+            }
+
+            .raffle-window {
+                /* 加强阴影深度，适应大尺寸 */
+                box-shadow: inset 0 20px 30px -10px rgba(0,0,0,0.2), 
+                            inset 0 -20px 30px -10px rgba(0,0,0,0.2);
+            }
+            
+            body.dark-mode .raffle-window {
+                box-shadow: inset 0 25px 40px -12px rgba(0,0,0,1), 
+                            inset 0 -25px 40px -12px rgba(0,0,0,1);
+            }
+        }
+
+        /* 当屏幕宽度大于 1600px 时 (超宽屏/4K) */
+        @media (min-width: 1600px) {
+            :root {
+                /* 显示 9 张卡片，霸屏效果 */
+                --visible-cards: 9; 
+            }
+        }
+
+        /* === 新增：红色稀有度 (Red / Arcana) === */
+        .rare-red { 
+            border-bottom-color: #DC2626 !important; /* 鲜艳的红 */
+        }
+        body.dark-mode .rare-red {
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.25); /* 红色光晕 */
+        }
+
+        /* 奖池列表的小红点 */
+        .dot-red { 
+            background: #DC2626; 
+            box-shadow: 0 0 6px #DC2626; 
+        }
+
+        /* === 文字闪烁特效 (Blinking Text) === */
+        @keyframes text-flash {
+            0% { opacity: 1; transform: scale(1); filter: brightness(100%); }
+            50% { opacity: 0.8; transform: scale(1.05); filter: brightness(130%); }
+            100% { opacity: 1; transform: scale(1); filter: brightness(100%); }
+        }
+
+        .text-glow-gold {
+            color: #F59E0B !important;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+            animation: text-flash 1.2s infinite ease-in-out; /* 悠长的金色呼吸 */
+        }
+
+        .text-glow-red {
+            color: #DC2626 !important;
+            text-shadow: 0 0 30px rgba(220, 38, 38, 1);
+            animation: text-flash 0.6s infinite ease-in-out; /* 急促的红色警报闪烁 */
+        }
+    </style>
 </head>
-<body>
-    <p>页面已迁移，<a href="/store/lottery/">进入新版页面</a>。</p>
-    <script>location.replace("/store/lottery/" + location.search + location.hash);</script>
+
+<body class="dark-mode">
+
+    <div class="background-blur"></div>
+
+    <aside class="floating-buttons">
+        <button class="float-btn" data-hud-icon="moon" aria-label="切换明暗主题"></button>
+        <button type="button" class="float-btn back-to-top" data-hud-icon="up" onclick="scrollToTop()" aria-label="回到顶部" title="回到顶部"></button>
+    </aside>
+
+    <div class="container">
+
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="/index.html" class="nav-logo">同济SuperPower</a>
+            </div>
+            <nav class="nav-right">
+                <a href="/index.html" class="nav-link">Home</a>
+                <a href="/about/about.html" class="nav-link">About</a>
+                <a href="https://space.bilibili.com/651837546" class="nav-link" target="_blank">Lectures</a>
+                <div class="nav-divider"></div>
+                <a href="https://github.com/TongjiSuperPower" class="nav-icon">Github</a>
+            </nav>
+        </header>
+
+        <main class="lottery-section">
+            
+            <div class="lottery-header">
+                <h1><span class="gradient-text">SP笑谈之</span>抽抽奖</h1>
+                <p>快来狠狠抽我吧！</p>
+            </div>
+
+            <div class="raffle-window">
+                <div class="marker"></div>
+                <div class="raffle-track" id="track">
+                    </div>
+            </div>
+
+            <div id="result-display">准备就绪...</div>
+
+            <button id="spinBtn" class="btn btn-primary" onclick="startSpin()" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                立即抽奖
+            </button>
+            
+            <div style="margin-top: 20px;">
+                <button onclick="resetData()" style="background:none; border:none; color:#666; font-size:12px; cursor:pointer; text-decoration:underline;">
+                    重置库存数据
+                </button>
+            </div>
+
+            <div class="pool-section">
+                <h3>当前奖池一览</h3>
+                <div class="pool-grid" id="pool-grid">
+                    </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+        // === 新增函数：渲染下方奖池列表 ===
+        function renderPrizePool() {
+            const poolGrid = document.getElementById('pool-grid');
+            poolGrid.innerHTML = ''; // 清空当前内容
+
+            prizes.forEach(prize => {
+                // 判断稀有度颜色
+                let dotClass = 'dot-blue';
+                if (prize.rarity === 'rare-gold') dotClass = 'dot-gold';
+                if (prize.rarity === 'rare-purple') dotClass = 'dot-purple';
+                if (prize.rarity === 'rare-red') dotClass = 'dot-red';
+
+                // 判断是否售罄
+                const isSoldOut = prize.stock <= 0;
+                
+                // 图片处理
+                const imgUrl = prize.img.startsWith('/') 
+                    ? prize.img 
+                    : `https://placehold.co/100x100/png?text=${prize.name.substring(0,1)}`;
+
+                const div = document.createElement('div');
+                div.className = `pool-item ${isSoldOut ? 'sold-out' : ''}`;
+                div.innerHTML = `
+                    <div class="rarity-dot ${dotClass}"></div>
+                    <img src="${imgUrl}" alt="${prize.name}">
+                    <div class="name">${prize.name}</div>
+                    <div class="stock">${isSoldOut ? '抽完哩' : '剩: ' + prize.stock}</div>
+                `;
+                poolGrid.appendChild(div);
+            });
+        }
+
+        // ==========================================
+        // 1. 基础 UI 交互 (主题切换)
+        // ==========================================
+        const themeToggleBtn = document.querySelector('.floating-buttons .float-btn:first-child');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+            HUD.setIcon(themeToggleBtn, 'moon');
+        } else {
+            body.classList.add('dark-mode');
+            HUD.setIcon(themeToggleBtn, 'sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            HUD.setIcon(themeToggleBtn, isDark ? 'sun' : 'moon');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+        }
+
+        // ==========================================
+        // 2. 抽奖数据配置 (请修改这里)
+        // ==========================================
+        
+        // id: 唯一标识
+        // weight: 权重 (数字越大越容易中)
+        // stock: 初始库存
+        // rarity: 决定颜色和特效 (rare-blue, rare-purple, rare-gold)
+        const defaultPrizes = [
+            { id: 1, name: "队内3D打印周边", img: "/images/store/lottery/superpower-3d-print.jpg", rarity: "rare-blue", weight: 80, stock: 30 },
+            { id: 2, name: "SP 笔记本", img: "/images/store/lottery/superpower-notebook.jpg", rarity: "rare-blue", weight: 70, stock: 5 },
+            { id: 3, name: "DJI 冰箱贴", img: "/images/store/lottery/dji-fridge-magnet.jpg", rarity: "rare-purple", weight: 30, stock: 21 },
+            { id: 4, name: "国赛八强PCB纪念板", img: "/images/store/lottery/rmuc-pcb.jpg", rarity: "rare-gold", weight: 15, stock: 8 },
+            { id: 5, name: "DJI 帆布袋", img: "/images/store/lottery/dji-tote-bag.jpg", rarity: "rare-gold", weight: 10, stock: 2 } ,
+            { id: 6, name: "DJI 迷你斜挎包", img: "/images/store/lottery/dji-crossbody-bag.jpg", rarity: "rare-gold", weight: 10, stock: 1 } ,
+            { id: 7, name: "DJI 雨伞", img: "/images/store/lottery/dji-umbrella.jpg", rarity: "rare-red", weight: 5, stock: 2 } ,
+            { id: 8, name: "DJI 鸭舌帽", img: "/images/store/lottery/dji-cap.jpg", rarity: "rare-red", weight: 5, stock: 1 }
+        ];
+
+        // 读取本地存储，如果没有则使用默认值
+        let prizes = JSON.parse(localStorage.getItem('sp_lottery_data')) || JSON.parse(JSON.stringify(defaultPrizes));
+
+        // ==========================================
+        // 3. 核心逻辑变量
+        // ==========================================
+        const track = document.getElementById('track');
+        const resultDisplay = document.getElementById('result-display');
+        const spinBtn = document.getElementById('spinBtn');
+        
+        // 动画参数
+        const WINNER_INDEX = 65; // 中奖卡片必须出现在第 65 位
+        const TOTAL_CARDS = 80;  // 每次生成 80 张卡用于滚动
+        const SPIN_DURATION = 5000; // 动画时长 6秒
+        let isSpinning = false;
+
+        // 保存数据
+        function saveData() {
+            localStorage.setItem('sp_lottery_data', JSON.stringify(prizes));
+        }
+
+        // 重置数据
+        function resetData() {
+            if(confirm('确定要重置所有奖品库存吗？')) {
+                localStorage.removeItem('sp_lottery_data');
+                location.reload();
+            }
+        }
+
+        // 计算 CSS 变量 (宽度自适应)
+        function getCardDimensions() {
+            const style = getComputedStyle(document.documentElement);
+            const w = parseInt(style.getPropertyValue('--card-width'));
+            const g = parseInt(style.getPropertyValue('--gap'));
+            return { width: w, gap: g, total: w + g };
+        }
+
+        // ==========================================
+        // 4. 抽奖算法 & 渲染
+        // ==========================================
+
+        // 加权随机算法
+        function getWinner() {
+            // 过滤掉没库存的
+            const availablePrizes = prizes.filter(p => p.stock > 0);
+            if (availablePrizes.length === 0) return null;
+
+            const totalWeight = availablePrizes.reduce((sum, p) => sum + p.weight, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (let p of availablePrizes) {
+                if (random < p.weight) return p;
+                random -= p.weight;
+            }
+            return availablePrizes[0];
+        }
+
+        // ==========================================
+        // 初始化轨道 (无诱饵版，仅展示有库存商品)
+        // ==========================================
+        function initTrack(winnerPrize = null) {
+            track.innerHTML = '';
+
+            // 1. 筛选有库存的奖品
+            let activePrizes = prizes.filter(p => p.stock > 0);
+            
+            // 兜底：万一全卖光了，就用所有奖品填充背景，防止空白
+            if (activePrizes.length === 0) activePrizes = prizes;
+
+            for (let i = 0; i < TOTAL_CARDS; i++) {
+                let prizeToShow;
+
+                if (i === WINNER_INDEX && winnerPrize) {
+                    // 中奖位置：必须是它
+                    prizeToShow = winnerPrize;
+                } else {
+                    // 其他位置：纯随机，从有库存的列表里拿
+                    // 不再有“前后夹击”的逻辑
+                    prizeToShow = activePrizes[Math.floor(Math.random() * activePrizes.length)];
+                }
+
+                const imgUrl = prizeToShow.img.startsWith('/') 
+                    ? prizeToShow.img 
+                    : `https://placehold.co/100x100/png?text=${prizeToShow.name.substring(0,2)}`;
+                
+                createCard(prizeToShow, imgUrl);
+            }
+        }
+
+        function createCard(prize, displayImg) {
+            const card = document.createElement('div');
+            card.className = `l-card ${prize.rarity}`;
+            
+            const stockText = prize.stock > 0 ? `剩: ${prize.stock}` : `抽完哩`;
+            
+            card.innerHTML = `
+                <img src="${displayImg}" alt="${prize.name}">
+                <p>${prize.name}</p>
+                <div class="stock-tag">${stockText}</div>
+            `;
+            track.appendChild(card);
+        }
+
+        // ==========================================
+        // 5. 动画控制
+        // ==========================================
+
+        function startSpin() {
+            if (isSpinning) return;
+
+            // 1. 预先决定结果
+            const winner = getWinner();
+            if (!winner) {
+                alert("太受欢迎了，所有奖品已发完！");
+                return;
+            }
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+            spinBtn.classList.replace('btn-primary', 'btn-secondary');
+            resultDisplay.style.opacity = '0';
+            resultDisplay.style.color = ''; 
+            resultDisplay.style.textShadow = '';
+
+            // 2. 复位轨道
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0)';
+
+            // 3. 重新生成轨道 (把冠军埋进去)
+            initTrack(winner);
+
+            // 4. 计算滚动距离 (带随机偏移)
+            const dim = getCardDimensions();
+            // 偏移范围：±40% 卡片宽度
+            const offset = Math.floor(Math.random() * dim.width * 0.8) - (dim.width * 0.4);
+            const scrollDistance = (WINNER_INDEX * dim.total) + offset;
+
+            // 5. 执行动画
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // 贝塞尔曲线：先极快，后极慢
+                    track.style.transition = `transform ${SPIN_DURATION}ms cubic-bezier(0.1, 0.7, 0.1, 1)`;
+                    track.style.transform = `translateX(-${scrollDistance}px)`;
+                });
+            });
+
+            // 6. 结束结算 (修改了文字显示逻辑)
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+                spinBtn.classList.replace('btn-secondary', 'btn-primary');
+
+                // 扣减库存
+                const realPrize = prizes.find(p => p.id === winner.id);
+                if(realPrize && realPrize.stock > 0) {
+                    realPrize.stock--;
+                    saveData();
+                    renderPrizePool(); // 刷新下方列表
+                }
+
+                // === 结果展示与特效 ===
+                resultDisplay.innerHTML = `${HUD.icon('sparkles')}<span>恭喜获得：${winner.name}</span>`;
+                resultDisplay.style.opacity = '1';
+                
+                // 1. 清除旧的特效类
+                resultDisplay.className = ''; 
+                // 2. 根据稀有度添加对应的闪烁类
+                if(winner.rarity === 'rare-gold') {
+                    resultDisplay.classList.add('text-glow-gold');
+                } else if (winner.rarity === 'rare-red') {
+                    resultDisplay.classList.add('text-glow-red');
+                }
+
+                // 触发烟花
+                triggerConfettiEffect(winner.rarity);
+
+            }, SPIN_DURATION);
+        }
+
+        // ==========================================
+        // 视觉特效 (Confetti) - 最终增强版
+        // ==========================================
+        function triggerConfettiEffect(rarity) {
+            const defaults = { origin: { y: 0.7 }, zIndex: 9999 };
+            
+            if (rarity === 'rare-red') {
+                // 红色大奖：全屏持续轰炸（两侧与中间）
+                const duration = 3000;
+                const end = Date.now() + duration;
+                const colors = ['#DC2626', '#FF0000', '#F59E0B', '#FFFFFF'];
+
+                (function frame() {
+                    // 1. 两侧持续喷射 (加农炮)
+                    confetti({
+                        particleCount: 4,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: colors
+                    });
+                    confetti({
+                        particleCount: 4,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: colors
+                    });
+
+                    // 2. 中间随机爆发 (每隔一点时间炸一下)
+                    if (Date.now() % 400 < 20) { // 约每400ms触发一次
+                        confetti({
+                            particleCount: 20,
+                            angle: 90,
+                            spread: 120, // 广角
+                            origin: { x: 0.5, y: 0.6 },
+                            colors: colors,
+                            scalar: 1.5, // 粒子更大
+                            drift: 0,
+                            startVelocity: 45
+                        });
+                    }
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+
+            } else if (rarity === 'rare-gold') {
+                // 金色传说：经典版（两侧喷射与中间流星雨）
+                const count = 200;
+                const colors = ['#F59E0B', '#FCD34D', '#FFFBEB', '#FFD700'];
+                
+                // 左侧
+                confetti({ ...defaults, particleCount: count / 2, angle: 60, spread: 60, origin: { x: 0.1, y: 0.6 }, colors: colors });
+                // 右侧
+                confetti({ ...defaults, particleCount: count / 2, angle: 120, spread: 60, origin: { x: 0.9, y: 0.6 }, colors: colors });
+                
+                // 延迟落下星星雨 (恢复你想要的效果)
+                setTimeout(() => { 
+                    confetti({ 
+                        particleCount: 60, 
+                        spread: 100, 
+                        origin: { y: 0.6, x: 0.5 }, // 确保从中间落下
+                        colors: colors, 
+                        shapes: ['star'], 
+                        scalar: 1.2,
+                        gravity: 0.8
+                    }); 
+                }, 400);
+
+            } else if (rarity === 'rare-purple') {
+                // 紫色史诗
+                confetti({ ...defaults, particleCount: 300, spread: 120, colors: ['#8B5CF6', '#D8B4FE', '#C084FC'] });
+                
+            } else {
+                // 蓝色普通
+                confetti({ ...defaults, particleCount: 100, spread: 80, colors: ['#3B82F6', '#93C5FD'] });
+            }
+        }
+
+        // 首次加载
+        initTrack();
+        renderPrizePool();
+
+        // 监听窗口调整 (修正轨道位置)
+        window.addEventListener('resize', () => {
+            if(!isSpinning) {
+                track.style.transition = 'none';
+                track.style.transform = 'translateX(0)';
+            }
+        });
+
+    </script>
 </body>
 </html>
